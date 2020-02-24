@@ -5,12 +5,15 @@ import {
 	Switch,
 	Route,
   } from "react-router-dom";
+import "bootswatch/dist/darkly/bootstrap.min.css";
 import Home from './home.js';
+import Header from './header.js';
 
 function App() {
 	return (
 		<Router>
 			<Switch>
+				{/* <Header /> */}
 			  <Route path="/">
 				  <Home />
 			  </Route>

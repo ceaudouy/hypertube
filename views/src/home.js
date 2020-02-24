@@ -1,23 +1,34 @@
 import React from 'react';
-
-class Putfilm extends React.Component {
-	constructor(props){
-		super(props)
-		console.log("pops" + this.props.film);
-	};
-
-
+import './home.css'
+class PutFilm extends React.Component {
 	render() {
-		return ('');
+		return (
+			<div className="display-film">
+				{ this.props.film.map((elem, index) => {
+					return (
+						<div className="card mb-3 autre" key={index}>
+						<img className="miniature" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
+						<h3 className="card-header">{elem.title}</h3>
+						<ul className="list-group list-group-flush">
+							<li className="list-group-item">
+      							<textarea className="overview" readOnly="readonly" value={ elem.overview } />
+							</li>
+							<li className="list-group-item">{elem.release_date}</li>
+							<li className="list-group-item">{elem.vote_average}</li>
+						</ul>
+						</div>
+					)
+				}) }
+			</div>
+		)
 	}
 }
-
 
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			film: '',
+			film: [],
 		}
 		this.load = 0;
 	}
@@ -28,13 +39,13 @@ export default class Home extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			})
-		})
-			.then((response) => {
+		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
 			this.setState ({
-				film: parsedData,
+				film: parsedData.results,
 			})
+			console.log(this.state.film);
 		});
 	}
 
@@ -44,7 +55,8 @@ export default class Home extends React.Component {
 		}
 		return (
 			<div>
-				<Putfilm film={ this.state.film } />
+				<PutFilm film={ this.state.film } />
+			
 			</div>
 			);
 	}
