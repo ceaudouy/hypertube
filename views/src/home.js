@@ -1,24 +1,61 @@
 import React from 'react';
 import './home.css'
+import './home.scss'
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Container from '@material-ui/core/Container';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
 class PutFilm extends React.Component {
+
 	render() {
 		return (
 			<div className="display-film">
 				{ this.props.film.map((elem, index) => {
+					var overview = elem.overview.substr(0, 100);
+					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + ''; 
 					return (
-						<div className="card mb-3 autre" key={index}>
-						<img className="miniature" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
-						<h3 className="card-header">{elem.title}</h3>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">
-      							<textarea className="overview" readOnly="readonly" value={ elem.overview } />
-							</li>
-							<li className="list-group-item">{elem.release_date}</li>
-							<li className="list-group-item">{elem.vote_average}</li>
-						</ul>
-						</div>
+						<Card  key={ index } className="root">
+							<CardHeader
+							avatar={
+								<Avatar aria-label="recipe" className="avatar"> {/* a modifier */}
+								Vu
+								</Avatar>
+							} 
+							title={ elem.title }
+							/>
+							<img className="media" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
+							<CardContent>
+								<Typography variant="body2" color="textSecondary" component="p">
+									 { overview }
+						        </Typography>
+							</CardContent> 
+							<CardActions disableSpacing> 
+							<IconButton aria-label="add to favorites">
+								<FavoriteIcon />
+							</IconButton>
+							<IconButton aria-label="play/pause">
+								<section class="portfolio-experiment">
+									<a href="#`">
+										<span class="text"><PlayArrowIcon className="play-icon" /></span>
+										<span class="line -right"></span>
+										<span class="line -top"></span>
+										<span class="line -left"></span>
+										<span class="line -bottom"></span>
+									</a>
+								</section>
+							</IconButton>
+		
+							</CardActions>
+						</Card>
 					)
-				}) }
+				})}
 			</div>
 		)
 	}
@@ -55,8 +92,13 @@ export default class Home extends React.Component {
 		}
 		return (
 			<div>
-				<PutFilm film={ this.state.film } />
-			
+				<React.Fragment>
+      			<Container fixed>
+        			<Typography component="div" className="list-film" >
+						<PutFilm film={ this.state.film } />
+					</Typography>
+      			</Container>
+    			</React.Fragment>
 			</div>
 			);
 	}
