@@ -1,4 +1,7 @@
-
+body {
+	background-color: #222;
+	padding: 0;
+}
 .display-film {
 	display: flex;
 	flex-direction: row;
@@ -45,4 +48,9 @@
 .play-icon  {
 	height: 38;
     width: 38;
+}
+
+.infinite {
+	height:700px;
+	overflow:auto;
 }

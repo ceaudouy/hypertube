@@ -4,8 +4,8 @@ const express = require('express');
 const bdd = require("./db_connect.js");
 
 //connect to bdd
-let con = bdd.con;
-con.connect();
+// let con = bdd.con;
+// con.connect();
 
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   if (error) throw error;
