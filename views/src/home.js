@@ -86,6 +86,7 @@ export default class Home extends React.Component {
 		this.requestMovie();
 	}	
 
+	
 	requestMovie = () => {
 		const { film, pageNumber } = this.state;
 		const url = `https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}`
@@ -97,18 +98,22 @@ export default class Home extends React.Component {
 				headers: new Headers({
 					'Content-Type': 'application/json',
 				})
-			}).then((response) => {
-				if (!response.ok) { throw response }
-				return response.json();
-			// }).then((parsedData) => {
-			// 	console.log(parsedData);
-			// 	if (!parsedData.errors) {
-			// 		this.setState({
-			// 			film: [...film, ...parsedData.results],
-			// 			pageNumber: this.state.pageNumber + 1,
-			// 		});
-			// 	}
-			}).catch((err) => { throw err });
+			})
+			.then(async (response) => {
+				if (response.ok) {
+					return await response.json();
+				}
+			}).then((parsedData) => {
+				if (!parsedData.ok !== false) {
+					console.log("nooppe");
+					this.setState({
+						film: [...film, ...parsedData.results],
+						pageNumber: this.state.pageNumber + 1,
+					});
+				}	
+			}).catch((err) => { 
+				console.log("error");
+			})
 		}
 	}
 
