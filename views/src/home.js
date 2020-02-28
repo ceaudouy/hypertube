@@ -92,7 +92,6 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 	const [open, setOpen] = React.useState(false);
   
 	const handleChange = event => {
-		console.log(event.target.value)
 	  setGenre(event.target.value);
 	  setPageNumber(1);
 	  setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&&with_genres=' + event.target.value + '&page=');

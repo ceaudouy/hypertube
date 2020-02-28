@@ -27,7 +27,7 @@ export default function FetchAllMovies(query, pageNumber) {
 			setFilm(prevFilm => {
 				return [...new Set([...prevFilm, ...parsedData.results.map(elem => elem)])]
 			});
-			setHasMore(pageNumber < 500);
+			setHasMore(pageNumber < parsedData.total_pages);
 			setLoading(false);
 		}).catch (e => {
 			setError(true);
