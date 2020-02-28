@@ -55,6 +55,16 @@ body {
 	overflow:auto;
 }
 
-.title {
-	margin: 24px !important;
+.home-page {
+	display: flex;
+
+}
+
+.option-menu {
+	margin-top: 10px;
+	margin-left: 5px;
+	Width: 300px;
+    margin-right: 4px;
+	background-color: #adb5bd !important;
+	height: 300px;
 }
