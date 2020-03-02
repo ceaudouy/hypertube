@@ -17,8 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FetchAllMovies from './fetch';
-
-
+import Rating from '@material-ui/lab/Rating';
+import Button from '@material-ui/core/Button';
 
 function PutFilm(film, lastFilmElementRef) {
 	return (
@@ -31,6 +31,7 @@ function PutFilm(film, lastFilmElementRef) {
 				if (elem.poster_path === null) {
 					return ('');
 				} else {
+					
 					return (
 							<Card ref={lastFilmElementRef} key={ index } className="root">
 							<CardHeader
@@ -55,7 +56,7 @@ function PutFilm(film, lastFilmElementRef) {
 								<IconButton aria-label="play/pause">
 									<section className="portfolio-experiment">
 										<a href="#`">
-											<span className="text"><PlayArrowIcon className="play-icon" />Voir le film</span>
+											<span className="text"><PlayArrowIcon className="play-icon" /></span>
 											<span className="line -right"></span>
 											<span className="line -top"></span>
 											<span className="line -left"></span>
@@ -63,6 +64,7 @@ function PutFilm(film, lastFilmElementRef) {
 										</a>
 									</section>
 								</IconButton>
+								<Rating name="read-only" value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>
 					)
@@ -76,6 +78,11 @@ function PutFilm(film, lastFilmElementRef) {
 
 
 const useStyles = makeStyles(theme => ({
+	root: {
+		  '& > *': {
+			margin: theme.spacing(1),
+		  },
+		},
 	button: {
 	  display: 'block',
 	  marginTop: theme.spacing(2),
@@ -89,22 +96,53 @@ const useStyles = makeStyles(theme => ({
 function ControlledOpenSelect(setQuery, setPageNumber) {
 	const classes = useStyles();
 	const [genre, setGenre] = React.useState('');
-	const [open, setOpen] = React.useState(false);
+	const [openGenre, setOpenGenre] = React.useState(false);
+	const [date, setDate] = React.useState();
+	const [date2, setDate2] = React.useState();
+	const [openDate, setOpenDate] = React.useState(false);
   
-	const handleChange = event => {
+	const genreChange = event => {
 	  setGenre(event.target.value);
-	  setPageNumber(1);
-	  setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&&with_genres=' + event.target.value + '&page=');
+	//   setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&&with_genres=' + event.target.value + '&page=');
 	};
   
-	const handleClose = () => {
-	  setOpen(false);
+	const dateChange = event => {
+		setDate(event.target.value);
+		setDate2(event.target.value + 10);
+		// setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=12&primary_release_date.gte=' + event.target.value + "-01-01&primary_release_date.lte=" + value + '-01-01&&page=');
+	};
+
+	const handleCloseGenre = () => {
+	  setOpenGenre(false);
 	};
   
-	const handleOpen = () => {
-	  setOpen(true);
+	const handleOpenGenre = () => {
+		setOpenGenre(true);
+		setOpenDate(false);
 	};
   
+	const handleCloseDate = () => {
+	  setOpenDate(false);
+	};
+  
+	const handleOpenDate = () => {
+		setOpenDate(true);
+		setOpenGenre(false);
+	
+	};
+
+	const submit = () => {
+		var queryGenre = '';
+		var queryDate = '';
+		if (genre !== '') { //error date
+			queryGenre = '&&with_genres=' + genre
+		} if (date !== undefined) { 
+			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2;
+		}
+		setPageNumber(1);
+		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false' + queryGenre + queryDate + '&&page=');
+	}
+
 	return (
 	  <div className="option-menu">
 		<FormControl className={classes.formControl}>
@@ -112,11 +150,11 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 		  <Select
 			labelId="demo-controlled-open-select-label"
 			id="demo-controlled-open-select"
-			open={open}
-			onClose={handleClose}
-			onOpen={handleOpen}
+			open={openGenre}
+			onClose={handleCloseGenre}
+			onOpen={handleOpenGenre}
 			value={genre}
-			onChange={handleChange}
+			onChange={genreChange}
 		  >
 			<MenuItem value="">
 			  <em>None</em>
@@ -142,6 +180,34 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 			<MenuItem value={37}>Western</MenuItem>
 		  </Select>
 		</FormControl>
+  
+  		<FormControl className={classes.formControl}>
+  		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
+  		  <Select
+  			labelId="demo-controlled-open-select-label"
+  			id="demo-controlled-open-select"
+  			open={openDate}
+  			onClose={handleCloseDate}
+  			onOpen={handleOpenDate}
+  			value={date}
+  			onChange={dateChange}
+  		  >
+  			<MenuItem value="">
+  			  <em>None</em>
+  			</MenuItem>
+  			<MenuItem value={2020}>2020</MenuItem>
+  			<MenuItem value={2010}>2010</MenuItem>
+  			<MenuItem value={2000}>2000</MenuItem>
+  			<MenuItem value={1990}>1990</MenuItem>
+  			<MenuItem value={1980}>1980</MenuItem>
+  			<MenuItem value={1970}>1970</MenuItem>
+  			<MenuItem value={1960}>1960</MenuItem>
+  			<MenuItem value={1950}>1950</MenuItem>
+  		  </Select>
+  		</FormControl>
+		<Button onClick={submit} variant="contained" color="primary">
+        	Search
+      </Button>
 	  </div>
 	);
   }
@@ -149,7 +215,7 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 
 
 export default function Home() {
-	const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [ pageNumber, SetPageNumber ] = useState(1);
 	
 	const {

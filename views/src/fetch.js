@@ -11,6 +11,7 @@ export default function FetchAllMovies(query, pageNumber) {
 	}, [query])
 
 	useEffect(() => {
+		console.log(query);
 		setLoading(true);
 		setError(false);
 		const url = query + pageNumber.toString();
@@ -18,10 +19,9 @@ export default function FetchAllMovies(query, pageNumber) {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			})
-		})
-		.then(async (response) => {
+		}).then((response) => {
 			if (response.ok) {
-				return await response.json();
+				return response.json();
 			}
 		}).then((parsedData) => {
 			setFilm(prevFilm => {

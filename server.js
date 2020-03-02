@@ -1,15 +1,11 @@
 'use strict'
 const bodyParser = require('body-parser');
 const express = require('express');
-const bdd = require("./db_connect.js");
+// const bdd = require("./db_connect.js");
 
 //connect to bdd
 // let con = bdd.con;
 // con.connect();
-
-con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-});
 
 const server = express();
 
@@ -26,6 +22,11 @@ server.use(cors({origin: "http://localhost:3000", credentials: true}));
 server.disable('x-powered-by');
 
 server.set('trust proxy', 1)
+
+server.get('/home', (req, res) => {
+	console.log("oui");
+	res.status(200).send({oui: "oui"});
+})
 
 //set up routes
 
