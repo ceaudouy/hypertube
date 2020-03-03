@@ -97,50 +97,78 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 	const classes = useStyles();
 	const [genre, setGenre] = React.useState('');
 	const [openGenre, setOpenGenre] = React.useState(false);
-	const [date, setDate] = React.useState();
-	const [date2, setDate2] = React.useState();
+	const [date, setDate] = React.useState('');
+	const [date2, setDate2] = React.useState('');
 	const [openDate, setOpenDate] = React.useState(false);
-  
+	const [vote, setVote] = React.useState('');
+	const [vote2, setVote2] = React.useState('');
+	const [openVote, setOpenVote] = React.useState(false);
+
+	// setValue //
 	const genreChange = event => {
 	  setGenre(event.target.value);
-	//   setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&&with_genres=' + event.target.value + '&page=');
 	};
   
 	const dateChange = event => {
 		setDate(event.target.value);
 		setDate2(event.target.value + 10);
-		// setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=12&primary_release_date.gte=' + event.target.value + "-01-01&primary_release_date.lte=" + value + '-01-01&&page=');
 	};
 
+	const voteChange = event => {
+		setVote(event.target.value * 2);
+		setVote2(event.target.value * 2 + 1);
+	};
+
+	// Open - Close Menu //
 	const handleCloseGenre = () => {
-	  setOpenGenre(false);
+	  	setOpenGenre(false);
 	};
   
 	const handleOpenGenre = () => {
 		setOpenGenre(true);
 		setOpenDate(false);
+		setOpenVote(false); 
 	};
   
 	const handleCloseDate = () => {
-	  setOpenDate(false);
+	  	setOpenDate(false);
 	};
   
 	const handleOpenDate = () => {
 		setOpenDate(true);
-		setOpenGenre(false);
-	
+		setOpenGenre(false); 
+		setOpenVote(false); 
 	};
 
+	const handleCloseVote = () => {
+		setOpenDate(false);
+  	};
+
+ 	 const handleOpenVote = () => {
+	  	setOpenDate(false);
+	 	setOpenGenre(false); 
+	 	setOpenVote(true); 
+  
+  	};
+
+	// Set query for the research //
 	const submit = () => {
 		var queryGenre = '';
 		var queryDate = '';
+		var queryVote = '';
+		if (vote !== '') {
+			queryVote = '&vote_average.gte=' + vote + '&vote_average.lte=' + vote2;
+		}
+		console.log("***************")
+		console.log(genre)
+		console.log(date)
 		if (genre !== '') { //error date
 			queryGenre = '&&with_genres=' + genre
-		} if (date !== undefined) { 
-			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2;
+		} if (date !== '') { 
+			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2 + '-01-01';
 		}
 		setPageNumber(1);
-		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false' + queryGenre + queryDate + '&&page=');
+		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (
@@ -196,15 +224,39 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   			  <em>None</em>
   			</MenuItem>
   			<MenuItem value={2020}>2020</MenuItem>
-  			<MenuItem value={2010}>2010</MenuItem>
-  			<MenuItem value={2000}>2000</MenuItem>
-  			<MenuItem value={1990}>1990</MenuItem>
-  			<MenuItem value={1980}>1980</MenuItem>
-  			<MenuItem value={1970}>1970</MenuItem>
-  			<MenuItem value={1960}>1960</MenuItem>
-  			<MenuItem value={1950}>1950</MenuItem>
+  			<MenuItem value={2010}>2010 - 2019</MenuItem>
+  			<MenuItem value={2000}>2000 - 2009</MenuItem>
+  			<MenuItem value={1990}>1990 - 1999</MenuItem>
+  			<MenuItem value={1980}>1980 - 1989</MenuItem>
+  			<MenuItem value={1970}>1970 - 1979</MenuItem>
+  			<MenuItem value={1960}>1960 - 1969</MenuItem>
+  			<MenuItem value={1950}>1950 - 1959</MenuItem>
+  		  </Select> 
+  		</FormControl>
+
+		  <FormControl className={classes.formControl}>
+  		  <InputLabel id="demo-controlled-open-select-label">Stars</InputLabel>
+  		  <Select
+  			labelId="demo-controlled-open-select-label"
+  			id="demo-controlled-open-select"
+  			open={openVote}
+  			onClose={handleCloseVote}
+  			onOpen={handleOpenVote}
+  			value={vote}
+  			onChange={voteChange}
+  		  >
+  			<MenuItem value="">
+  			  <em>None</em>
+  			</MenuItem>
+  			<MenuItem value={5}>5 stars</MenuItem>
+  			<MenuItem value={4}>4 stars</MenuItem>
+  			<MenuItem value={3}>3 stars</MenuItem>
+  			<MenuItem value={2}>2 stars</MenuItem>
+  			<MenuItem value={1}>1 star</MenuItem>
+  			<MenuItem value={0}>0 star</MenuItem>
   		  </Select>
   		</FormControl>
+
 		<Button onClick={submit} variant="contained" color="primary">
         	Search
       </Button>
