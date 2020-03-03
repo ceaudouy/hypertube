@@ -115,6 +115,7 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 	};
 
 	const voteChange = event => {
+		console.log(event.target.value);
 		setVote(event.target.value * 2);
 		setVote2(event.target.value * 2 + 1);
 	};
@@ -209,7 +210,7 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 		  </Select>
 		</FormControl>
   
-  		<FormControl className={classes.formControl}>
+  		{/* <FormControl className={classes.formControl}>
   		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
   		  <Select
   			labelId="demo-controlled-open-select-label"
@@ -232,9 +233,35 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   			<MenuItem value={1960}>1960 - 1969</MenuItem>
   			<MenuItem value={1950}>1950 - 1959</MenuItem>
   		  </Select> 
+  		</FormControl> */}
+
+
+<FormControl className={classes.formControl}>
+  		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
+  		  <Select
+  			labelId="demo-controlled-open-select-label"
+  			id="demo-controlled-open-select"
+  			open={openVote}
+  			onClose={handleCloseVote}
+  			onOpen={handleOpenVote}
+  			value={date}
+  			onChange={dateChange}
+  		  >
+  			<MenuItem value="">
+  			  <em>None</em>
+  			</MenuItem>
+  			<MenuItem value={2020}>2020</MenuItem>
+  			<MenuItem value={2010}>2010 - 2019</MenuItem>
+  			<MenuItem value={2000}>2000 - 2009</MenuItem>
+  			<MenuItem value={1990}>1990 - 1999</MenuItem>
+  			<MenuItem value={1980}>1980 - 1989</MenuItem>
+  			<MenuItem value={1970}>1970 - 1979</MenuItem>
+  			<MenuItem value={1960}>1960 - 1969</MenuItem>
+  			<MenuItem value={1950}>1950 - 1959</MenuItem>
+  		  </Select> 
   		</FormControl>
 
-		  <FormControl className={classes.formControl}>
+		  {/* <FormControl className={classes.formControl}>
   		  <InputLabel id="demo-controlled-open-select-label">Stars</InputLabel>
   		  <Select
   			labelId="demo-controlled-open-select-label"
@@ -247,15 +274,12 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   		  >
   			<MenuItem value="">
   			  <em>None</em>
-  			</MenuItem>
-  			<MenuItem value={5}>5 stars</MenuItem>
-  			<MenuItem value={4}>4 stars</MenuItem>
-  			<MenuItem value={3}>3 stars</MenuItem>
-  			<MenuItem value={2}>2 stars</MenuItem>
-  			<MenuItem value={1}>1 star</MenuItem>
-  			<MenuItem value={0}>0 star</MenuItem>
+  			</MenuItem> 
+  			<MenuItem value={2}>2</MenuItem>
+  			<MenuItem value={1}>1</MenuItem>
+  			<MenuItem value={0}>0</MenuItem>
   		  </Select>
-  		</FormControl>
+  		</FormControl> */}
 
 		<Button onClick={submit} variant="contained" color="primary">
         	Search
