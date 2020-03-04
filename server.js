@@ -29,7 +29,6 @@ server.get('/home', (req, res) => {
 })
 
 //set up routes
-
 // const authRoutes = require('./routes/auth.js');
 // server.use('/auth', authRoutes);
 

@@ -19,15 +19,23 @@ import Select from '@material-ui/core/Select';
 import FetchAllMovies from './fetch';
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 function PutFilm(film, lastFilmElementRef) {
 	return (
 		<div className="display-film">
 			{ film.map((elem, index) => {
-				var overview = elem.overview.substr(0, 100);
-				overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + ''; 
-				if (elem.overview === '')
+				if (elem === null || elem.genre_ids.length === 0) {
+					return ('');
+				}
+				var overview = '';
+				if (elem.overview === '' || elem.overview === undefined || elem.overview === null) {
 					overview = '';
+				} else {
+					overview = elem.overview.substr(0, 100);
+					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + ''; 
+				}
 				if (elem.poster_path === null) {
 					return ('');
 				} else {
@@ -101,8 +109,9 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 	const [date2, setDate2] = React.useState('');
 	const [openDate, setOpenDate] = React.useState(false);
 	const [vote, setVote] = React.useState('');
-	const [vote2, setVote2] = React.useState('');
 	const [openVote, setOpenVote] = React.useState(false);
+	const [order, setOrder] = React.useState('');
+	const [openOrder, setOpenOrder] = React.useState(false);
 
 	// setValue //
 	const genreChange = event => {
@@ -111,24 +120,27 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   
 	const dateChange = event => {
 		setDate(event.target.value);
-		setDate2(event.target.value + 10);
+		setDate2(event.target.value + 9);
 	};
 
 	const voteChange = event => {
-		console.log(event.target.value);
-		setVote(event.target.value * 2);
-		setVote2(event.target.value * 2 + 1);
+		setVote(event.target.value);
+	};
+
+	const orderChange = event => {
+		setOrder(event.target.value);
 	};
 
 	// Open - Close Menu //
 	const handleCloseGenre = () => {
 	  	setOpenGenre(false);
 	};
-  
+
 	const handleOpenGenre = () => {
 		setOpenGenre(true);
 		setOpenDate(false);
 		setOpenVote(false); 
+		setOpenOrder(false); 
 	};
   
 	const handleCloseDate = () => {
@@ -139,37 +151,60 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 		setOpenDate(true);
 		setOpenGenre(false); 
 		setOpenVote(false); 
+		setOpenOrder(false); 
 	};
 
 	const handleCloseVote = () => {
-		setOpenDate(false);
+		setOpenVote(false);
   	};
 
  	 const handleOpenVote = () => {
+		setOpenVote(true); 
 	  	setOpenDate(false);
 	 	setOpenGenre(false); 
-	 	setOpenVote(true); 
-  
+		setOpenOrder(false); 
+	};
+	
+	const handleCloseOrder = () => {
+		setOpenOrder(false);
+  	};
+
+ 	 const handleOpenOrder = () => {
+		setOpenOrder(true); 
+		setOpenVote(false); 
+	  	setOpenDate(false);
+	 	setOpenGenre(false); 
   	};
 
 	// Set query for the research //
 	const submit = () => {
+		setPageNumber(1);
 		var queryGenre = '';
 		var queryDate = '';
 		var queryVote = '';
+		var queryOrder = '';
 		if (vote !== '') {
-			queryVote = '&vote_average.gte=' + vote + '&vote_average.lte=' + vote2;
-		}
-		console.log("***************")
-		console.log(genre)
-		console.log(date)
-		if (genre !== '') { //error date
+			queryVote = '&vote_average.gte=' + (vote * 2) + '&vote_average.lte=' + (vote * 2 + 1) ;
+		} if (genre !== '') {
 			queryGenre = '&&with_genres=' + genre
 		} if (date !== '') { 
-			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2 + '-01-01';
+			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2 + '-12-31';
+		} if (order !== '') {
+			if (order === 3 || order === 4) {
+				let trie = order === 3 ? 'desc' : 'asc';
+				queryOrder = '&sort_by=popularity.' + trie;
+			} else if (order === 5 || order === 6) {
+				let trie = order === 5 ? 'desc' : 'asc';
+				queryOrder = '&sort_by=release_date.' + trie;
+			} else if (order === 7 || order === 8) {
+				let trie = order === 7 ? 'desc' : 'asc';
+				queryOrder = '&sort_by=vote_average.' + trie;
+			}
+			if (order === 4 || order === 6 || order === 8) {
+				setPageNumber(11);
+			}
 		}
-		setPageNumber(1);
-		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US' + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (
@@ -210,7 +245,7 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 		  </Select>
 		</FormControl>
   
-  		{/* <FormControl className={classes.formControl}>
+		<FormControl className={classes.formControl}>
   		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
   		  <Select
   			labelId="demo-controlled-open-select-label"
@@ -233,40 +268,14 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   			<MenuItem value={1960}>1960 - 1969</MenuItem>
   			<MenuItem value={1950}>1950 - 1959</MenuItem>
   		  </Select> 
-  		</FormControl> */}
-
-
-<FormControl className={classes.formControl}>
-  		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
-  		  <Select
-  			labelId="demo-controlled-open-select-label"
-  			id="demo-controlled-open-select"
-  			open={openVote}
-  			onClose={handleCloseVote}
-  			onOpen={handleOpenVote}
-  			value={date}
-  			onChange={dateChange}
-  		  >
-  			<MenuItem value="">
-  			  <em>None</em>
-  			</MenuItem>
-  			<MenuItem value={2020}>2020</MenuItem>
-  			<MenuItem value={2010}>2010 - 2019</MenuItem>
-  			<MenuItem value={2000}>2000 - 2009</MenuItem>
-  			<MenuItem value={1990}>1990 - 1999</MenuItem>
-  			<MenuItem value={1980}>1980 - 1989</MenuItem>
-  			<MenuItem value={1970}>1970 - 1979</MenuItem>
-  			<MenuItem value={1960}>1960 - 1969</MenuItem>
-  			<MenuItem value={1950}>1950 - 1959</MenuItem>
-  		  </Select> 
   		</FormControl>
 
-		  {/* <FormControl className={classes.formControl}>
+  		<FormControl className={classes.formControl}>
   		  <InputLabel id="demo-controlled-open-select-label">Stars</InputLabel>
   		  <Select
   			labelId="demo-controlled-open-select-label"
-  			id="demo-controlled-open-select"
-  			open={openVote}
+			id="demo-controlled-open-select"
+			open={openVote}
   			onClose={handleCloseVote}
   			onOpen={handleOpenVote}
   			value={vote}
@@ -274,12 +283,39 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
   		  >
   			<MenuItem value="">
   			  <em>None</em>
-  			</MenuItem> 
-  			<MenuItem value={2}>2</MenuItem>
-  			<MenuItem value={1}>1</MenuItem>
-  			<MenuItem value={0}>0</MenuItem>
-  		  </Select>
-  		</FormControl> */}
+  			</MenuItem>
+  			<MenuItem value={5}>5 stars</MenuItem>
+  			<MenuItem value={4}>4 stars</MenuItem>
+  			<MenuItem value={3}>3 stars</MenuItem>
+  			<MenuItem value={2}>2 stars</MenuItem>
+  			<MenuItem value={1}>1 star</MenuItem>
+  			<MenuItem value={0}>0 stars</MenuItem>
+  		  </Select> 
+  		</FormControl>
+
+		  <FormControl className={classes.formControl}>
+  		  <InputLabel id="demo-controlled-open-select-label">Order by</InputLabel>
+  		  <Select
+  			labelId="demo-controlled-open-select-label"
+  			id="demo-controlled-open-select"
+  			open={openOrder}
+  			onClose={handleCloseOrder}
+  			onOpen={handleOpenOrder}
+  			value={order}
+  			onChange={orderChange}
+  		  >
+  			<MenuItem value="">
+  			  <em>None</em>
+  			</MenuItem>
+			<MenuItem value={3}>Popularity <ArrowDownwardIcon /></MenuItem>
+  			<MenuItem value={4}>Popularity <ArrowUpwardIcon /></MenuItem>
+  			<MenuItem value={5}>Date <ArrowDownwardIcon /></MenuItem>
+  			<MenuItem value={6}>Date <ArrowUpwardIcon /></MenuItem>
+  			<MenuItem value={7}>Stars <ArrowDownwardIcon /></MenuItem>
+  			<MenuItem value={8}>Stars <ArrowUpwardIcon /></MenuItem>
+
+  		  </Select> 
+  		</FormControl>
 
 		<Button onClick={submit} variant="contained" color="primary">
         	Search
