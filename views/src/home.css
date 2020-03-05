@@ -61,10 +61,26 @@ body {
 }
 
 .option-menu {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin: 10px;
+	background-color: #adb5bd;
+	height: 350px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-left: 5px;
+}
+
+.option {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: stretch;
 	margin-top: 10px;
 	margin-left: 5px;
-	Width: 300px;
+	Width: 200px;
     margin-right: 4px;
-	background-color: #adb5bd !important;
-	height: 300px;
 }

@@ -72,7 +72,7 @@ function PutFilm(film, lastFilmElementRef) {
 										</a>
 									</section>
 								</IconButton>
-								<Rating name="read-only" value={elem.vote_average / 2 } size="small" readOnly />
+								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>
 					)
@@ -82,13 +82,11 @@ function PutFilm(film, lastFilmElementRef) {
 	)
 }
 
-
-
-
 const useStyles = makeStyles(theme => ({
 	root: {
 		  '& > *': {
-			margin: theme.spacing(1),
+			margin: theme.spacing(0, 0, 0, 5),
+			maxWidth: 120,
 		  },
 		},
 	button: {
@@ -97,11 +95,11 @@ const useStyles = makeStyles(theme => ({
 	},
 	formControl: {
 	  margin: theme.spacing(1),
-	  minWidth: 120,
+	  maxWidth: 140,
 	},
 }));
   
-function ControlledOpenSelect(setQuery, setPageNumber) {
+function OptionMenu(setQuery, setPageNumber) {
 	const classes = useStyles();
 	const [genre, setGenre] = React.useState('');
 	const [openGenre, setOpenGenre] = React.useState(false);
@@ -208,126 +206,131 @@ function ControlledOpenSelect(setQuery, setPageNumber) {
 	}
 
 	return (
-	  <div className="option-menu">
-		<FormControl className={classes.formControl}>
-		  <InputLabel id="demo-controlled-open-select-label">Genre</InputLabel>
-		  <Select
-			labelId="demo-controlled-open-select-label"
-			id="demo-controlled-open-select"
-			open={openGenre}
-			onClose={handleCloseGenre}
-			onOpen={handleOpenGenre}
-			value={genre}
-			onChange={genreChange}
-		  >
-			<MenuItem value="">
-			  <em>None</em>
-			</MenuItem>
-			<MenuItem value={28}>Action</MenuItem>
-			<MenuItem value={12}>Adventure</MenuItem>
-			<MenuItem value={16}>Animation</MenuItem>
-			<MenuItem value={35}>Comedy</MenuItem>
-			<MenuItem value={80}>Crime</MenuItem>
-			<MenuItem value={99}>Documentary</MenuItem>
-			<MenuItem value={18}>Drama</MenuItem>
-			<MenuItem value={10751}>Family</MenuItem>
-			<MenuItem value={14}>Fantasy</MenuItem>
-			<MenuItem value={36}>History</MenuItem>
-			<MenuItem value={27}>Horror</MenuItem>
-			<MenuItem value={10402}>Music</MenuItem>
-			<MenuItem value={9648}>Mystery</MenuItem>
-			<MenuItem value={10749}>Romance</MenuItem>
-			<MenuItem value={878}>Sciense Fiction</MenuItem>
-			<MenuItem value={10770}>TV Movie</MenuItem>
-			<MenuItem value={53}>Thriller</MenuItem>
-			<MenuItem value={10752}>War</MenuItem>
-			<MenuItem value={37}>Western</MenuItem>
-		  </Select>
-		</FormControl>
-  
-		<FormControl className={classes.formControl}>
-  		  <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
-  		  <Select
-  			labelId="demo-controlled-open-select-label"
-  			id="demo-controlled-open-select"
-  			open={openDate}
-  			onClose={handleCloseDate}
-  			onOpen={handleOpenDate}
-  			value={date}
-  			onChange={dateChange}
-  		  >
-  			<MenuItem value="">
-  			  <em>None</em>
-  			</MenuItem>
-  			<MenuItem value={2020}>2020</MenuItem>
-  			<MenuItem value={2010}>2010 - 2019</MenuItem>
-  			<MenuItem value={2000}>2000 - 2009</MenuItem>
-  			<MenuItem value={1990}>1990 - 1999</MenuItem>
-  			<MenuItem value={1980}>1980 - 1989</MenuItem>
-  			<MenuItem value={1970}>1970 - 1979</MenuItem>
-  			<MenuItem value={1960}>1960 - 1969</MenuItem>
-  			<MenuItem value={1950}>1950 - 1959</MenuItem>
-  		  </Select> 
-  		</FormControl>
-
-  		<FormControl className={classes.formControl}>
-  		  <InputLabel id="demo-controlled-open-select-label">Stars</InputLabel>
-  		  <Select
-  			labelId="demo-controlled-open-select-label"
-			id="demo-controlled-open-select"
-			open={openVote}
-  			onClose={handleCloseVote}
-  			onOpen={handleOpenVote}
-  			value={vote}
-  			onChange={voteChange}
-  		  >
-  			<MenuItem value="">
-  			  <em>None</em>
-  			</MenuItem>
-  			<MenuItem value={5}>5 stars</MenuItem>
-  			<MenuItem value={4}>4 stars</MenuItem>
-  			<MenuItem value={3}>3 stars</MenuItem>
-  			<MenuItem value={2}>2 stars</MenuItem>
-  			<MenuItem value={1}>1 star</MenuItem>
-  			<MenuItem value={0}>0 stars</MenuItem>
-  		  </Select> 
-  		</FormControl>
-
-		  <FormControl className={classes.formControl}>
-  		  <InputLabel id="demo-controlled-open-select-label">Order by</InputLabel>
-  		  <Select
-  			labelId="demo-controlled-open-select-label"
-  			id="demo-controlled-open-select"
-  			open={openOrder}
-  			onClose={handleCloseOrder}
-  			onOpen={handleOpenOrder}
-  			value={order}
-  			onChange={orderChange}
-  		  >
-  			<MenuItem value="">
-  			  <em>None</em>
-  			</MenuItem>
-			<MenuItem value={3}>Popularity <ArrowDownwardIcon /></MenuItem>
-  			<MenuItem value={4}>Popularity <ArrowUpwardIcon /></MenuItem>
-  			<MenuItem value={5}>Date <ArrowDownwardIcon /></MenuItem>
-  			<MenuItem value={6}>Date <ArrowUpwardIcon /></MenuItem>
-  			<MenuItem value={7}>Stars <ArrowDownwardIcon /></MenuItem>
-  			<MenuItem value={8}>Stars <ArrowUpwardIcon /></MenuItem>
-
-  		  </Select> 
-  		</FormControl>
-
-		<Button onClick={submit} variant="contained" color="primary">
-        	Search
-      </Button>
-	  </div>
+		<div className="option-menu">
+			<div className="option">
+				<FormControl className={classes.formControl}>
+					<InputLabel id="demo-controlled-open-select-label">Genre</InputLabel>
+					<Select
+						labelId="demo-controlled-open-select-label"
+						id="demo-controlled-open-select"
+						open={openGenre}
+						onClose={handleCloseGenre}
+						onOpen={handleOpenGenre}
+						value={genre}
+						onChange={genreChange}
+					>
+						<MenuItem value="">
+						<em>None</em>
+						</MenuItem>
+						<MenuItem value={28}>Action</MenuItem>
+						<MenuItem value={12}>Adventure</MenuItem>
+						<MenuItem value={16}>Animation</MenuItem>
+						<MenuItem value={35}>Comedy</MenuItem>
+						<MenuItem value={80}>Crime</MenuItem>
+						<MenuItem value={99}>Documentary</MenuItem>
+						<MenuItem value={18}>Drama</MenuItem>
+						<MenuItem value={10751}>Family</MenuItem>
+						<MenuItem value={14}>Fantasy</MenuItem>
+						<MenuItem value={36}>History</MenuItem>
+						<MenuItem value={27}>Horror</MenuItem>
+						<MenuItem value={10402}>Music</MenuItem>
+						<MenuItem value={9648}>Mystery</MenuItem>
+						<MenuItem value={10749}>Romance</MenuItem>
+						<MenuItem value={878}>Sciense Fiction</MenuItem>
+						<MenuItem value={10770}>TV Movie</MenuItem>
+						<MenuItem value={53}>Thriller</MenuItem>
+						<MenuItem value={10752}>War</MenuItem>
+						<MenuItem value={37}>Western</MenuItem>
+					</Select>
+				</FormControl>
+			</div>
+			<div className="option">
+				<FormControl className={classes.formControl}>
+					<InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
+					<Select
+					labelId="demo-controlled-open-select-label"
+					id="demo-controlled-open-select"
+					open={openDate}
+					onClose={handleCloseDate}
+					onOpen={handleOpenDate}
+					value={date}
+					onChange={dateChange}
+					>
+						<MenuItem value="">
+							<em>None</em>
+						</MenuItem>
+						<MenuItem value={2020}>2020</MenuItem>
+						<MenuItem value={2010}>2010 - 2019</MenuItem>
+						<MenuItem value={2000}>2000 - 2009</MenuItem>
+						<MenuItem value={1990}>1990 - 1999</MenuItem>
+						<MenuItem value={1980}>1980 - 1989</MenuItem>
+						<MenuItem value={1970}>1970 - 1979</MenuItem>
+						<MenuItem value={1960}>1960 - 1969</MenuItem>
+						<MenuItem value={1950}>1950 - 1959</MenuItem>
+					</Select> 
+				</FormControl>
+			</div>
+			<div className="option">
+				<FormControl className={classes.formControl}>
+					<InputLabel id="demo-controlled-open-select-label">Stars</InputLabel>
+					<Select
+						labelId="demo-controlled-open-select-label"
+						id="demo-controlled-open-select"
+						open={openVote}
+						onClose={handleCloseVote}
+						onOpen={handleOpenVote}
+						value={vote}
+						onChange={voteChange}
+					>
+						<MenuItem value="">
+						<em>None</em>
+						</MenuItem>
+						<MenuItem value={5}>5 stars</MenuItem>
+						<MenuItem value={4}>4 stars</MenuItem>
+						<MenuItem value={3}>3 stars</MenuItem>
+						<MenuItem value={2}>2 stars</MenuItem>
+						<MenuItem value={1}>1 star</MenuItem>
+						<MenuItem value={0}>0 stars</MenuItem>
+					</Select> 
+				</FormControl>
+			</div>
+			<div className="option">
+				<FormControl className={classes.formControl}>
+					<InputLabel id="demo-controlled-open-select-label">Order by</InputLabel>
+					<Select
+					labelId="demo-controlled-open-select-label"
+					id="demo-controlled-open-select"
+					open={openOrder}
+					onClose={handleCloseOrder}
+					onOpen={handleOpenOrder}
+					value={order}
+					onChange={orderChange}
+					>
+						<MenuItem value="">
+							<em>None</em>
+						</MenuItem>
+						<MenuItem value={3}>Popularity <ArrowUpwardIcon className="option-arrow" /></MenuItem>
+						<MenuItem value={4}>Popularity <ArrowDownwardIcon /></MenuItem>
+						<MenuItem value={5}>Date <ArrowUpwardIcon /></MenuItem>
+						<MenuItem value={6}>Date <ArrowDownwardIcon /></MenuItem>
+						<MenuItem value={7}>Stars <ArrowUpwardIcon /></MenuItem>
+						<MenuItem value={8}>Stars <ArrowDownwardIcon /></MenuItem>
+					</Select> 
+				</FormControl>
+			</div>
+			<div className={classes.root}>
+				<Button onClick={submit} variant="contained" color="primary">
+					Search
+				</Button>
+			</div>
+	  	</div>
 	);
-  }
+}
 
 
 
-export default function Home() {
-	const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+export default function Home(query, setQuery) {
+	// const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [ pageNumber, SetPageNumber ] = useState(1);
 	
 	const {
@@ -335,7 +338,7 @@ export default function Home() {
 		hasMore,
 		loading,
 		error
-	} = FetchAllMovies(query, pageNumber);
+	} = FetchAllMovies(query, pageNumber, SetPageNumber);
 
 	const observer = useRef();
 	const lastFilmElementRef = useCallback(node => {
@@ -352,7 +355,7 @@ export default function Home() {
 
 	return (
 		<div className="home-page">
-			{ ControlledOpenSelect(setQuery, SetPageNumber) }
+			{ OptionMenu(setQuery, SetPageNumber) }
 			<React.Fragment>
 				<Container fixed>
 					<Typography component="div" className="list-film" >
@@ -365,22 +368,3 @@ export default function Home() {
 		</div>
 	) 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

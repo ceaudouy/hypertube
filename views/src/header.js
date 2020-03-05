@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
 import './home.css'
 
 const useStyles = makeStyles(theme => ({
@@ -78,10 +79,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Header() {
+export default function Header(query, setQuery) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [research, setResearch]= React.useState('');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -160,6 +162,14 @@ export default function Header() {
     </Menu>
   );
 
+	const handleSubmit = () => {
+		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+	}
+
+	const handleChange = (event) => {
+		setResearch(event.target.value);
+	}
+
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -186,7 +196,11 @@ export default function Header() {
                 input: classes.inputInput,
               }}
 			  inputProps={{ 'aria-label': 'search' }}
+			  onChange={handleChange}
             />
+			<Button onClick={handleSubmit} variant="contained" color="primary">
+        	Search
+      		</Button>
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

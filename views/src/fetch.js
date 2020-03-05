@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 
-export default function FetchAllMovies(query, pageNumber) {
+export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [film, setFilm] = useState([]);
 	const [hasMore, setHasMore] = useState(false);
+
 	
 	useEffect(() => {
-		setFilm([])
-	}, [query])
+		setPageNumber(1);
+		setFilm([]);
+	}, [query, setPageNumber])
 
 	useEffect(() => {
 		setLoading(true);
@@ -17,12 +19,13 @@ export default function FetchAllMovies(query, pageNumber) {
 		fetch(url, {
 			headers: new Headers({
 				'Content-Type': 'application/json',
-			})
+			}),
 		}).then((response) => {
 			if (response.ok) {
 				return response.json();
 			}
 		}).then((parsedData) => {
+			if (parsedData.results !== undefined)
 			setFilm(prevFilm => {
 				return [...new Set([...prevFilm, ...parsedData.results.map(elem => elem)])]
 			});
