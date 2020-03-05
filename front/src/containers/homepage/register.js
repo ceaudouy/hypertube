@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, TextField, Button, makeStyles, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import ReqFetch from './req_fetch';
 
 const useStyle = makeStyles(theme => ({
@@ -28,12 +26,32 @@ const useStyle = makeStyles(theme => ({
 		width: theme.spacing(7),
 		height: theme.spacing(7),
 		marginBottom: "10px",
+	},
+	alert: {
+		top: "400px",
 	}
 }));
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Register() {
 	const classes = useStyle();
 	const [input, setInput] = useState('');
+	const [requete, setRequete] = useState('');
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+		setOpen(true);
+	};
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpen(false);
+	};
 
 	// Hooks -> check if value on input change & apply new value (next -> get value for API)
 	const handleChange = (e) => setInput({
@@ -41,13 +59,12 @@ function Register() {
 		[e.currentTarget.name]: e.currentTarget.value
 	})
 
-	const handleSubmit = () => {
-		const url = "http://localhost:3300/home";
-		ReqFetch(input, url);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const url = "http://localhost:3300/home/register";
+		const req = await ReqFetch(input, url);
+		setRequete(req);
 	}
-
-	// const changeSrc = () => {
-	// }
 
 	return (
 		<form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -109,9 +126,15 @@ function Register() {
 				/>
 				<Avatar className={classes.large} />
 				{/* onClick={changeSrc} */}
-				<Button type="submit" variant="contained" color="secondary" className={classes.button}>
+				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>
 					Register
 				</Button>
+				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity="success">
+						{requete.error}
+						{requete.success}
+					</Alert>
+				</Snackbar>
 			</div>
 		</form>
 	)

@@ -1,17 +1,22 @@
 function ReqFetch(input, url) {
-	fetch(url, {
-		method: 'POST',
-		credentials: 'include',
-		headers: new Headers({
-			'Content-Type': 'application/json',
-		}),
-		body: JSON.stringify({
-			input: input
+	return new Promise ((resolve, reject) => {
+		fetch(url, {
+			method: 'POST',
+			credentials: 'include',
+			headers: new Headers({
+				'Content-Type': 'application/json',
+			}),
+			body: JSON.stringify({
+				input: input
+			})
+		}).then(res => {
+			if (res) {
+				return res.json();
+			}
+			return reject(Error('error'));
+		}).then(parsedData => {
+			resolve(parsedData);
 		})
-	}).then(res => {
-		return res.json();
-	}).then(parsedData => {
-		console.log(parsedData);
 	})
 }
 

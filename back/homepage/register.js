@@ -1,5 +1,5 @@
-// const mysql = require('mysql');
-const db = require('../server.js');
+const db = require('../../server');
+const bcrypt =  require ( 'bcrypt' );
 const ent = require('ent');
 
 const conn = db.conn;
@@ -18,13 +18,21 @@ function register(user) {
 				[ent.encode(login)], [ent.encode(email)]
 			];
 			conn.query(sql, values, function (err, res) {
-				console.log(res)
-				if (err) throw err;
-				if (res.login != login && res.email != email) {
-					resolve({response: 'Ok'});
-				}
-				else if (res.login === login || res.email === email) {
+				if (err) { reject(Error('error')); }
+				if (res != '') {
 					resolve({error: 'Login or email already taken!'});
+				}
+				else {
+					if ()
+					let sql = 'INSERT INTO users (first_name, last_name, login, password, email) VALUES ?';
+					let values = [
+						[ent.encode(firstname), ent.encode(lastname), ent.encode(login), ent.encode(password), ent.encode(email)]
+					];
+					conn.query(sql, [values], function (err, res) {
+						console.log('errir')
+						if (err) { reject(Error('error')); }
+					})
+					resolve({success: 'Account created with success!'})
 				}
 			});
 		}
@@ -35,3 +43,8 @@ function register(user) {
 }
 
 module.exports.register = register;
+
+// bcrypt.hashSync(ent.encode(user.passwd, 8))
+bcrypt . hash ( 'myPassword' ,  10 ,  fonction ( err , hash )  {
+	// Stocker le hachage dans la base de données
+  } );

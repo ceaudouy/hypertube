@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -13,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
@@ -113,8 +113,8 @@ function Header() {
 		open={isMenuOpen}
 		onClose={handleMenuClose}
 		>
-			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
+			<MenuItem onClick={handleMenuClose}>My Account</MenuItem>
+			<MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
 		</Menu>
 	);
 
@@ -131,19 +131,15 @@ function Header() {
 		>
 			<MenuItem>
 				<IconButton aria-label="show 4 new mails" color="inherit">
-					{/* <Badge badgeContent={0} color="secondary"> */}
-						<VisibilityRoundedIcon />
-					{/* </Badge> */}
+					<VisibilityRoundedIcon />
 				</IconButton>
-				<p>Messages</p>
+				<p>Views</p>
 			</MenuItem>
 			<MenuItem>
 				<IconButton aria-label="show 11 new notifications" color="inherit">
-					<Badge badgeContent={0} color="secondary">
-						<FavoriteRoundedIcon />
-					</Badge>
+					<FavoriteRoundedIcon />
 				</IconButton>
-				<p>Notifications</p>
+				<p>Favorites</p>
 			</MenuItem>
 			<MenuItem onClick={handleProfileMenuOpen}>
 				<IconButton
@@ -154,7 +150,18 @@ function Header() {
 				>
 					<AccountCircle />
 				</IconButton>
-				<p>Profile</p>
+				<p>My Account</p>
+			</MenuItem>
+			<MenuItem onClick={handleProfileMenuOpen}>
+				<IconButton
+				aria-label="account of current user"
+				aria-controls="primary-search-account-menu"
+				aria-haspopup="true"
+				color="inherit"
+				>
+					<HighlightOffRoundedIcon />
+				</IconButton>
+				<p>Sign Out</p>
 			</MenuItem>
 		</Menu>
 	);
@@ -190,14 +197,10 @@ function Header() {
 				<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
 						<IconButton aria-label="show 4 new mails" color="inherit">
-							{/* <Badge badgeContent={0} color="secondary"> */}
-								<VisibilityRoundedIcon />
-							{/* </Badge> */}
+							<VisibilityRoundedIcon />
 						</IconButton>
 						<IconButton aria-label="show 17 new notifications" color="inherit">
-							<Badge badgeContent={0} color="secondary">
-								<FavoriteRoundedIcon />
-							</Badge>
+							<FavoriteRoundedIcon />
 						</IconButton>
 						<IconButton
 						edge="end"

@@ -14,3 +14,5 @@ router.post('/signIn', function(req, res) {
 		res.status(200).send(resolve);
 	})
 });
+
+module.exports = router;
