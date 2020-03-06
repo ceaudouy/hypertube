@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import './home.css'
-import './home.scss'
+import '../css/listFilm.css'
+import '../css/listFilm.scss'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,10 +22,61 @@ import Button from '@material-ui/core/Button';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
-function PutFilm(film, lastFilmElementRef) {
+class ButtonFavorite extends React.Component {
+	constructor(props) {
+		super (props);
+		this.state = {
+			color: this.props.favorites.includes(this.props.elem.id) ? 'red' : 'grey',
+		}
+		this.load = 0;
+		console.log(this.props.favorites.includes(this.props.elem.id))
+	}
+
+	addFavorite = (id) => {
+		console.log('test')
+		fetch(`http://localhost:8080/list/addFavorites`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {'Content-Type': 'application/json'}, //include token;
+			body: JSON.stringify(
+				{
+					id: id,
+				}
+			)
+		})
+		this.setState({color: this.state.color === 'red' ? 'grey' : 'red'});
+	}
+
+	setColor() {
+		var color = this.state.color;
+		if (color === 'red') {
+			return (<FavoriteIcon className="favorite" />)
+		} else if (color === 'grey') {
+			return (<FavoriteIcon className="favorite" />)
+
+		}
+	}
+
+	render() {
+		return (
+			<IconButton onClick={ e => this.addFavorite(this.props.elem.id)} aria-label="add to favorites">
+				<div>
+					{this.setColor()}
+				</div>
+			</IconButton>
+		)
+	}
+}
+
+
+function PutFilm(film, lastFilmElementRef, favorites) {
+
 	return (
 		<div className="display-film">
 			{ film.map((elem, index) => {
+
+				
+				
 				if (elem === null || elem.genre_ids.length === 0) {
 					return ('');
 				}
@@ -58,9 +109,7 @@ function PutFilm(film, lastFilmElementRef) {
 								</Typography>
 							</CardContent> 
 							<CardActions disableSpacing> 
-								<IconButton aria-label="add to favorites">
-									<FavoriteIcon />
-								</IconButton>
+									<ButtonFavorite elem={elem} favorites={favorites} />
 								<IconButton aria-label="play/pause">
 									<section className="portfolio-experiment">
 										<a href="#`">
@@ -329,16 +378,27 @@ function OptionMenu(setQuery, setPageNumber) {
 
 
 
-export default function Home(query, setQuery) {
+export default function ListFilm(query, setQuery) {
 	// const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [ pageNumber, SetPageNumber ] = useState(1);
+	const [ pageNumber, setPageNumber ] = useState(1);
+	const [favorites, setFavorites] = useState([]);
 	
+	fetch(`http://localhost:8080/list/getFavorites`, {
+		method: 'GET',
+		credentials: 'include',
+		headers: {'Content-Type': 'application/json'}, //include token;
+	}).then((response) => {
+		return response.json();
+	}).then((parsedData) => {
+		setFavorites(parsedData.favorites);
+	})
+
 	const {
 		film,
 		hasMore,
 		loading,
-		error
-	} = FetchAllMovies(query, pageNumber, SetPageNumber);
+		error,
+	} = FetchAllMovies(query, pageNumber, setPageNumber);
 
 	const observer = useRef();
 	const lastFilmElementRef = useCallback(node => {
@@ -346,7 +406,7 @@ export default function Home(query, setQuery) {
 		if (observer.current) observer.current.disconnect();
 		observer.current = new IntersectionObserver(entries => {
 			if (entries[0].isIntersecting && hasMore) {
-				SetPageNumber(prevPageNumber => prevPageNumber + 1);
+				setPageNumber(prevPageNumber => prevPageNumber + 1);
 			}
 		})
 		if (node) observer.current.observe(node)
@@ -355,12 +415,12 @@ export default function Home(query, setQuery) {
 
 	return (
 		<div className="home-page">
-			{ OptionMenu(setQuery, SetPageNumber) }
+			{ OptionMenu(setQuery, setPageNumber) }
 			<React.Fragment>
 				<Container fixed>
 					<Typography component="div" className="list-film" >
-						{ PutFilm(film, lastFilmElementRef) }
-						<div>{loading && 'Loading...'}</div> 
+						{ PutFilm(film, lastFilmElementRef, favorites) }
+						<div className="loading">{loading && 'Loading...'}</div> 
 						<div>{error && 'Error'}</div>
 					</Typography>
 				</Container>

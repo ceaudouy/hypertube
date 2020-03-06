@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+
+
 export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
@@ -35,6 +37,7 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 			setError(true);
 			return;
 		})
+
 	}, [query, pageNumber])
 	return {loading, error, film, hasMore};
 }

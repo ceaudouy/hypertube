@@ -70,7 +70,7 @@ body {
 	height: 350px;
 	border-radius: 5px;
 	margin-top: 20px;
-	margin-left: 5px;
+	margin-left: 13px;
 }
 
 .option {
@@ -83,4 +83,12 @@ body {
 	margin-left: 5px;
 	Width: 200px;
     margin-right: 4px;
+}
+
+.loading {
+	color: white;
+}
+
+.favorite {
+	color: red
 }

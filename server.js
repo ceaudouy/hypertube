@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 // const bdd = require("./db_connect.js");
 
-//connect to bdd
+// connect to bdd
 // let con = bdd.con;
 // con.connect();
 
@@ -22,14 +22,9 @@ server.disable('x-powered-by');
 
 server.set('trust proxy', 1)
 
-server.get('/home', (req, res) => {
-	console.log("oui");
-	res.status(200).send({oui: "oui"});
-})
-
 //set up routes
-// const authRoutes = require('./routes/auth.js');
-// server.use('/auth', authRoutes);
+const listRoutes = require('./API/list.js');
+server.use('/list', listRoutes);
 
 server.use((req, res) => {
 	res.type('text/plain');
