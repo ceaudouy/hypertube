@@ -1,5 +1,7 @@
 const db = require('../../server');
-const bcrypt =  require ( 'bcrypt' );
+const passwordValidator = require('password-validator');
+const emailValidator = require('email-validator');
+const bcrypt = require('bcrypt');
 const ent = require('ent');
 
 const conn = db.conn;
@@ -18,33 +20,42 @@ function register(user) {
 				[ent.encode(login)], [ent.encode(email)]
 			];
 			conn.query(sql, values, function (err, res) {
-				if (err) { reject(Error('error')); }
-				if (res != '') {
-					resolve({error: 'Login or email already taken!'});
-				}
+				if (err) { reject(Error('Error')); }
+				if (res != '') { resolve({error: 'Login or email already taken!'}); }
 				else {
-					if ()
-					let sql = 'INSERT INTO users (first_name, last_name, login, password, email) VALUES ?';
-					let values = [
-						[ent.encode(firstname), ent.encode(lastname), ent.encode(login), ent.encode(password), ent.encode(email)]
-					];
-					conn.query(sql, [values], function (err, res) {
-						console.log('errir')
-						if (err) { reject(Error('error')); }
-					})
-					resolve({success: 'Account created with success!'})
+					let safePassword = new passwordValidator();
+					safePassword
+					.is().min(8)
+					.is().max(50)
+					.has().uppercase()
+					.has().lowercase()
+					.has().digits()
+					.has().not().spaces();
+					if (safePassword.validate(password) === true) {
+						if (emailValidator.validate(email) === true) {
+							const salt = bcrypt.genSaltSync(10);
+							const passwordHash = bcrypt.hashSync(password, salt);
+							let sql = 'INSERT INTO users (first_name, last_name, login, password, email) VALUES ?';
+							let values = [
+								[ent.encode(firstname), ent.encode(lastname), ent.encode(login), ent.encode(passwordHash), ent.encode(email)]
+							];
+							conn.query(sql, [values], function (err, res) {
+								if (err) { reject(Error('Error')); }
+								if (res) { resolve({success: 'Account created with success!'}); }
+							})
+						}
+						else if (emailValidator.validate(email) === false) {
+							resolve({error: 'Your email is invalid!'});
+						}
+					}
+					else if (safePassword.validate(password) === false) {
+						resolve({error: 'Your password must contain 8 characters, uppercase, lowercase, no spaces and a number!'});
+					}
 				}
 			});
 		}
-		else {
-			resolve({error: 'Incomplete fields!'});
-		}
+		else { resolve({error: 'Incomplete fields!'}); }
 	})
 }
 
 module.exports.register = register;
-
-// bcrypt.hashSync(ent.encode(user.passwd, 8))
-bcrypt . hash ( 'myPassword' ,  10 ,  fonction ( err , hash )  {
-	// Stocker le hachage dans la base de données
-  } );

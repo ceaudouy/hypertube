@@ -10,7 +10,7 @@ router.post('/register', function(req, res) {
 
 router.post('/signIn', function(req, res) {
 	const file = require('../back/homepage/signin');
-	file.register(req.body.input).then((resolve) => {
+	file.signIn(req.body.input).then((resolve) => {
 		res.status(200).send(resolve);
 	})
 });

@@ -133,6 +133,7 @@ function Register() {
 					<Alert onClose={handleClose} severity="success">
 						{requete.error}
 						{requete.success}
+						{/* Succes a modifier car directement log */}
 					</Alert>
 				</Snackbar>
 			</div>

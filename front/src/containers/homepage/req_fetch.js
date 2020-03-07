@@ -13,7 +13,7 @@ function ReqFetch(input, url) {
 			if (res) {
 				return res.json();
 			}
-			return reject(Error('error'));
+			return reject(Error('Error'));
 		}).then(parsedData => {
 			resolve(parsedData);
 		})

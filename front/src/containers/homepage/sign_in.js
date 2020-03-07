@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Button, makeStyles, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import ReqFetch from './req_fetch';
 
 const useStyle = makeStyles(theme => ({
@@ -25,9 +24,26 @@ const useStyle = makeStyles(theme => ({
 	}
 }));
 
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function SignIn() {
 	const classes = useStyle();
 	const [input, setInput] = useState('');
+	const [requete, setRequete] = useState('');
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+		setOpen(true);
+	};
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpen(false);
+	};
 
 	// Hooks -> check if value on input change & apply new value (next -> get value for API)
 	const handleChange = (e) => setInput({
@@ -35,9 +51,11 @@ function SignIn() {
 		[e.currentTarget.name]: e.currentTarget.value
 	})
 
-	const handleSubmit = () => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		const url = "http://localhost:3300/home/signIn";
-		ReqFetch(input, url);
+		const req = await ReqFetch(input, url);
+		setRequete(req);
 	}
 
 	return (
@@ -65,9 +83,16 @@ function SignIn() {
 				onChange={handleChange}
 				autoComplete="current-password"
 				/>
-				<Button type="submit" variant="contained" color="secondary" className={classes.button}>
+				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>
 					Sign In
 				</Button>
+				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity="success">
+						{requete.error}
+						{requete.success}
+						{/* Succes a modifier car directement log */}
+					</Alert>
+				</Snackbar>
 			</div>
 		</form>
 	)
