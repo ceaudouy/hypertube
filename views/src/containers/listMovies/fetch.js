@@ -28,9 +28,9 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 			}
 		}).then((parsedData) => {
 			if (parsedData.results !== undefined)
-			setFilm(prevFilm => {
-				return [...new Set([...prevFilm, ...parsedData.results.map(elem => elem)])]
-			});
+				setFilm(prevFilm => {
+					return [...new Set([...prevFilm, ...parsedData.results.map(elem => elem)])]
+				});
 			setHasMore(pageNumber < parsedData.total_pages);
 			setLoading(false);
 		}).catch (e => {
