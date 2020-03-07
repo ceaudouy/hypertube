@@ -1,135 +1,14 @@
-import React, { useState, useRef, useCallback } from 'react';
-import '../css/listFilm.css'
-import '../css/listFilm.scss'
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Container from '@material-ui/core/Container';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import FetchAllMovies from './fetch';
-import Rating from '@material-ui/lab/Rating';
-import Button from '@material-ui/core/Button';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import '../../css/listFilm.css'
 
-class ButtonFavorite extends React.Component {
-	constructor(props) {
-		super (props);
-		this.state = {
-			color: this.props.favorites.includes(this.props.elem.id) ? 'red' : 'grey',
-		}
-		this.load = 0;
-		console.log(this.props.favorites.includes(this.props.elem.id))
-	}
-
-	addFavorite = (id) => {
-		console.log('test')
-		fetch(`http://localhost:8080/list/addFavorites`, {
-			method: 'POST',
-			credentials: 'include',
-			headers: {'Content-Type': 'application/json'}, //include token;
-			body: JSON.stringify(
-				{
-					id: id,
-				}
-			)
-		})
-		this.setState({color: this.state.color === 'red' ? 'grey' : 'red'});
-	}
-
-	setColor() {
-		var color = this.state.color;
-		if (color === 'red') {
-			return (<FavoriteIcon className="favorite" />)
-		} else if (color === 'grey') {
-			return (<FavoriteIcon className="favorite" />)
-
-		}
-	}
-
-	render() {
-		return (
-			<IconButton onClick={ e => this.addFavorite(this.props.elem.id)} aria-label="add to favorites">
-				<div>
-					{this.setColor()}
-				</div>
-			</IconButton>
-		)
-	}
-}
-
-
-function PutFilm(film, lastFilmElementRef, favorites) {
-
-	return (
-		<div className="display-film">
-			{ film.map((elem, index) => {
-
-				
-				
-				if (elem === null || elem.genre_ids.length === 0) {
-					return ('');
-				}
-				var overview = '';
-				if (elem.overview === '' || elem.overview === undefined || elem.overview === null) {
-					overview = '';
-				} else {
-					overview = elem.overview.substr(0, 100);
-					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + ''; 
-				}
-				if (elem.poster_path === null) {
-					return ('');
-				} else {
-					
-					return (
-							<Card ref={lastFilmElementRef} key={ index } className="root">
-							<CardHeader
-							avatar={
-								<Avatar aria-label="recipe" className="avatar"> {/* a modifier */}
-								Vu
-								</Avatar>
-							} 
-							title={ elem.title }
-							subheader= { elem.release_date }
-							/>
-							<img className="media" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
-							<CardContent>
-								<Typography variant="body2" color="textSecondary" component="p">
-									{ overview }
-								</Typography>
-							</CardContent> 
-							<CardActions disableSpacing> 
-									<ButtonFavorite elem={elem} favorites={favorites} />
-								<IconButton aria-label="play/pause">
-									<section className="portfolio-experiment">
-										<a href="#`">
-											<span className="text"><PlayArrowIcon className="play-icon" /></span>
-											<span className="line -right"></span>
-											<span className="line -top"></span>
-											<span className="line -left"></span>
-											<span className="line -bottom"></span>
-										</a>
-									</section>
-								</IconButton>
-								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
-							</CardActions>
-						</Card>
-					)
-				}
-			})}
-		</div>
-	)
-}
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -147,8 +26,8 @@ const useStyles = makeStyles(theme => ({
 	  maxWidth: 140,
 	},
 }));
-  
-function OptionMenu(setQuery, setPageNumber) {
+
+export default function OptionMenu(setQuery, setPageNumber) {
 	const classes = useStyles();
 	const [genre, setGenre] = React.useState('');
 	const [openGenre, setOpenGenre] = React.useState(false);
@@ -225,7 +104,7 @@ function OptionMenu(setQuery, setPageNumber) {
 
 	// Set query for the research //
 	const submit = () => {
-		setPageNumber(1);
+		// setPageNumber(1);
 		var queryGenre = '';
 		var queryDate = '';
 		var queryVote = '';
@@ -248,7 +127,7 @@ function OptionMenu(setQuery, setPageNumber) {
 				queryOrder = '&sort_by=vote_average.' + trie;
 			}
 			if (order === 4 || order === 6 || order === 8) {
-				setPageNumber(11);
+				// setPageNumber(11); 
 			}
 		}
 		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US' + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
@@ -374,57 +253,4 @@ function OptionMenu(setQuery, setPageNumber) {
 			</div>
 	  	</div>
 	);
-}
-
-
-
-export default function ListFilm(query, setQuery) {
-	// const [ query, setQuery ] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [ pageNumber, setPageNumber ] = useState(1);
-	const [favorites, setFavorites] = useState([]);
-	
-	fetch(`http://localhost:8080/list/getFavorites`, {
-		method: 'GET',
-		credentials: 'include',
-		headers: {'Content-Type': 'application/json'}, //include token;
-	}).then((response) => {
-		return response.json();
-	}).then((parsedData) => {
-		setFavorites(parsedData.favorites);
-	})
-
-	const {
-		film,
-		hasMore,
-		loading,
-		error,
-	} = FetchAllMovies(query, pageNumber, setPageNumber);
-
-	const observer = useRef();
-	const lastFilmElementRef = useCallback(node => {
-		if (loading) return;
-		if (observer.current) observer.current.disconnect();
-		observer.current = new IntersectionObserver(entries => {
-			if (entries[0].isIntersecting && hasMore) {
-				setPageNumber(prevPageNumber => prevPageNumber + 1);
-			}
-		})
-		if (node) observer.current.observe(node)
-	}, [loading, hasMore])
-
-
-	return (
-		<div className="home-page">
-			{ OptionMenu(setQuery, setPageNumber) }
-			<React.Fragment>
-				<Container fixed>
-					<Typography component="div" className="list-film" >
-						{ PutFilm(film, lastFilmElementRef, favorites) }
-						<div className="loading">{loading && 'Loading...'}</div> 
-						<div>{error && 'Error'}</div>
-					</Typography>
-				</Container>
-			</React.Fragment>
-		</div>
-	) 
 }

@@ -5,8 +5,9 @@ import {
 	Switch,
 	Route,
   } from "react-router-dom";
-import Home from './containers/listFilm';
+import ListPage from './containers/listMovies/list_page';
 import Header from './components/header';
+import FavoritesMovies from './containers/favoritesMovies/favoritesMovies';
 import './css/index.css'
 
 function App() {
@@ -17,7 +18,10 @@ function App() {
 			  { Header(query, setQuery) }
 			<Switch>
 			  <Route path="/list">
-				  { Home(query, setQuery) }
+				  { ListPage(query, setQuery) }
+			  </Route>
+			  <Route path="/fav">
+				  <FavoritesMovies />
 			  </Route>
 			</Switch>
 		</Router>
