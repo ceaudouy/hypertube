@@ -58,8 +58,7 @@ function PutFilm(film, favorites) {
 	return (
 		<div className="display-film">
 			{ film.map((elem, index) => {
-				console.log("elem");
-				if (elem === null || elem.genre_ids.length === 0) {
+				if (elem === null) {
 					return ('');
 				}
 				var overview = '';
@@ -112,39 +111,15 @@ function PutFilm(film, favorites) {
 	)
 }
 
-function GetMovies(favorites) {
-	const [film, setFilm] = useState([]);
-
-	favorites.forEach(element => {
-		const url = 'https://api.themoviedb.org/3/movie/'+ element +'?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
-		fetch(url, {
-			headers: new Headers({
-				'Content-Type': 'application/json',
-			}),
-		}).then((response) => {
-			if (response.ok) {
-				return response.json();
-			}
-		}).then((parsedData) => {
-			console.log(parsedData)
-			if (parsedData.results !== undefined) {
-				setFilm(oldFilm => [...oldFilm, parsedData])
-			}
-			// setFilm(prevFilm => {
-			// 	return [...new Set([...prevFilm, ...parsedData])]
-			// });
-			console.log(film);
-		});
-	})
-	// console.log(film)
-	return {film}
-}
-
-
 export default function FavoritesMovies() {
 	const [favorites, setFavorites] = useState([]);
+	const [film, setFilm] = useState([]);
+	const [loading, setLoading] = (false);
 
 	useEffect(() => {
+		setLoading(true);
+		var fav;
+		console.log("fetch")
 		fetch(`http://localhost:8080/list/getFavorites`, {
 			method: 'GET',
 			credentials: 'include',
@@ -152,21 +127,51 @@ export default function FavoritesMovies() {
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
+			fav = parsedData.favorites;
 			setFavorites(parsedData.favorites);
-		})
-	}, [])
-	
-	const {
-		film
-	} = GetMovies(favorites);
+		
+		var tab = [];
 
-	// console.log(film)
+		fav.forEach(element => {
+			const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
+			fetch(url, {
+				headers: new Headers({
+					'Content-Type': 'application/json',
+				}),
+			}).then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+			}).then((parsedData) => {
+			// console.log(parsedData)
+				if (parsedData !== undefined) {
+					tab[0] = parsedData;
+					setFilm(prevFilm => {
+						return [...new Set([...prevFilm, ...tab])]
+					});
+				}
+				// console.log(film);
+			});
+		})
+	})
+	setLoading(false);
+}, []);
+	
+	// const {
+	// 	film
+	// } = GetMovies(favorites);
+
+	console.log(film)
 	if (favorites.length === 0) {
-		return (<div className="loading">You don't have favorite movie</div>)
+		return (
+			<div className="loading">You don't have favorite movie</div>
+		)
+	} else {
+		return (
+			<div>
+				<div className="loading">{loading && 'Loading...'}</div>
+				{PutFilm(film, favorites)}
+			</div>
+		)
 	}
-	return (
-		<div>
-			{PutFilm(film, favorites)}
-		</div>
-	);
 }

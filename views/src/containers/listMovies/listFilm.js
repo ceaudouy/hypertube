@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Container from '@material-ui/core/Container';
-// import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import FetchAllMovies from './fetch';
 import Rating from '@material-ui/lab/Rating';
 
@@ -95,7 +95,7 @@ function PutFilm(film, lastFilmElementRef, favorites) {
 							</CardContent> 
 							<CardActions disableSpacing> 
 								<ButtonFavorite elem={elem} favorites={ favorites } />
-								{/* <IconButton aria-label="play/pause">
+								<IconButton aria-label="play/pause">
 									<section className="portfolio-experiment">
 										<a href="#`">
 											<span className="text"><PlayArrowIcon className="play-icon" /></span>
@@ -105,7 +105,7 @@ function PutFilm(film, lastFilmElementRef, favorites) {
 											<span className="line -bottom"></span>
 										</a>
 									</section>
-								</IconButton> */}
+								</IconButton>
 								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>
@@ -119,8 +119,6 @@ function PutFilm(film, lastFilmElementRef, favorites) {
 
 export default function ListFilm(query, setQuery, favorites) {
 	const [ pageNumber, setPageNumber ] = useState(1);
-
-	
 
 	const {
 		film,
