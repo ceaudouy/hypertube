@@ -56,6 +56,7 @@ function SignIn() {
 		const url = "http://localhost:3300/home/signIn";
 		const req = await ReqFetch(input, url);
 		setRequete(req);
+		localStorage.setItem('token', req.success);
 	}
 
 	return (
@@ -86,11 +87,9 @@ function SignIn() {
 				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>
 					Sign In
 				</Button>
-				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
-					<Alert onClose={handleClose} severity="success">
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity="warning">
 						{requete.error}
-						{requete.success}
-						{/* Succes a modifier car directement log */}
 					</Alert>
 				</Snackbar>
 			</div>

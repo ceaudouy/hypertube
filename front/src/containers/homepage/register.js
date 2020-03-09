@@ -130,10 +130,9 @@ function Register() {
 					Register
 				</Button>
 				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
-					<Alert onClose={handleClose} severity="success">
-						{requete.error}
+					 <Alert onClose={handleClose} severity={requete.error === undefined ? "success" : "error"}>
 						{requete.success}
-						{/* Succes a modifier car directement log */}
+						{requete.error}
 					</Alert>
 				</Snackbar>
 			</div>

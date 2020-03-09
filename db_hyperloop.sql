@@ -10,8 +10,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`password` VARCHAR(150) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
 	`avatar` INT NOT NULL,
-	`uni_code` VARCHAR(150) NOT NULL,
-	`code_check` INT NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS `views` (

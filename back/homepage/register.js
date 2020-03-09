@@ -21,7 +21,7 @@ function register(user) {
 			];
 			conn.query(sql, values, function (err, res) {
 				if (err) { reject(Error('Error')); }
-				if (res != '') { resolve({error: 'Login or email already taken!'}); }
+				if (res != '') { resolve({ error: 'Login or email already taken!' }); }
 				else {
 					let safePassword = new passwordValidator();
 					safePassword
@@ -41,20 +41,20 @@ function register(user) {
 							];
 							conn.query(sql, [values], function (err, res) {
 								if (err) { reject(Error('Error')); }
-								if (res) { resolve({success: 'Account created with success!'}); }
+								if (res) { resolve({ success: 'Account created with success!' }); }
 							})
 						}
 						else if (emailValidator.validate(email) === false) {
-							resolve({error: 'Your email is invalid!'});
+							resolve({ error: 'Your email is invalid!' });
 						}
 					}
 					else if (safePassword.validate(password) === false) {
-						resolve({error: 'Your password must contain 8 characters, uppercase, lowercase, no spaces and a number!'});
+						resolve({ error: 'Your password must contain 8 characters, uppercase, lowercase, no spaces and a number!' });
 					}
 				}
 			});
 		}
-		else { resolve({error: 'Incomplete fields!'}); }
+		else { resolve({ error: 'Incomplete fields!' }); }
 	})
 }
 
