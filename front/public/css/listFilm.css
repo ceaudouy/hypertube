@@ -1,0 +1,90 @@
+.display-film {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin: 10px;
+}
+
+.nav-bar {
+	position: relative;
+	margin-left: 30% !important;
+	margin-right: 30% !important;
+}
+
+.root {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: stretch;
+	margin-top: 10px;
+	margin-left: 5px;
+	Width: 300px;
+    margin-right: 4px;
+	background-color: #adb5bd !important;
+  }
+
+.media {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+  }
+
+.avatar{
+	background-color: red;
+	display: hidden;
+}
+
+.list-film {
+	background-color: #222;
+	width: 102%;
+}
+
+.play-icon  {
+	height: 38;
+    width: 38;
+}
+
+.infinite {
+	height:700px;
+	overflow:auto;
+}
+
+.home-page {
+	display: flex;
+
+}
+
+.option-menu {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin: 10px;
+	background-color: #adb5bd;
+	height: 350px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-left: 13px;
+}
+
+.option {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: stretch;
+	margin-top: 10px;
+	margin-left: 5px;
+	Width: 200px;
+    margin-right: 4px;
+}
+
+.loading {
+	color: white;
+}
+
+.favorite {
+	color: red
+}

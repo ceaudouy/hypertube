@@ -37,6 +37,9 @@ app.set('trust proxy', 1);
 const homepageRoutes = require('./api/homepage.js');
 app.use('/home', homepageRoutes);
 
+const listRoutes = require('./api/list.js');
+app.use('/list', listRoutes);
+
 // ERROR PAGES
 app.use(function (req, res) {
 	res.setHeader('Content-Type', 'text/plain');

@@ -1,18 +1,16 @@
 const router = require('express').Router();
 
 // Road for BACK-END
-router.post('/register', function (req, res) {
+router.post('/register', async function (req, res) {
 	const file = require('../back/homepage/register');
-	file.register(req.body.input).then((resolve) => {
-		res.status(200).send(resolve);
-	})
+	const response = await file.register(req.body.input);
+	res.status(200).send(response);
 });
 
-router.post('/signIn', function (req, res) {
+router.post('/signIn', async function (req, res) {
 	const file = require('../back/homepage/signin');
-	file.signIn(req.body.input).then((resolve) => {
-		res.status(200).send(resolve);
-	})
+	const response = await file.signIn(req.body.input);
+	res.status(200).send(response);
 });
 
 module.exports = router;
