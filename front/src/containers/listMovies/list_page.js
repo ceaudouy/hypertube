@@ -6,7 +6,7 @@ export default function ListPage(query, setQuery) {
 	const [favorites, setFavorites] = useState(['empty']);
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/list/getFavorites`, {
+		fetch(`http://localhost:3300/list/getFavorites`, {
 			method: 'GET',
 			credentials: 'include',
 			headers: {'Content-Type': 'application/json'}, //include token;

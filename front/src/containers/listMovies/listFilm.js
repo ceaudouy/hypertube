@@ -1,6 +1,6 @@
 import React, { Component, useState, useRef, useCallback } from 'react';
-import '../../css/listFilm.css'
-import '../../css/listFilm.scss'
+import '../../css/listFilm.css';
+import '../../css/listFilm.scss';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -23,7 +23,7 @@ class ButtonFavorite extends Component {
 	}
 
 	addFavorite = (id) => {
-		fetch(`http://localhost:8080/list/addFavorites`, {
+		fetch(`http://localhost:3300/list/addFavorites`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {'Content-Type': 'application/json'}, //include token;

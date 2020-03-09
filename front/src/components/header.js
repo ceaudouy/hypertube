@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
@@ -15,7 +14,6 @@ import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
-import '../css/listFilm.css';
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -132,13 +130,13 @@ function Header(query, setQuery) {
 		onClose={handleMobileMenuClose}
 		>
 			<MenuItem>
-				<IconButton aria-label="show 4 new mails" color="inherit">
+				<IconButton color="inherit">
 					<VisibilityRoundedIcon />
 				</IconButton>
 				<p>Views</p>
 			</MenuItem>
 			<MenuItem>
-				<IconButton aria-label="show 11 new notifications" color="inherit">
+				<IconButton color="inherit">
 					<FavoriteRoundedIcon />
 				</IconButton>
 				<p>Favorites</p>
@@ -180,14 +178,6 @@ function Header(query, setQuery) {
 		<div className={classes.grow}>
 			<AppBar position="static" color="secondary">
 			<Toolbar>
-				<IconButton
-				edge="start"
-				className={classes.menuButton}
-				color="inherit"
-				aria-label="open drawer"
-				>
-					<MenuIcon />
-				</IconButton>
 				<Typography className={classes.title} variant="h6" noWrap>
 					Hyperloop
 				</Typography>
@@ -210,10 +200,10 @@ function Header(query, setQuery) {
 				</div>
 				<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-						<IconButton aria-label="show 4 new mails" color="inherit">
+						<IconButton color="inherit">
 							<VisibilityRoundedIcon />
 						</IconButton>
-						<IconButton aria-label="show 17 new notifications" color="inherit">
+						<IconButton color="inherit">
 							<FavoriteRoundedIcon />
 						</IconButton>
 						<IconButton

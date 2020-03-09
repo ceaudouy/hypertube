@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/listFilm.css'
 import Card from '@material-ui/core/Card';
+import '../../css/listFilm.css';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,6 +10,16 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 // import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Rating from '@material-ui/lab/Rating';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyle = makeStyles(theme => ({
+	notFound: {
+		paddingTop: "100px",
+		textAlign: "center",
+		color: "white",
+		fontSize: "2vw",
+	}
+}));
 
 class ButtonFavorite extends React.Component {
 	constructor(props) {
@@ -20,7 +30,7 @@ class ButtonFavorite extends React.Component {
 	}
 
 	addFavorite = (id) => {
-		fetch(`http://localhost:8080/list/addFavorites`, {
+		fetch(`http://localhost:3300/list/addFavorites`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {'Content-Type': 'application/json'}, //include token;
@@ -113,13 +123,14 @@ function PutFilm(film, favorites) {
 export default function FavoritesMovies() {
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
-	const [loading, setLoading] = (false);
+	const classes = useStyle();
+	// const [loading, setLoading] = (false);
 
 	useEffect(() => {
-		setLoading(true);
+		// setLoading(true);
 		var fav;
 		console.log("fetch")
-		fetch(`http://localhost:8080/list/getFavorites`, {
+		fetch(`http://localhost:3300/list/getFavorites`, {
 			method: 'GET',
 			credentials: 'include',
 			headers: {'Content-Type': 'application/json'}, //include token;
@@ -153,7 +164,7 @@ export default function FavoritesMovies() {
 			});
 		})
 	})
-	setLoading(false);
+	// setLoading(false);
 }, []);
 
 	// const {
@@ -163,12 +174,12 @@ export default function FavoritesMovies() {
 	console.log(film)
 	if (favorites.length === 0) {
 		return (
-			<div className="loading">You don't have favorite movie</div>
+			<div className={classes.notFound}>You don't have favorite movie!</div>
 		)
 	} else {
 		return (
 			<div>
-				<div className="loading">{loading && 'Loading...'}</div>
+				{/* <div className="loading">{loading && 'Loading...'}</div> */}
 				{PutFilm(film, favorites)}
 			</div>
 		)

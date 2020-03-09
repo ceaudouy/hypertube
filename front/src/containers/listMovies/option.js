@@ -7,22 +7,22 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import '../../css/listFilm.css'
+import '../../css/listFilm.css';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		  '& > *': {
+		'& > *': {
 			margin: theme.spacing(0, 0, 0, 5),
 			maxWidth: 120,
-		  },
 		},
+	},
 	button: {
-	  display: 'block',
-	  marginTop: theme.spacing(2),
+		display: 'block',
+		marginTop: theme.spacing(2),
 	},
 	formControl: {
-	  margin: theme.spacing(1),
-	  maxWidth: 140,
+		margin: theme.spacing(1),
+		maxWidth: 140,
 	},
 }));
 
@@ -40,7 +40,7 @@ export default function OptionMenu(setQuery, setPageNumber) {
 
 	// setValue //
 	const genreChange = event => {
-	  setGenre(event.target.value);
+		setGenre(event.target.value);
 	};
 
 	const dateChange = event => {
@@ -58,7 +58,7 @@ export default function OptionMenu(setQuery, setPageNumber) {
 
 	// Open - Close Menu //
 	const handleCloseGenre = () => {
-	  	setOpenGenre(false);
+		setOpenGenre(false);
 	};
 
 	const handleOpenGenre = () => {

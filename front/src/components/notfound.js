@@ -6,6 +6,7 @@ const useStyle = makeStyles(theme => ({
 		paddingTop: "100px",
 		textAlign: "center",
 		color: "white",
+		fontSize: "2vw",
 	}
 }));
 

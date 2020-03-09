@@ -13,7 +13,7 @@ function Hyperloop() {
 
 	return (
 		<Router>
-			<Header> {query, setQuery} </Header>
+			{Header(query, setQuery)}
 			<Switch>
 				<Route path="/" exact component={ Home } />
 				<Route exact path="/" render={() => (token === undefined ? (
@@ -21,7 +21,10 @@ function Hyperloop() {
 					) : (
 					<Redirect to="/suggests" />
 				))} component={ Home } />
-				<Route path="/suggests" component={ ListPage(query, setQuery) } />
+				<Route path="/suggests">
+					{ListPage(query, setQuery)}
+				</Route>
+				{/* </Route> component={ ListPage(query, setQuery) } /> */}
 				<Route path="/favorites" component={ FavoritesMovies } />
 				{/* <Route path="/account" component={Account} /> */}
 				{/* <Route path="/movie" component={Movie} /> */}
