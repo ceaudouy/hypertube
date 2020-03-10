@@ -1,35 +1,50 @@
 'use strict'
-const bodyParser = require('body-parser');
 const express = require('express');
-// const bdd = require("./db_connect.js");
+const cors = require('cors');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+// Get data easily from road (ex: via form)
+const app = express();
 
-// connect to bdd
-// let con = bdd.con;
-// con.connect();
-
-const server = express();
-
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(express.json());
-
-// CORS requests
-const cors = require('cors')
-server.options("http://localhost:3000", cors());
-server.use(cors({origin: "http://localhost:3000", credentials: true}));
-// disables 'x-powered-by', this makes it more difficult for users to see that we are using Express.
-server.disable('x-powered-by');
-
-server.set('trust proxy', 1)
-
-//set up routes
-const listRoutes = require('./API/list.js');
-server.use('/list', listRoutes);
-
-server.use((req, res) => {
-	res.type('text/plain');
-	res.status(505);
-	res.send('Error page');
+const conn = mysql.createConnection({
+	host		: 'localhost',
+	user		: 'root',
+	password	: 'qwerty',
+	database	: 'db_hyperloop',
+	port		: 3306,
+	});
+	conn.connect(function (err) {
+		if (err) throw err;
+		console.log("Connected to MySQL !");
 });
 
-server.listen(8080); 
+module.exports.conn = conn;
+
+const urlencodedParser = bodyParser.urlencoded({
+	extended: true
+});
+app.use(urlencodedParser);
+app.use(bodyParser.json());
+app.use(express.json());
+
+// Det CORS
+app.options("http://localhost:3000", cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// disables 'x-powered-by', this makes it more difficult for users to see that we are using Express
+app.disable('x-powered-by');
+app.set('trust proxy', 1);
+
+const homepageRoutes = require('./api/homepage.js');
+app.use('/home', homepageRoutes);
+
+const listRoutes = require('./api/list.js');
+app.use('/list', listRoutes);
+
+// ERROR PAGES
+app.use(function (req, res) {
+	res.setHeader('Content-Type', 'text/plain');
+	res.status(404).send('Not found !');
+});
+
+// Listening Port
+app.listen(3300);
