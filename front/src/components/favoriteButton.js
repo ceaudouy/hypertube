@@ -19,11 +19,9 @@ export default class ButtonFavorite extends Component {
 				'Content-Type': 'application/json',
 				'Authorization': token
 			}),
-			body: JSON.stringify(
-				{
-					id: id,
-				}
-			)
+			body: JSON.stringify({
+				id: id,
+			})
 		})
 		this.setState({color : this.state.color === 'red' ? 'grey' : 'red'})
 	}

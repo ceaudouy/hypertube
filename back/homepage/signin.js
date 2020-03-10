@@ -22,7 +22,7 @@ function signIn(user) {
 					const passwordDB = res[0].password;
 
 					if (bcrypt.compareSync(password, passwordDB) === true) {
-						const token = jwt.sign({ userId: userIdDB, loginId: login }, 'qetuoadgjlxvnwryipsfhkzcbma', { expiresIn: '3h' });
+						const token = jwt.sign({ userId: userIdDB, loginId: login }, 'qetuoadgjlxvnwryipsfhkzcbma');
 						resolve ({ success: token });
 					}
 					else if (bcrypt.compareSync(password, passwordDB) === false) {

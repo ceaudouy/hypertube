@@ -26,7 +26,7 @@ export default function PutFilm(film, favorites, lastFilmElementRef) {
 					return ('');
 				} else {
 					return (
-							<Card ref={lastFilmElementRef} key={ index } className="root">
+						<Card ref={lastFilmElementRef} key={ index } className="root">
 							<CardHeader
 							avatar={
 								<Avatar aria-label="recipe" className="avatar"> {/* a modifier */}
