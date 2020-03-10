@@ -12,7 +12,7 @@ const useStyle = makeStyles(theme => ({
 	}
 }));
 
-export default function FavoritesMovies() {
+export default function ViewsMovies() {
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
 	const classes = useStyle();
@@ -32,30 +32,28 @@ export default function FavoritesMovies() {
 		}).then((parsedData) => {
 			fav = parsedData.favorites;
 			setFavorites(parsedData.favorites);
-
-		var tab = [];
-
-		fav.forEach(element => {
-			const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
-			fetch(url, {
-				headers: new Headers({
-					'Content-Type': 'application/json',
-				}),
-			}).then((response) => {
-				if (response.ok) {
-					return response.json();
-				}
-			}).then((parsedData) => {
-				if (parsedData !== undefined) {
-					tab[0] = parsedData;
-					setFilm(prevFilm => {
-						return [...new Set([...prevFilm, ...tab])]
-					});
-				}
-			});
+			var tab = [];
+			fav.forEach(element => {
+				const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
+				fetch(url, {
+					headers: new Headers({
+						'Content-Type': 'application/json',
+					}),
+				}).then((response) => {
+					if (response.ok) {
+						return response.json();
+					}
+				}).then((parsedData) => {
+					if (parsedData !== undefined) {
+						tab[0] = parsedData;
+						setFilm(prevFilm => {
+							return [...new Set([...prevFilm, ...tab])]
+						});
+					}
+				});
+			})
 		})
-	})
-}, []);
+	}, []);
 
 	if (favorites.length === 0) {
 		return (

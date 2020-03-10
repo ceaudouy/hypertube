@@ -9,18 +9,18 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`login` VARCHAR(150) NOT NULL,
 	`password` VARCHAR(150) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
-	`avatar` INT NOT NULL,
+	`avatar` INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `views` (
 	`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`login` VARCHAR(150) NOT NULL,
+	`login` VARCHAR(150) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `favoris` (
+CREATE TABLE IF NOT EXISTS `favorites` (
 	`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`login` VARCHAR(150) NOT NULL,
-	`favoris` INT NOT NULL,
+	`id_user` VARCHAR(150) NOT NULL,
+	`id_movie` INT NOT NULL
 );
 
 -- Create ADMIN account
