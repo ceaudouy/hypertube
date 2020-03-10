@@ -146,7 +146,7 @@ export default function ListFilm(query, setQuery, favorites) {
 					<Container fixed>
 						<Typography component="div" className="list-film" >
 							{ PutFilm(film, lastFilmElementRef, favorites) }
-							<div className="loading">{loading && 'Loading...'}</div> 
+							<div className="loading">{loading && 'Loading...'}</div>
 							<div>{error && 'Error'}</div>
 						</Typography>
 					</Container>
