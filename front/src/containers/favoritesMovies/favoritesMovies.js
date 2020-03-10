@@ -63,7 +63,7 @@ export default function FavoritesMovies() {
 		)
 	} else {
 		return (
-			<div>
+			<div className="home-page">
 				{PutFilm(film, favorites)}
 			</div>
 		)

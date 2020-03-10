@@ -6,10 +6,14 @@ export default function ListPage(query, setQuery) {
 	const [favorites, setFavorites] = useState(['empty']);
 
 	useEffect(() => {
+		var token = localStorage.getItem('token');
 		fetch(`http://localhost:3300/list/getFavorites`, {
 			method: 'GET',
 			credentials: 'include',
-			headers: {'Content-Type': 'application/json'}, //include token;
+			headers: new Headers({
+				'Content-Type': 'application/json',
+				'Authorization': token
+			}),
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {

@@ -45,6 +45,7 @@
 }
 .home-page {
 	display: flex;
+	justify-content: space-around;
 }
 .option-menu {
 	display: flex;

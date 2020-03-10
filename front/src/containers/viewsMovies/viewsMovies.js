@@ -18,9 +18,9 @@ export default function ViewsMovies() {
 	const classes = useStyle();
 
 	useEffect(() => {
-		var fav;
+		var views;
 		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/list/getFavorites`, {
+		fetch(`http://localhost:3300/list/getViews`, {
 			method: 'GET',
 			credentials: 'include',
 			headers: new Headers({
@@ -30,10 +30,10 @@ export default function ViewsMovies() {
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
-			fav = parsedData.favorites;
-			setFavorites(parsedData.favorites);
+			views = parsedData.views;
+			setFavorites(parsedData.views);
 			var tab = [];
-			fav.forEach(element => {
+			views.forEach(element => {
 				const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
 				fetch(url, {
 					headers: new Headers({
@@ -55,13 +55,30 @@ export default function ViewsMovies() {
 		})
 	}, []);
 
-	if (favorites.length === 0) {
+	useEffect(() => {
+		var token = localStorage.getItem('token');
+		fetch(`http://localhost:3300/list/getFavorites`, {
+			method: 'GET',
+			credentials: 'include',
+			headers: new Headers({
+				'Content-Type': 'application/json',
+				'Authorization': token
+			}),
+		}).then((response) => {
+			return response.json();
+		}).then((parsedData) => {
+			setFavorites(parsedData.favorites);
+		})
+	}, [])
+
+	console.log(film);
+	if (film.length === 0) {
 		return (
 			<div className={classes.notFound}>You don't have favorite movie!</div>
 		)
 	} else {
 		return (
-			<div>
+			<div className="home-page">
 				{PutFilm(film, favorites)}
 			</div>
 		)
