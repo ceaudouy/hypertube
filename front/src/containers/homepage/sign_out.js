@@ -8,8 +8,8 @@ function SignOut() {
 			'Authorization': token
 		}),
 	});
-	// localStorage.removeItem('token');
-	// document.location.href = '/';
+	localStorage.removeItem('token');
+	document.location.href = '/';
 	return null;
 }
 

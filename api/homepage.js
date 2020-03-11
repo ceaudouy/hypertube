@@ -14,9 +14,7 @@ router.post('/signIn', async function (req, res) {
 });
 
 router.post('/signOut', async function (req, res) {
-	const file = require('../back/homepage/signout');
-	const response = await file.signOut(req.body.input);
-	res.status(200).send(response);
+	res.status(200).send("Logout");
 })
 
 module.exports = router;

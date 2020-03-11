@@ -125,12 +125,12 @@ function Header(query, setQuery) {
 		setResearch(event.target.value);
 	}
 
-	const handleFavorites = () => {
-		document.location.href = "/favorites";
-	}
-
 	const handleAccueil = () =>{
 		document.location.href = "/";
+	}
+
+	const handleFavorites = () => {
+		document.location.href = "/favorites";
 	}
 
 	const menuId = 'primary-search-account-menu';

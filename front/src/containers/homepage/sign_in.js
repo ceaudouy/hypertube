@@ -21,6 +21,12 @@ const useStyle = makeStyles(theme => ({
 	},
 	input: {
 		color: "white",
+	},
+	fortytwo: {
+		marginTop: '30%',
+	},
+	fortytwo2: {
+		marginTop: '3%',
 	}
 }));
 
@@ -50,6 +56,10 @@ function SignIn() {
 		...input,
 		[e.currentTarget.name]: e.currentTarget.value
 	})
+
+	// const handleConnexion = async (e) => {
+
+	// }
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -92,6 +102,15 @@ function SignIn() {
 						{requete.error}
 					</Alert>
 				</Snackbar>
+				<Button variant="contained" color="secondary" className={classes.fortytwo}>
+					Sign In with 42
+				</Button>
+				<Button variant="contained" color="secondary" className={classes.fortytwo2}>
+					Sign In with Github
+				</Button>
+				<Button variant="contained" color="secondary" className={classes.fortytwo2}>
+					Sign In with Gmail
+				</Button>
 			</div>
 		</form>
 	)

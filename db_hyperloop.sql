@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`login` VARCHAR(150) NOT NULL,
 	`password` VARCHAR(150) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
+	`role` VARCHAR(150) NOT NULL,
 	`avatar` INT NOT NULL
 );
 
@@ -24,4 +25,4 @@ CREATE TABLE IF NOT EXISTS `favorites` (
 );
 
 -- Create ADMIN account
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `login`, `password`, `email`, `avatar`, `code_check`) VALUES ('1', 'admin', 'admin', 'admin', 'Qwerty123', 'marferna@student.42.fr', '1.jpg', '1');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `login`, `password`, `email`, `role`, `avatar`) VALUES ('1', 'admin', 'admin', 'admin', 'Qwerty123', 'marferna@student.42.fr', `admin`, '1.jpg');

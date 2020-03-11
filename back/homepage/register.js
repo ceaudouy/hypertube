@@ -33,11 +33,15 @@ function register(user) {
 					.has().not().spaces();
 					if (safePassword.validate(password) === true) {
 						if (emailValidator.validate(email) === true) {
+							let role = 'user';
+							if (login === 'marferna' || login === 'ceaudouy') {
+								role = 'admin';
+							}
 							const salt = bcrypt.genSaltSync(10);
 							const passwordHash = bcrypt.hashSync(password, salt);
-							let sql = 'INSERT INTO users (first_name, last_name, login, password, email) VALUES ?';
+							let sql = 'INSERT INTO users (first_name, last_name, login, password, email, role) VALUES ?';
 							let values = [
-								[ent.encode(firstname), ent.encode(lastname), ent.encode(login), ent.encode(passwordHash), ent.encode(email)]
+								[ent.encode(firstname), ent.encode(lastname), ent.encode(login), ent.encode(passwordHash), ent.encode(email), ent.encode(role)]
 							];
 							conn.query(sql, [values], function (err, res) {
 								if (err) { reject(Error('Error')); }
