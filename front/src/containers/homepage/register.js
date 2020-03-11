@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Avatar, TextField, Button, makeStyles, Snackbar } from '@material-ui/core';
+import { Avatar, TextField, Button, makeStyles, Snackbar, List, ListItem } from '@material-ui/core';
+import { Dialog, DialogTitle } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import ReqFetch from './req_fetch';
 
@@ -26,21 +27,64 @@ const useStyle = makeStyles(theme => ({
 		width: theme.spacing(7),
 		height: theme.spacing(7),
 		marginBottom: "10px",
+		cursor: 'pointer',
 	},
 	alert: {
 		top: "400px",
-	}
+	},
+	avatar: {
+		backgroundColor: "#333",
+	},
 }));
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+function SimpleDialog(props) {
+	const { onClose, selectedValue, open } = props;
+
+	const handleClose = () => {
+		onClose(selectedValue);
+	};
+
+	const handleListItemClick = value => {
+		onClose(value);
+	};
+
+	return (
+		<Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+		<DialogTitle id="simple-dialog-title">Choose your Avatar</DialogTitle>
+		<List>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/1.png" alt="logo" />
+			</ListItem>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/2.png" alt="logo" />
+			</ListItem>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/3.png" alt="logo" />
+			</ListItem>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/4.png" alt="logo" />
+			</ListItem>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/5.png" alt="logo" />
+			</ListItem>
+			<ListItem button onClick={() => handleListItemClick('')}>
+				<img src="../../../public/css/6.png" alt="logo" />
+			</ListItem>
+		</List>
+		</Dialog>
+	);
+}
+
 function Register() {
 	const classes = useStyle();
 	const [input, setInput] = useState('');
 	const [requete, setRequete] = useState('');
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [selectedValue, setSelectedValue] = useState();
 
 	const handleClick = () => {
 		setOpen(true);
@@ -51,6 +95,11 @@ function Register() {
 			return;
 		}
 		setOpen(false);
+	};
+
+	const handleCloseAvatar = value => {
+		setOpen(false);
+		setSelectedValue(value);
 	};
 
 	// Hooks -> check if value on input change & apply new value (next -> get value for API)
@@ -124,12 +173,12 @@ function Register() {
 				onChange={handleChange}
 				autoComplete="current-email"
 				/>
-				<Avatar className={classes.large} />
-				{/* onClick={changeSrc} */}
+				<Avatar className={classes.large} onClick={handleClick} />
+				<SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
 				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>
 					Register
 				</Button>
-				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
+				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleCloseAvatar}>
 					 <Alert onClose={handleClose} severity={requete.error === undefined ? "success" : "error"}>
 						{requete.success}
 						{requete.error}

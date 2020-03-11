@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 			display: 'block',
 		},
 		color: 'white',
+		cursor: 'pointer',
 	},
 	search: {
 		position: 'relative',

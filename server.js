@@ -9,9 +9,9 @@ const app = express();
 const conn = mysql.createConnection({
 	host		: 'localhost',
 	user		: 'root',
-	password	: 'qwerty',
+	password	: 'marine',
 	database	: 'db_hyperloop',
-	port		: 3306,
+	port		: 3308,
 	});
 	conn.connect(function (err) {
 		if (err) throw err;

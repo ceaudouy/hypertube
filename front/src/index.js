@@ -15,7 +15,7 @@ function Hyperloop() {
 	// Road for FRONT-END
 	return (
 		<Router>
-			{Header(query, setQuery)}
+			{ Header(query, setQuery) }
 			<Switch>
 				<Route path="/" exact component={ Home } />
 				<Route exact path="/" render={() => (token === null ? (
@@ -24,13 +24,13 @@ function Hyperloop() {
 					<Redirect to="/suggests" />
 				))} component={ Home } />
 				<Route path="/suggests">
-					{ListPage(query, setQuery)}
+					{ ListPage(query, setQuery) }
 				</Route>
 				<Route path="/favorites" component={ FavoritesMovies } />
 				{/* <Route path="/account" component={Account} /> */}
 				{/* <Route path="/movie" component={Movie} /> */}
 				<Route path="/offline" component={ SignOut }/>
-				<Route component={NotFound} />
+				<Route component={ NotFound } />
 			</Switch>
 			{/* <Footer> */}
 		</Router>
