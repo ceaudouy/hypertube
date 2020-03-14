@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import FetchAllMovies from './fetch';
 import PutFilm from '../../components/putFilm';
 
-export default function ListFilm(query, setQuery, favorites) {
+export default function ListFilm(query, favorites) {
 	const [ pageNumber, setPageNumber ] = useState(1);
 
 	const {

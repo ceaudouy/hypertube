@@ -1,3 +1,5 @@
+// 
+
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +15,19 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: '#1E90FF',
+		},
+		secondary: {
+			main: '#f50057',
+		},
+	},
+});
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -27,6 +41,8 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.up('sm')]: {
 			display: 'block',
 		},
+		color: 'white',
+		cursor: 'pointer',
 	},
 	search: {
 		position: 'relative',
@@ -74,23 +90,24 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.up('md')]: {
 			display: 'none',
 		},
-	},
+	}
 }));
 
 function Header(query, setQuery) {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  	const [research, setResearch]= React.useState('');
+	const [research, setResearch]= React.useState('');
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+	const token = localStorage.getItem('token');
 
 	const handleProfileMenuOpen = event => {
 		setAnchorEl(event.currentTarget);
 	};
 
-	const handleMobileMenuClose = () => {
-		setMobileMoreAnchorEl(null);
+	const handleMobileMenuOpen = event => {
+		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
 	const handleMenuClose = () => {
@@ -98,9 +115,25 @@ function Header(query, setQuery) {
 		handleMobileMenuClose();
 	};
 
-	const handleMobileMenuOpen = event => {
-		setMobileMoreAnchorEl(event.currentTarget);
+	const handleMobileMenuClose = () => {
+		setMobileMoreAnchorEl(null);
 	};
+
+	const handleSubmit = () => {
+		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+	}
+
+	const handleChange = (event) => {
+		setResearch(event.target.value);
+	}
+
+	const handleAccueil = () =>{
+		document.location.href = "/";
+	}
+
+	const handleFavorites = () => {
+		document.location.href = "/favorites";
+	}
 
 	const menuId = 'primary-search-account-menu';
 	const renderMenu = (
@@ -113,8 +146,14 @@ function Header(query, setQuery) {
 		open={isMenuOpen}
 		onClose={handleMenuClose}
 		>
-			<MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-			<MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+			{token === null ? (
+				<MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+			) : (
+				<div>
+					<MenuItem onClick={handleMenuClose}>My Account</MenuItem>
+					<MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+				</div>
+			)}
 		</Menu>
 	);
 
@@ -129,56 +168,103 @@ function Header(query, setQuery) {
 		open={isMobileMenuOpen}
 		onClose={handleMobileMenuClose}
 		>
-			<MenuItem>
-				<IconButton color="inherit">
-					<VisibilityRoundedIcon />
-				</IconButton>
-				<p>Views</p>
-			</MenuItem>
-			<MenuItem>
-				<IconButton color="inherit">
-					<FavoriteRoundedIcon />
-				</IconButton>
-				<p>Favorites</p>
-			</MenuItem>
-			<MenuItem onClick={handleProfileMenuOpen}>
-				<IconButton
-				aria-label="account of current user"
-				aria-controls="primary-search-account-menu"
-				aria-haspopup="true"
-				color="inherit"
-				>
-					<AccountCircle />
-				</IconButton>
-				<p>My Account</p>
-			</MenuItem>
-			<MenuItem onClick={handleProfileMenuOpen}>
-				<IconButton
-				aria-label="account of current user"
-				aria-controls="primary-search-account-menu"
-				aria-haspopup="true"
-				color="inherit"
-				>
-					<HighlightOffRoundedIcon />
-				</IconButton>
-				<p>Sign Out</p>
-			</MenuItem>
+			{token === null ? (
+				<MenuItem onClick={handleMobileMenuOpen}>
+					<IconButton
+					aria-label="account of current user"
+					aria-controls="primary-search-account-menu"
+					aria-haspopup="true"
+					color="inherit"
+					>
+						<AccountCircle />
+					</IconButton>
+					<p>Sign In</p>
+				</MenuItem>
+			) : (
+				<div>
+					<MenuItem>
+						<IconButton color="inherit">
+							<VisibilityRoundedIcon />
+						</IconButton>
+						<p>Views</p>
+					</MenuItem>
+					<MenuItem>
+						<IconButton color="inherit" onClick={handleFavorites}>
+							<FavoriteRoundedIcon />
+						</IconButton>
+					<p>Favorites</p>
+					</MenuItem>
+					<MenuItem onClick={handleProfileMenuOpen}>
+						<IconButton
+						aria-label="account of current user"
+						aria-controls="primary-search-account-menu"
+						aria-haspopup="true"
+						color="inherit"
+						>
+							<AccountCircle />
+						</IconButton>
+						<p>My Account</p>
+					</MenuItem>
+					<MenuItem onClick={handleProfileMenuOpen}>
+						<IconButton
+						aria-label="account of current user"
+						aria-controls="primary-search-account-menu"
+						aria-haspopup="true"
+						color="inherit"
+						>
+							<HighlightOffRoundedIcon />
+						</IconButton>
+						<p>Sign Out</p>
+					</MenuItem>
+				</div>
+			)}
 		</Menu>
 	);
 
-	const handleSubmit = () => {
-		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
-	}
-
-	const handleChange = (event) => {
-		setResearch(event.target.value);
-	}
-
-	return (
-		<div className={classes.grow}>
+	if (token === null) {
+		return (
+			<div className={classes.grow}>
 			<AppBar position="static" color="secondary">
 			<Toolbar>
-				<Typography className={classes.title} variant="h6" noWrap>
+				<Typography className={classes.title} variant="h6" noWrap onClick={handleAccueil}>
+					Hyperloop
+				</Typography>
+				<div className={classes.grow} />
+					<div className={classes.sectionDesktop}>
+						<IconButton
+						edge="end"
+						aria-label="account of current user"
+						aria-controls={menuId}
+						aria-haspopup="true"
+						onClick={handleProfileMenuOpen}
+						color="inherit"
+						>
+							<AccountCircle />
+						</IconButton>
+					</div>
+				<div className={classes.sectionMobile}>
+					<IconButton
+					aria-label="show more"
+					aria-controls={mobileMenuId}
+					aria-haspopup="true"
+					onClick={handleMobileMenuOpen}
+					color="inherit"
+					>
+						<MoreIcon />
+					</IconButton>
+				</div>
+			</Toolbar>
+			</AppBar>
+			{renderMobileMenu}
+			{renderMenu}
+			</div>
+		)
+	} else {
+		return (
+			<div className={classes.grow}>
+			<AppBar position="static" color="secondary">
+			<Toolbar>
+				<Typography className={classes.title} variant="h6" noWrap onClick={handleAccueil}>
 					Hyperloop
 				</Typography>
 				<div className={classes.search}>
@@ -203,7 +289,7 @@ function Header(query, setQuery) {
 						<IconButton color="inherit">
 							<VisibilityRoundedIcon />
 						</IconButton>
-						<IconButton color="inherit">
+						<IconButton color="inherit" onClick={handleFavorites}>
 							<FavoriteRoundedIcon />
 						</IconButton>
 						<IconButton
@@ -232,8 +318,9 @@ function Header(query, setQuery) {
 			</AppBar>
 			{renderMobileMenu}
 			{renderMenu}
-		</div>
-	);
+			</div>
+		)
+	};
 }
 
 export default Header;

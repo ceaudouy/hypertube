@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, /*Redirect*/ } from 'react-router-dom';
 import Header from './components/header';
 import Home from './containers/homepage/home';
 import NotFound from './components/notfound';
