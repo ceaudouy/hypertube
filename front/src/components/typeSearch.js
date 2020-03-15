@@ -22,8 +22,6 @@ export default function TypeSearch(type, setType, setQuery, query) {
 
 	  
 	useEffect(() => {
-		console.log(tmp);
-		console.log('*************************');
 		setQuery('https://api.themoviedb.org/3/' + option + '/' + type + '?' + tmp);
 	}, [type, setQuery, tmp, option])
   
