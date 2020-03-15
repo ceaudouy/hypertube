@@ -12,7 +12,7 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	}, [query, setPageNumber])
 
 	useEffect(() => {
-		console.log(query)
+		console.log(query);
 		setLoading(true);
 		setError(false);
 		const url = query + pageNumber.toString();
@@ -32,9 +32,11 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 			setHasMore(pageNumber < parsedData.total_pages);
 			setLoading(false);
 		}).catch (e => {
+			setLoading(false);
 			setError(true);
 			return;
 		})
 	}, [query, pageNumber])
+	
 	return {loading, error, film, hasMore};
 }

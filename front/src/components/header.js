@@ -15,19 +15,19 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { createMuiTheme } from '@material-ui/core/styles';
+// import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-const theme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#1E90FF',
-		},
-		secondary: {
-			main: '#f50057',
-		},
-	},
-});
+// const theme = createMuiTheme({
+// 	palette: {
+// 		primary: {
+// 			main: '#1E90FF',
+// 		},
+// 		secondary: {
+// 			main: '#f50057',
+// 		},
+// 	},
+// });
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Header(query, setQuery) {
+function Header(setQuery, type) {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -120,7 +120,7 @@ function Header(query, setQuery) {
 	};
 
 	const handleSubmit = () => {
-		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+		setQuery('https://api.themoviedb.org/3/search/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
 	}
 
 	const handleChange = (event) => {
