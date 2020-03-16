@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, /*Redirect*/ } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Header from './components/header';
 import Home from './containers/homepage/home';
 import NotFound from './components/notfound';
@@ -9,37 +9,18 @@ import FavoritesMovies from './containers/favoritesMovies/favoritesMovies';
 import ViewsMovies from './containers/viewsMovies/viewsMovies';
 
 function Hyperloop() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [type, setType] = useState('movie');
-	// let token = localStorage.getItem('token');
-	// console.log(token);
+	let token = localStorage.getItem('token');
 
 	return (
 		<Router>
-			{Header(setQuery, type)}
-			<Switch>
-				{/* <Route exact path="/" render={() => (token === undefined ? (
-					<Redirect to="/" />
-					) : (
-					<Redirect to="/suggests" />
-				))} component={ Home } /> */}
-				<Route path="/suggests">
-					 { ListPage(query, setQuery, type, setType) }
-				</Route>
-				{/* </Route> component={ ListPage(query, setQuery) } /> */}
-				<Route path="/favorites">
-					{ FavoritesMovies(type, setType, setQuery, query) }
-				</Route>
-				<Route path="/views">
-					{ ViewsMovies(type, setType, setQuery, query) }
-				</Route>
-				{/* <Route path="/account" component={Account} /> */}
-				{/* <Route path="/movie" component={Movie} /> */}
-				<Route path="/" exact component={ Home } />
-				<Route component={NotFound} />
-			</Switch>
-			{/* <Footer> */}
-		</Router>
+		 	<Header />
+		 	<Switch>
+		 		<Route path="/" exact component={ token === null ? Home : ListPage } />
+		 		<Route  path="/favorites" exact component={ FavoritesMovies } />
+		 		<Route  path="/views" exact component={ ViewsMovies } />
+		 		<Route component={NotFound} />
+		 	</Switch>
+		 </Router>
 	);
 }
 

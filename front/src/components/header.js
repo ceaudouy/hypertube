@@ -1,6 +1,6 @@
 // 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -93,11 +93,13 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Header(setQuery, type) {
+function Header() {
 	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-	const [research, setResearch]= React.useState('');
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [type, setType] = useState('movie');
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+	const [research, setResearch]= useState('');
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	const token = localStorage.getItem('token');
@@ -120,7 +122,7 @@ function Header(setQuery, type) {
 	};
 
 	const handleSubmit = () => {
-		setQuery('https://api.themoviedb.org/3/search/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
 	}
 
 	const handleChange = (event) => {
