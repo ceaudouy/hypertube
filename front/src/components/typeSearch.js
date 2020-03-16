@@ -26,7 +26,7 @@ export default function TypeSearch(type, setType, setQuery, query) {
 	}, [type, setQuery, tmp, option])
   
 	return (
-	  <BottomNavigation
+		<BottomNavigation
 		value={value}
 		onChange={(event, newValue) => {
 				setValue(newValue);
@@ -34,9 +34,9 @@ export default function TypeSearch(type, setType, setQuery, query) {
 		}}
 		showLabels
 		className={classes.root}
-	  >
-		<BottomNavigationAction className={classes.button} label="Movies" />
-		<BottomNavigationAction className={classes.button} label="Series" />
-	  </BottomNavigation>
+		>
+			<BottomNavigationAction className={classes.button} label="Movies" />
+			<BottomNavigationAction className={classes.button} label="Series" />
+		</BottomNavigation>
 	);
   }

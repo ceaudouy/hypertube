@@ -9,18 +9,21 @@ export default function ListPage(query, setQuery, type, setType) {
 	useEffect(() => {
 		var token = localStorage.getItem('token');
 		fetch(`http://localhost:3300/list/getFavorites`, {
-			method: 'GET',
+			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/json',
 				'Authorization': token
 			}),
+			body: JSON.stringify({
+				type: type,
+			})
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
 			setFavorites(parsedData.favorites);
 		})
-	}, [])
+	}, [type])
 
 	return (
 		<div>

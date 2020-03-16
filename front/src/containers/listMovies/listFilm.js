@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import FetchAllMovies from './fetch';
 import PutFilm from '../../components/putFilm';
 
-export default function ListFilm(query, favorites) {
+export default function ListFilm(query, favorites, type) {
 	const [ pageNumber, setPageNumber ] = useState(1);
 
 	const {
@@ -34,7 +34,7 @@ export default function ListFilm(query, favorites) {
 				<React.Fragment>
 					<Container fixed>
 						<Typography component="div" className="list-film" >
-							{ PutFilm(film, favorites, lastFilmElementRef) }
+							{ PutFilm(film, favorites, type, lastFilmElementRef) }
 							<div className="loading">{loading && 'Loading...'}</div>
 							<div>{error && 'Error'}</div>
 						</Typography>

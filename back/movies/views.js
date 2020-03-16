@@ -2,11 +2,11 @@ const db = require('../../server');
 
 const conn = db.conn;
 
-function getViews(id) {
+function getViews(type, id) {
 	return new Promise((resolve, reject) => {
-		let sql = "SELECT * FROM Views WHERE id_user = ?";
+		let sql = "SELECT * FROM Views WHERE id_user = ? AND type = ?";
 		let value = [
-			[id]
+			[id], [type]
 		]
 		conn.query(sql, value, function(err, res) {
 			if (err) throw err;

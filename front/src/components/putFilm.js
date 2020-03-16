@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 
-export default function PutFilm(film, favorites, lastFilmElementRef) {
+export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 	return (
 		<div className="display-film">
 			{ film.map((elem, index) => {
@@ -43,7 +43,7 @@ export default function PutFilm(film, favorites, lastFilmElementRef) {
 								</Typography>
 							</CardContent>
 							<CardActions disableSpacing>
-								<ButtonFavorite elem={elem} favorites={ favorites } />
+								<ButtonFavorite elem={ elem } favorites={ favorites } type={ type } />
 								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>

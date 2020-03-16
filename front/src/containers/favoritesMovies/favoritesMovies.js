@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../css/listFilm.css';
 import { makeStyles } from '@material-ui/styles';
 import PutFilm from '../../components/putFilm';
+import TypeSearch from '../../components/typeSearch';
 
 const useStyle = makeStyles(theme => ({
 	notFound: {
@@ -12,21 +13,25 @@ const useStyle = makeStyles(theme => ({
 	}
 }));
 
-export default function FavoritesMovies() {
+export default function FavoritesMovies(type, setType, setQuery, query) {
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
 	const classes = useStyle();
 
 	useEffect(() => {
+		setFilm([]);
 		var fav;
 		var token = localStorage.getItem('token');
 		fetch(`http://localhost:3300/list/getFavorites`, {
-			method: 'GET',
+			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/json',
 				'Authorization': token
 			}),
+			body: JSON.stringify({
+				type: type,
+			})
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
@@ -34,9 +39,8 @@ export default function FavoritesMovies() {
 			setFavorites(parsedData.favorites);
 
 		var tab = [];
-
 		fav.forEach(element => {
-			const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
+			const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
 			fetch(url, {
 				headers: new Headers({
 					'Content-Type': 'application/json',
@@ -55,16 +59,22 @@ export default function FavoritesMovies() {
 			});
 		})
 	})
-}, []);
+}, [type]);
 
 	if (favorites.length === 0) {
 		return (
-			<div className={classes.notFound}>You don't have favorite movie!</div>
+			<div>
+				{ TypeSearch(type, setType, setQuery, query) }
+				<div className={classes.notFound}>You don't have favorite movie!</div>
+			</div>
 		)
 	} else {
 		return (
-			<div className="home-page">
-				{PutFilm(film, favorites)}
+			<div>
+				{ TypeSearch(type, setType, setQuery, query) }
+				<div className="home-page">
+					{PutFilm(film, favorites, type)}
+				</div>
 			</div>
 		)
 	}

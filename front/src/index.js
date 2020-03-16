@@ -9,7 +9,7 @@ import FavoritesMovies from './containers/favoritesMovies/favoritesMovies';
 import ViewsMovies from './containers/viewsMovies/viewsMovies';
 
 function Hyperloop() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [type, setType] = useState('movie');
 	// let token = localStorage.getItem('token');
 	// console.log(token);
@@ -18,7 +18,6 @@ function Hyperloop() {
 		<Router>
 			{Header(setQuery, type)}
 			<Switch>
-				<Route path="/" exact component={ Home } />>
 				{/* <Route exact path="/" render={() => (token === undefined ? (
 					<Redirect to="/" />
 					) : (
@@ -28,10 +27,15 @@ function Hyperloop() {
 					 { ListPage(query, setQuery, type, setType) }
 				</Route>
 				{/* </Route> component={ ListPage(query, setQuery) } /> */}
-				<Route path="/favorites" component={ FavoritesMovies } />
-				<Route path="/views" component={ ViewsMovies } />
+				<Route path="/favorites">
+					{ FavoritesMovies(type, setType, setQuery, query) }
+				</Route>
+				<Route path="/views">
+					{ ViewsMovies(type, setType, setQuery, query) }
+				</Route>
 				{/* <Route path="/account" component={Account} /> */}
 				{/* <Route path="/movie" component={Movie} /> */}
+				<Route path="/" exact component={ Home } />
 				<Route component={NotFound} />
 			</Switch>
 			{/* <Footer> */}

@@ -22,6 +22,7 @@ export default class ButtonFavorite extends Component {
 			body: JSON.stringify(
 				{
 					id: id,
+					type: this.props.type
 				}
 			)
 		})
