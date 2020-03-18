@@ -47,6 +47,10 @@
 	display: flex;
 	justify-content: space-around;
 }
+.research-page {
+	display: flex;
+	justify-content: center
+}
 .option-menu {
 	display: flex;
 	flex-direction: column;

@@ -95,8 +95,8 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
 	const classes = useStyles();
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [type, setType] = useState('movie');
+	// const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	// const [type, setType] = useState('movie');
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 	const [research, setResearch]= useState('');
@@ -122,7 +122,11 @@ function Header() {
 	};
 
 	const handleSubmit = () => {
-		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+		// setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+		if (research !== '') {
+			localStorage.setItem('research', research);
+			document.location.href = '/search';
+		}
 	}
 
 	const handleChange = (event) => {
