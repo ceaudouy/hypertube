@@ -2,11 +2,11 @@ const db = require('../../server');
 
 const conn = db.conn;
 
-function getFavorites(id_user) {
+function getFavorites(type, id_user) {
 	return new Promise((resolve, reject) => {
-		let sql = "SELECT * FROM favorites WHERE id_user = ?";
+		let sql = "SELECT * FROM favorites WHERE id_user = ? AND type = ?";
 		let values = [
-			[id_user]
+			[id_user], [type]
 		]
 		conn.query(sql, values, function (err, res) {
 			if (err) throw err;
@@ -25,25 +25,25 @@ function getFavorites(id_user) {
 
 module.exports.getFavorites = getFavorites;
 
-function addFavorites(id_movie, id_user) {
+function addFavorites(id_movie, type, id_user) {
 	return new Promise((resolve, reject) => {
-		let sql = "SELECT * FROM favorites WHERE id_movie = ? AND id_user = ?";
+		let sql = "SELECT * FROM favorites WHERE id_movie = ? AND id_user = ? AND type = ?";
 		let values = [
-			[id_movie], [id_user]
+			[id_movie], [id_user], [type]
 		]
 		conn.query(sql, values, function (err, res) {
 			if (err) throw err;
 			if (res == '') {
-				sql = "INSERT INTO favorites (id_movie, id_user) VALUES ?";
+				sql = "INSERT INTO favorites (id_movie, id_user, type) VALUES ?";
 				values = [
-					[id_movie, id_user]
+					[id_movie, id_user, type]
 				]
 				conn.query(sql, [values], function (err, res) {
 					if (err) throw err;
 					resolve ({ response: "addMovie" });
 				})
 			} else {
-				sql = "DELETE FROM favorites WHERE id_movie = ? AND id_user = ?";
+				sql = "DELETE FROM favorites WHERE id_movie = ? AND id_user = ? AND type = ?";
 				conn.query(sql, values, function (err, res) {
 					if (err) throw err;
 					resolve ({ response: "deleteMovie" });

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import OptionMenu from './option';
-import listFilm from './listFilm';
+import listFilm from '../listMovies/listFilm';
 import TypeSearch from '../../components/typeSearch';
 
-export default function ListPage() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+export default function Research() {
+	const research = localStorage.getItem('research');
+	if (research === '') {
+		document.location.href = '/';
+	}
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=');
 	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState(['empty']);
 
@@ -30,8 +33,7 @@ export default function ListPage() {
 	return (
 		<div>
 			{ TypeSearch(type, setType, setQuery, query) }
-			<div className="home-page">
-				{OptionMenu(setQuery, type)}
+			<div className="research-page">
 				{listFilm(query, favorites, type)}
 			</div>
 		</div>

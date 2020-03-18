@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function OptionMenu(setQuery, setPageNumber) {
+export default function OptionMenu(setQuery, type) {
 	const classes = useStyles();
 	const [genre, setGenre] = React.useState('');
 	const [openGenre, setOpenGenre] = React.useState(false);
@@ -129,7 +129,7 @@ export default function OptionMenu(setQuery, setPageNumber) {
 				// setPageNumber(11);
 			}
 		}
-		setQuery('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US' + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US' + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (

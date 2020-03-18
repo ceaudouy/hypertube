@@ -1,3 +1,5 @@
+// 
+
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -91,7 +93,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Header(query, setQuery) {
+function Header() {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -118,7 +120,10 @@ function Header(query, setQuery) {
 	};
 
 	const handleSubmit = () => {
-		setQuery('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=')
+		if (research !== '') {
+			localStorage.setItem('research', research);
+			document.location.href = '/search';
+		}
 	}
 
 	const handleChange = (event) => {

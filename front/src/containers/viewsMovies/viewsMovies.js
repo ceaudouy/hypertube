@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../css/listFilm.css';
 import { makeStyles } from '@material-ui/styles';
 import PutFilm from '../../components/putFilm';
+import TypeSearch from '../../components/typeSearch';
 
 const useStyle = makeStyles(theme => ({
 	notFound: {
@@ -13,28 +14,35 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export default function ViewsMovies() {
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState([]);
+	const [views, setViews] = useState([]);
 	const [film, setFilm] = useState([]);
 	const classes = useStyle();
 
 	useEffect(() => {
-		var fav;
+		setFilm([]);
+		var res;
 		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/list/getFavorites`, {
-			method: 'GET',
+		fetch(`http://localhost:3300/list/getViews`, {
+			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/json',
 				'Authorization': token
 			}),
+			body: JSON.stringify({
+				type: type,
+			})
 		}).then((response) => {
 			return response.json();
 		}).then((parsedData) => {
-			fav = parsedData.favorites;
-			setFavorites(parsedData.favorites);
+			res = parsedData.views;
+			setViews(parsedData.views);
 			var tab = [];
-			fav.forEach(element => {
-				const url = 'https://api.themoviedb.org/3/movie/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
+			res.forEach(element => {
+				const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US'
 				fetch(url, {
 					headers: new Headers({
 						'Content-Type': 'application/json',
@@ -52,17 +60,39 @@ export default function ViewsMovies() {
 					}
 				});
 			})
-		})
-	}, []);
+		});
 
-	if (favorites.length === 0) {
+		fetch(`http://localhost:3300/list/getFavorites`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: new Headers({
+				'Content-Type': 'application/json',
+				'Authorization': token
+			}),
+			body: JSON.stringify({
+				type: type,
+			})
+		}).then((response) => {
+			return response.json();
+		}).then((parsedData) => {
+			setFavorites(parsedData.favorites);
+		});
+	}, [type]);
+
+	if (views.length === 0) {
 		return (
-			<div className={classes.notFound}>You don't have favorite movie!</div>
+			<div>
+				{ TypeSearch(type, setType, setQuery, query) }
+				<div className={classes.notFound}>You don't have favorite movie!</div>
+			</div>
 		)
 	} else {
 		return (
 			<div>
-				{PutFilm(film, favorites)}
+				{ TypeSearch(type, setType, setQuery, query) }
+				<div className="home-page">
+					{PutFilm(film, favorites, type)}
+				</div>
 			</div>
 		)
 	}
