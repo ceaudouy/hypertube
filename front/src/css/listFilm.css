@@ -80,3 +80,8 @@
 .favorite {
 	color: red
 }
+
+.button-card {
+	display: flex;
+	justify-content: space-around;
+}
