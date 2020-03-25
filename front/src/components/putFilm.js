@@ -11,7 +11,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 
 const playmovie = (elem, type) => {
-	document.location.href = '/watch?' + type + '&' + encodeURI(elem.title !== undefined ? elem.title : elem.original_name); 
+	document.location.href = '/watch?' + type + '&' + elem.id// encodeURI(elem.title !== undefined ? elem.title : elem.original_name); 
 }
 
 export default function PutFilm(film, favorites, type, lastFilmElementRef) {
