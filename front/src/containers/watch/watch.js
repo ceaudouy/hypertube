@@ -6,6 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
 import Paper from '@material-ui/core/Paper';
 
 
@@ -22,7 +23,8 @@ const useStyles = makeStyles(theme => ({
 
 function InfoMovie(detail) {
 	const classes = useStyles();
-
+	
+	// console.log(detail);
 	return (
 		 <div>
 			<ExpansionPanel className="card">
@@ -34,6 +36,15 @@ function InfoMovie(detail) {
 					<Typography className={classes.heading}>More information</Typography>
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="info">
+				<div className="watch-date">
+					<div>
+						{ detail.release_date !== undefined ? detail.release_date : detail.first_air_date }
+					</div>
+					<div>
+						{ detail.episode_run_time !== undefined ? detail.episode_run_time : detail.runtime } min
+					</div>
+					<Rating name="read-only" precision={ 0.5 } value={ detail.vote_average / 2 } size="small" readOnly />
+				</div>
 					<Paper className={classes.control}>
 						<Typography paragraph>Overview:</Typography>
 						<Typography paragraph>
@@ -73,12 +84,12 @@ export default function Watch() {
 		})
 	}, [info])
 
-
+	console.log(detail)
 	return (
-	<div className="watch-all">
-		<div className="film">
+		<div className="watch-all">
+			<div className="film">
+			</div>
+			{ detail.lenght === 0 ? '' : InfoMovie(detail) }
 		</div>
-		{ InfoMovie(detail) }
-	</div>
 	)
 }
