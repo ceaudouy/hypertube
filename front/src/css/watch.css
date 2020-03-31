@@ -26,3 +26,10 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.display-casting {
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+
+}
