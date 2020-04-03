@@ -23,9 +23,7 @@
 	background-color: #adb5bd !important;
 }
 .media {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
+	height: 225px;
 }
 .avatar{
 	background-color: red;

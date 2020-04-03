@@ -25,11 +25,46 @@
 	align-content: center;
 	flex-direction: row;
 	justify-content: space-between;
+	padding: 5px;
+}
+
+.watch-genre {
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+	justify-content: center;
+	padding: 5px;
+}
+
+.genres {
+	padding: 5px;
 }
 
 .display-casting {
 	display: flex;
 	align-content: center;
 	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin: 10px;
+}
 
+.casting {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: center;
+	align-items: stretch;
+	margin-top: 10px;
+	margin-left: 5px;
+	Width: 250px;
+	margin-right: 5px;
+	background-color: #adb5bd !important;
+}
+
+.media {
+	display: relative;
+	margin-left: auto;
+	margin-right: auto;
 }

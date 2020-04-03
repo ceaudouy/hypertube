@@ -217,7 +217,7 @@ export default function OptionMenu(setQuery, type) {
 						<MenuItem value={3}>3 stars</MenuItem>
 						<MenuItem value={2}>2 stars</MenuItem>
 						<MenuItem value={1}>1 star</MenuItem>
-						<MenuItem value={0}>0 stars</MenuItem>
+						<MenuItem value={0}>0 star</MenuItem>
 					</Select>
 				</FormControl>
 			</div>

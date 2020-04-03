@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
 import '../../css/listFilm.css';
-import '../../css/listFilm.scss';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import FetchAllMovies from './fetch';
