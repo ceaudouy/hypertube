@@ -10,6 +10,7 @@ import Rating from '@material-ui/lab/Rating';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import SelectEpisode from './SelectEpisode';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -61,7 +62,6 @@ function PutCasting(casting) {
 function InfoMovie(detail, casting) {
 	const classes = useStyles();
 
-	console.log(detail);
 	return (
 		<div>
 			<ExpansionPanel className="card">
@@ -108,7 +108,6 @@ function InfoMovie(detail, casting) {
 	)
 }
 
-
 export default function Watch() {
 	const type = window.location.href.split('?')[1].split('&')[0];
 	const movie = window.location.href.split('&')[1];
@@ -147,6 +146,7 @@ export default function Watch() {
 
 	return (
 		<div className="watch-all">
+			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
 			<div className="film">
 			</div>
 			{ InfoMovie(detail, casting.slice(0, 8)) }
