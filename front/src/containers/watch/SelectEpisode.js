@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,13 +25,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function SelectEpisode(seasons) {
 	const classes = useStyles();
-	const [saison, setSaison] = useState(1);
+	const [saison, setSaison] = useState();
 	const [openSaison, setOpenSaison] = useState(false);
 	const [episode, setEpisode] = useState('');
-	const [episodeNBR, setEpisodeNBR] = useState(seasons === undefined ? '' : seasons[saison].episode_count);
+	const [episodeNBR, setEpisodeNBR] = useState(1);
 	const [openEpisode, setOpenEpisode] = useState(false);
 	// console.log(seasons);
 
+	useEffect(() => {
+		if (seasons !== undefined && saison !== 0 && seasons[saison] !== undefined) {
+			setEpisodeNBR(seasons[saison].episode_count)
+		}
+	}, [seasons, saison])
 	// setValue //
 	const saisonChange = event => {
 		setSaison(event.target.value);
@@ -106,9 +111,9 @@ export default function SelectEpisode(seasons) {
 					<MenuItem value="">
 					<em>None</em>
 					</MenuItem>
-					{[...Array(episodeNBR)].map((elem, index) =>
+					{/* {[...Array(episodeNBR)].map((elem, index) =>
 						<MenuItem key={ index } value={ index + 1 }>episode { index + 1 } </MenuItem>
-					)}
+					)} */}
 				</Select>
 			</FormControl>
 		</div>
