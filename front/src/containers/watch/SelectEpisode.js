@@ -25,10 +25,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function SelectEpisode(seasons) {
 	const classes = useStyles();
-	const [saison, setSaison] = useState();
+	const [saison, setSaison] = useState(0);
 	const [openSaison, setOpenSaison] = useState(false);
 	const [episode, setEpisode] = useState('');
-	const [episodeNBR, setEpisodeNBR] = useState(1);
+	const [episodeNBR, setEpisodeNBR] = useState(0);
 	const [openEpisode, setOpenEpisode] = useState(false);
 	// console.log(seasons);
 
@@ -40,9 +40,9 @@ export default function SelectEpisode(seasons) {
 	// setValue //
 	const saisonChange = event => {
 		setSaison(event.target.value);
-		console.log(saison);
+		// console.log(saison);
 		if (seasons[saison] !== undefined ) {
-			setEpisodeNBR(seasons[saison].episode_count)
+			setEpisodeNBR(seasons[saison].episode_count);
 		}
 	};
 
@@ -69,6 +69,7 @@ export default function SelectEpisode(seasons) {
 	if (seasons === undefined) {
 		return ('');
 	}
+	// console.log(seasons.length)
 	return (
 		<div>
 			<FormControl className={classes.formControl}>
@@ -85,16 +86,12 @@ export default function SelectEpisode(seasons) {
 					<MenuItem value="">
 					<em>None</em>
 					</MenuItem>
-					{	seasons.map((elem, index) => {
-						if (elem.season_number === 0) {
-							return ('')
-						}
+					{ seasons.map((elem, index) => {
+						// console.log(elem);
 						return (
 							<MenuItem key={ index } value={ elem.season_number }>season { elem.season_number } </MenuItem>
 						);
-					})
-
-					}
+					})}
 				</Select>
 			</FormControl>
 			<FormControl className={classes.formControl}>
@@ -111,9 +108,9 @@ export default function SelectEpisode(seasons) {
 					<MenuItem value="">
 					<em>None</em>
 					</MenuItem>
-					{/* {[...Array(episodeNBR)].map((elem, index) =>
+					{[...Array(episodeNBR)].map((elem, index) =>
 						<MenuItem key={ index } value={ index + 1 }>episode { index + 1 } </MenuItem>
-					)} */}
+					)}
 				</Select>
 			</FormControl>
 		</div>
