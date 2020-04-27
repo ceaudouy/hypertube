@@ -68,3 +68,15 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.comment {
+	margin: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.input-comment {
+	height: 4em;
+	width: 60%;
+	resize: none;
+	margin: 5px;
+}

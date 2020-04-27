@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import SelectEpisode from './SelectEpisode';
+import Comment from './comment';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -150,6 +151,7 @@ export default function Watch() {
 			<div className="film">
 			</div>
 			{ InfoMovie(detail, casting.slice(0, 8)) }
+			{ Comment() }
 		</div>
 	)
 }
