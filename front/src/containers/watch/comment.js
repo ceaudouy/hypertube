@@ -30,7 +30,24 @@ export default function Comment() {
 	const handleClick = (e) => {
 		e.preventDefault();
 		if (input && input.comment !== "") {
-			console.log(input);
+			const type = window.location.href.split('?')[1].split('&')[0];
+			const movie = window.location.href.split('&')[1];
+			const token = localStorage.getItem('token');
+			fetch('http://localhost:3300/movie/comment', {
+				method: 'POST',
+			credentials: 'include',
+			headers: new Headers({
+				'Content-Type': 'application/json',
+				'Authorization': token
+			}),
+			body: JSON.stringify(
+				{
+					comment: input,
+					movie: movie,
+					type: type,
+				}
+			)
+			})
 		}
 	}
 
