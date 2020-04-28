@@ -74,6 +74,9 @@ app.use('/home', homepageRoutes);
 const listRoutes = require('./api/list.js');
 app.use('/list', listRoutes);
 
+const movieRoutes = require('./api/movie.js');
+app.use('/movie', movieRoutes);
+
 // Road 42
 // app.get('/auth/42/callback', passport.authenticate('42', { failureRedirect: '/' }),
 // 	function(req, res) {

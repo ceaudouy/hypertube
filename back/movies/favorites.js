@@ -1,5 +1,4 @@
 const db = require('../../server');
-
 const conn = db.conn;
 
 function getFavorites(type, id_user) {
