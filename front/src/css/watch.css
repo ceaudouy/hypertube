@@ -80,3 +80,26 @@
 	resize: none;
 	margin: 5px;
 }
+
+.comment-section{ 
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	background: #272727;
+}
+
+.trait {
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px solid #adb5bd;
+	width: 70%;
+
+}
+.comment-display {
+	margin: 5px;
+	padding: 5px;
+}
+.comment-center {
+	display: flex;
+	justify-content: center;
+}

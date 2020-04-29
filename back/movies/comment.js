@@ -3,7 +3,6 @@ const conn = db.conn;
 //encode
 function comment(info, login) {
 	return new Promise((resolve, reject) => {
-		console.log(info)
 		let sql = "INSERT INTO comment (login, type, movie, comment) VALUES ?";
 		let values = [
 			[login, info.type, info.movie.toString(), info.comment]

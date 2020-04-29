@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		widht: '20%',
-		height: '3em',
 		margin: theme.spacing(1),
 	}
   }));
@@ -78,7 +77,6 @@ export default function Comment() {
 			}).then(parserdData => {
 				setInput('');
 				setReload(reload + 1);
-				// setComment(comment => [...comment, tmp])
 			})
 		}
 	}
@@ -93,13 +91,23 @@ export default function Comment() {
       				</Button>
 				  </div>
 			</form>
-			{comment.map((elem, index) => {
-				return (
-					<div key={ index }>
-						{elem.comment}
-					</div>
-				)
-			})}
+			<div className="comment-section">
+				{comment.map((elem, index) => {
+					return (
+						<div key={ index }>
+							<div className="comment-display" >
+								<div>
+									{elem.login}:
+								</div>
+								<div className="comment-center">
+									{elem.comment}
+								</div>
+							</div>
+							<div className="trait" />
+						</div>
+					)
+				})}
+			</div>
 		</div>
 	)
 }
