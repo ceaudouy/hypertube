@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -22,6 +23,7 @@ export default function Comment() {
 	const [input, setInput] = useState('');
 	const [comment, setComment] = useState([]);
 	const [reload, setReload] = useState(1);
+	const [login, setLogin] = useState('');
 	const handleChange = (e) =>{
 		const item = e.currentTarget.value;
 		setInput(item); 
@@ -45,14 +47,13 @@ export default function Comment() {
 		}).then(response => {
 			return response.json();
 		}).then( parsedData => {
-			console.log(parsedData);
-			setComment(parsedData);
+			setComment(parsedData.response);
+			setLogin(parsedData.login)
 		})
 	},[setComment, reload]);
 
 	const handleClick = (e) => {
 		e.preventDefault();
-		console.log(input)
 		if (input && input !== "") {
 			const type = window.location.href.split('?')[1].split('&')[0];
 			const movie = window.location.href.split('&')[1];
@@ -60,6 +61,31 @@ export default function Comment() {
 			const token = localStorage.getItem('token');
 			fetch('http://localhost:3300/movie/comment', {
 				method: 'POST',
+				credentials: 'include',
+				headers: new Headers({
+					'Content-Type': 'application/json',
+					'Authorization': token
+				}),
+				body: JSON.stringify(
+					{
+						comment: input,
+						movie: movie,
+						type: type,
+					}
+				)
+			}).then(response => {
+				return response.json();
+			}).then(parsedData => {
+				setInput('');
+				setReload(reload + 1);
+			})
+		}
+	}
+
+	const handleDelete = (e) => {
+		const token = localStorage.getItem('token');
+		fetch('http://localhost:3300/movie/deleteComment', {
+			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/json',
@@ -67,18 +93,14 @@ export default function Comment() {
 			}),
 			body: JSON.stringify(
 				{
-					comment: input,
-					movie: movie,
-					type: type,
+					comment: e,
 				}
 			)
-			}).then(response => {
-				return response.json();
-			}).then(parserdData => {
-				setInput('');
-				setReload(reload + 1);
-			})
-		}
+		}).then(response => {
+			return response.json();
+		}).then(parsedData => {
+			setReload(reload + 1);
+		})
 	}
 
 	return (
@@ -101,6 +123,9 @@ export default function Comment() {
 								</div>
 								<div className="comment-center">
 									{elem.comment}
+								</div>
+								<div>
+									{ elem.login === login ? <DeleteIcon onClick={ e => handleDelete(elem) } /> : '' }
 								</div>
 							</div>
 							<div className="trait" />

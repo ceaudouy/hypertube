@@ -85,13 +85,13 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
-	background: #272727;
+	background: #adb5bd;
 }
 
 .trait {
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px solid #adb5bd;
+	border-bottom: 1px solid #272727;
 	width: 70%;
 
 }

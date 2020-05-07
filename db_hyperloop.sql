@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  lun. 27 avr. 2020 à 02:27
+-- Généré le :  mar. 05 mai 2020 à 02:29
 -- Version du serveur :  5.6.43
 -- Version de PHP :  5.6.40
 
@@ -30,10 +30,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `movie` int(11) NOT NULL,
-  `comment` text NOT NULL
+  `comment` text NOT NULL,
+  `login` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -79,13 +79,6 @@ CREATE TABLE `users` (
   `email` varchar(150) NOT NULL,
   `avatar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `login`, `password`, `email`, `avatar`) VALUES
-(1, 'C&#233;dric', 'Audouy', 'ceaudouy', '$2b$10$GKAMvrkYcWH/bjFhvk8ipO1E9z/XVfkxc4/NOp0J2AZnXbqD04Dpy', 'qwerty@qwerty.fr', 0);
 
 -- --------------------------------------------------------
 
@@ -145,7 +138,7 @@ ALTER TABLE `views`
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `favorites`
@@ -157,7 +150,7 @@ ALTER TABLE `favorites`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `views`

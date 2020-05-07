@@ -27,7 +27,7 @@ function Hyperloop() {
 				<Route  path="/views" exact component={ ViewsMovies } />
 				<Route  path="/search" exact component={ Research } />
 				<Route path="/watch" exact component={ Watch } />
-				<Route path="/offline" component={ SignOut }/>
+				<Route path="/offline" component={ SignOut } />
 				<Route component={NotFound} />
 			</Switch>
 		</Router>
