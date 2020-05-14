@@ -149,6 +149,7 @@ export default function Watch() {
 		<div className="watch-all">
 			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
 			<div className="film">
+				{/* movie player */}
 			</div>
 			{ InfoMovie(detail, casting.slice(0, 8)) }
 			{ Comment() }
