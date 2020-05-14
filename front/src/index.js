@@ -23,9 +23,9 @@ function Hyperloop() {
 			<Header />
 			<Switch>
 				<Route path="/" exact component={ token === null ? Home : ListPage } />
-				<Route  path="/favorites" exact component={ FavoritesMovies } />
-				<Route  path="/views" exact component={ ViewsMovies } />
-				<Route  path="/search" exact component={ Research } />
+				<Route path="/favorites" exact component={ FavoritesMovies } />
+				<Route path="/views" exact component={ ViewsMovies } />
+				<Route path="/search" exact component={ Research } />
 				<Route path="/watch" exact component={ Watch } />
 				<Route path="/offline" component={ SignOut }/>
 				<Route component={NotFound} />
