@@ -7,7 +7,7 @@ export default function Research() {
 	if (research === '') {
 		document.location.href = '/';
 	}
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=');
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=' + localStorage.getItem('langue') + '&&include_adult=false&sort_by=popularity.desc&query='+ research + '&page=');
 	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState(['empty']);
 

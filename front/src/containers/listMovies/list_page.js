@@ -4,7 +4,7 @@ import listFilm from './listFilm';
 import TypeSearch from '../../components/typeSearch';
 
 export default function ListPage() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState(['empty']);
 

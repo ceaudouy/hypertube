@@ -129,7 +129,7 @@ export default function OptionMenu(setQuery, type) {
 				// setPageNumber(11);
 			}
 		}
-		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language=en-US' + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (

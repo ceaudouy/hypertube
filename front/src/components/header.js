@@ -1,5 +1,3 @@
-// 
-
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +15,7 @@ import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import MoreIcon from '@material-ui/icons/MoreVert';
 // import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import SelectLanguage from './selectLanguage';
 
 // const theme = createMuiTheme({
 // 	palette: {
@@ -256,6 +255,7 @@ function Header() {
 						<MoreIcon />
 					</IconButton>
 				</div>
+				
 			</Toolbar>
 			</AppBar>
 			{renderMobileMenu}
@@ -267,6 +267,7 @@ function Header() {
 			<div className={classes.grow}>
 			<AppBar position="static" color="secondary">
 			<Toolbar>
+
 				<Typography className={classes.title} variant="h6" noWrap onClick={handleAccueil}>
 					Hyperloop
 				</Typography>
@@ -288,6 +289,9 @@ function Header() {
 					</Button>
 				</div>
 				<div className={classes.grow} />
+					<div className={classes.sectionDesktop}>
+					{ SelectLanguage() }
+					</div>
 					<div className={classes.sectionDesktop}>
 						<IconButton color="inherit">
 							<VisibilityRoundedIcon />
