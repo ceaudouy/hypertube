@@ -184,6 +184,7 @@ function Header() {
 				</MenuItem>
 			) : (
 				<div>
+					{ SelectLanguage() }
 					<MenuItem>
 						<IconButton color="inherit">
 							<VisibilityRoundedIcon />
