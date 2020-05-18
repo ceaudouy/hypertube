@@ -1,0 +1,30 @@
+version: '2'
+services:
+  back:
+    build: ./back
+    restart: on-failure
+    ports:
+      - "3300:3300"
+    volumes:
+      - ./back:/usr/app/
+      - /usr/app/node_modules
+    links:
+      - "mysql"
+    depends_on:
+      - "mysql"
+    environment:
+      DB_USR: "hypertube"
+      DB_PWD: "42"
+      DB_HOST: mysql
+      DB_NAME: "hypertube"
+    command: ["./wait-for-it.sh", "mysql:3306","-t", "0", "--", "npm", "start"]
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "toor"
+      MYSQL_DATABASE: "hypertube"
+      MYSQL_USER: "hypertube"
+      MYSQL_PASSWORD: "42"
+    ports:
+      - "3306:3306"

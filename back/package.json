@@ -25,12 +25,14 @@
     "express-router": "0.0.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
     "npm": "^6.14.2",
     "passport-42": "^1.2.6",
     "passport-github": "^1.1.0",
     "passport-google-oauth20": "^2.0.0",
     "password-validator": "^5.0.3",
-    "react-new-window": "^0.1.2"
+    "react-new-window": "^0.1.2",
+    "sequelize": "^5.21.9"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

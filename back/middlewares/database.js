@@ -1,14 +1,19 @@
-import mysql from 'mysql';
+import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
 
-const database = mysql.createConnection({
-	host		: 'localhost',
-	user		: 'root',
-	password	: 'qwerty',
-	database	: 'db_hyperloop',
-	port		: 3306,
-	});
-	
-export default database.connect(function (err) {
-		if (err) throw err;
-		console.log("Connected to MySQL !");
+dotenv.config();
+
+const db = new Sequelize(process.env.DB_NAME, process.env.DB_USR, process.env.DB_PWD, {
+  host: process.env.DB_HOST,
+  dialect: 'mysql'
 });
+
+db.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+export default db;
