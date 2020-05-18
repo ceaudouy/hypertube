@@ -124,24 +124,30 @@ export default function Watch() {
 				'Content-Type': 'application/json',
 			}),
 		}).then((response) => {
-			if (response.ok) {
-				return response.json();
+			if (!response.ok) {
+				throw Error(response.statusText);
 			}
+			return response.json();
 		}).then((parsedData) => {
 			setDetail(parsedData);
+		}).catch(error => {
+			console.log("Error for movie information !")
 		});
-
+		
 		fetch(cast, {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
 		}).then((response) => {
-			if (response.ok) {
-				return response.json();
+			if (!response.ok) {
+				throw Error(response.statusText);
 			}
+			return response.json();
 		}).then((parsedData) => {
-			setCasting(parsedData.cast);
-		});
+			parsedData === undefined ? setCasting([]): setCasting(parsedData.cast);
+		}).catch(error => {
+			console.log("Error for the casting !")
+		})
 
 	}, [info, cast])
 
@@ -150,7 +156,7 @@ export default function Watch() {
 			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
 			<div className="film">
 			</div>
-			{ InfoMovie(detail, casting.slice(0, 8)) }
+			{ casting === [] ? '' : InfoMovie(detail, casting.slice(0, 8)) }
 			{ Comment() }
 		</div>
 	)

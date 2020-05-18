@@ -1,7 +1,6 @@
 b936c3df071b03229069cfcbe5276410
-
-le résumé
-année de production, la durée, la note, une image de couverture et tout ce qui vous semblerait pertinent 
-
-le casting
 https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=b936c3df071b03229069cfcbe5276410
+
+commentaire
+erreur requete film non existant
+langue
