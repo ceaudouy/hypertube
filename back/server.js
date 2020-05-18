@@ -1,22 +1,20 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import { Strategy as FTStrategy } from 'passport-42';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
+import { handleError } from 'middlewares';
 
 /* Routes */
 
 import { userRouter, movieRouter } from 'routes';
 
+dotenv.config();
+
 const app = express();
 
-const urlencodedParser = bodyParser.urlencoded({
-	extended: true
-});
-
-app.use(urlencodedParser);
-app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 // disables 'x-powered-by', this makes it more difficult for users to see that we are using Express
@@ -69,11 +67,7 @@ app.set('trust proxy', 1);
 app.use('/user', userRouter);
 app.use('/movie', movieRouter);
 
-// ERROR PAGES
-app.use(function (req, res) {
-	res.setHeader('Content-Type', 'text/plain');
-	res.status(404).send('Not found !');
-});
+app.use(handleError);
 
 // Listening Port
 app.listen(3300);

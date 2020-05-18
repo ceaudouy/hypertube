@@ -1,16 +1,26 @@
 import { Router } from 'express';
-import { register, signIn, signOut } from 'models';
+import { User } from 'models';
 
 const userRouter = Router();
 
-userRouter.post('/register', async function (req, res) {
-	const response = await register(req.body.input);
-	res.status(200).send(response);
+userRouter.post('/register', async function (req, res, next) {
+	try {
+		const { firstname, lastname, email, login, password } = req.body;
+		const response = await User.register({ firstname, lastname, email, login, password });
+		res.status(200).json(response);
+	} catch (err) {
+		next(err);
+	}
 });
 
 userRouter.post('/signIn', async function (req, res) {
-	const response = await signIn(req.body.input);
-	res.status(200).send(response);
+	try {
+		const { email, password } = req.body;
+		const response = await User.signIn({ email, password });
+		res.status(200).json(response);
+	} catch (err) {
+		next(err);
+	}
 });
 
 userRouter.post('/signOut', async function (req, res) {
