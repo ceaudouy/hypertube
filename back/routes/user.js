@@ -3,7 +3,7 @@ import { User } from 'models';
 
 const userRouter = Router();
 
-userRouter.post('/register', async function (req, res, next) {
+userRouter.post('/register', async (req, res, next) => {
 	try {
 		const { firstname, lastname, email, login, password } = req.body;
 		const response = await User.register({ firstname, lastname, email, login, password });
@@ -13,7 +13,7 @@ userRouter.post('/register', async function (req, res, next) {
 	}
 });
 
-userRouter.post('/signIn', async function (req, res) {
+userRouter.post('/signIn', async (req, res) => {
 	try {
 		const { email, password } = req.body;
 		const response = await User.signIn({ email, password });
@@ -23,7 +23,7 @@ userRouter.post('/signIn', async function (req, res) {
 	}
 });
 
-userRouter.post('/signOut', async function (req, res) {
+userRouter.post('/signOut', async (req, res) => {
 	res.status(200).send("Logout");
 })
 

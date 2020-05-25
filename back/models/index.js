@@ -1,2 +1,4 @@
 export { default as User } from './user';
-export { comment, getComment, getFavorites, addFavorites, getViews } from './movie';
+export { default as Comment } from './comment';
+export { default as Favorite } from './favorite';
+export { default as View } from './view';

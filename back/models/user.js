@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 
 import { db, ErrorHandler } from 'middlewares';
 
+import Favorite from './favorite';
+import View from './view';
 
 class User extends Model {};
 
@@ -44,6 +46,9 @@ User.init({
   }
 }, { sequelize: db, modelName: 'user' });
 
+User.hasMany(Favorite);
+User.hasMany(View);
+
 User.beforeCreate((user) => {
   return bcrypt.hash(user.password, 10)
   .then(hash => {
@@ -83,6 +88,16 @@ User.signIn = async (user) => {
     else
       return signingUser.token;
   }
+}
+
+User.favorites = async (id) => {
+  const favorites = await User.getFavorites();
+  return favorites;
+}
+
+User.views = async (id) => {
+  const views = await User.getViews();
+  return views;
 }
 
 User.sync();
