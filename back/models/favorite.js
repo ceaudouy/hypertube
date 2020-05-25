@@ -1,6 +1,8 @@
 import Sequelize, { Model } from 'sequelize';
 import { db } from 'middlewares';
 
+import User from './user';
+
 class Favorite extends Model {};
 
 Favorite.init({

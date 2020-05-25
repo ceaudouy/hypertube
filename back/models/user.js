@@ -10,16 +10,17 @@ import View from './view';
 class User extends Model {};
 
 User.init({
+  githubId: {
+    type: Sequelize.INTEGER
+  },
   firstname: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       is: /^[a-z]+$/i
     }
   },
   lastname: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       is: /^[a-z]+$/i
     }
@@ -39,7 +40,6 @@ User.init({
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   token: {
     type: Sequelize.STRING 
@@ -49,8 +49,8 @@ User.init({
 User.hasMany(Favorite);
 User.hasMany(View);
 
-User.beforeCreate((user) => {
-  return bcrypt.hash(user.password, 10)
+User.beforeCreate( async (user) => {
+  return await bcrypt.hash(user.password, 10)
   .then(hash => {
     user.password = hash
   })
@@ -88,6 +88,10 @@ User.signIn = async (user) => {
     else
       return signingUser.token;
   }
+}
+
+User.signOut = async (user) => {
+  User.update({ token: null }, {where: { id: user.id }})
 }
 
 User.favorites = async (id) => {
