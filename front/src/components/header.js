@@ -1,32 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
-import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
-import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
-import MoreIcon from '@material-ui/icons/MoreVert';
-// import { createMuiTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import SelectLanguage from './selectLanguage';
-
-// const theme = createMuiTheme({
-// 	palette: {
-// 		primary: {
-// 			main: '#1E90FF',
-// 		},
-// 		secondary: {
-// 			main: '#f50057',
-// 		},
-// 	},
-// });
+import { AppBar, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu, Button } from '@material-ui/core';
+import { AccountCircle, Search as SearchIcon, FavoriteRounded as FavoriteRoundedIcon, VisibilityRounded as VisibilityRoundedIcon, HighlightOffRounded as HighlightOffRoundedIcon, More as MoreIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
 	grow: {
@@ -94,9 +69,9 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
 	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-	const [research, setResearch]= React.useState('');
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+	const [research, setResearch]= useState('');
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	const token = localStorage.getItem('token');

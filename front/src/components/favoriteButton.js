@@ -12,7 +12,7 @@ export default class ButtonFavorite extends Component {
 
 	addFavorite = (id) => {
 		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/list/addFavorites`, {
+		fetch(`http://localhost:3300/movie/addFavorites`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({

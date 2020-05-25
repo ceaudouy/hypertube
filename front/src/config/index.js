@@ -1,0 +1,1 @@
+export { SPACING } from './style';
