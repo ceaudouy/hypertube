@@ -13,7 +13,7 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt, done) => {
   try {
-    const user = await User.findOne({ where: {id: jwt.sub} });
+    const user = await User.findOne({ where: {id: jwt.id} });
     if (user)
       return done(null, user);
     else
@@ -29,22 +29,22 @@ passport.use(new GitHubStrategy({
   callbackURL: "http://localhost:3300/user/github/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    const user = await User.findOrCreate({
+    let user = await User.findOrCreate({
       where: { githubId: profile.id },
       defaults: {
         login: profile.username,
-        email: profile.email
+        email: profile.emails[0].value
       }
     });
     if (user) {
       if (!user.token) {
-        user = await User.update({
+        await User.update({
           token: jwt.sign({ id: user.id }, process.env.JWT_SECRET)
         }, {
-          where: { id: user.id }
+          where: { githubId: profile.id }
         });
       }
-      return done(null, user);
+      return done(null, user[0]);
     } else {
       return done(null, false);
     }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { Comment, Favorite, View, User } from 'models';
+import { Comment, Favorite, User } from 'models';
 import { auth } from 'middlewares';
 
 const movieRouter = Router();
@@ -14,7 +14,7 @@ movieRouter.post('/comment', auth, async (req, res, next) => {
 	}
 });
 
-movieRouter.post('/getComment', async (req, res, next) => {
+movieRouter.get('/comment', async (req, res, next) => {
 	try {
 		const { type, movie } = req.body;
 		const response = await Comment.add(type, movie);
@@ -24,7 +24,7 @@ movieRouter.post('/getComment', async (req, res, next) => {
 	}
 });
 
-movieRouter.post('/getFavorites', auth, async (req, res, next) => {
+movieRouter.get('/favorites', auth, async (req, res, next) => {
 	try {
 		const response = await User.favorite(req.user.id)
 		res.status(200).json(response);
@@ -33,7 +33,7 @@ movieRouter.post('/getFavorites', auth, async (req, res, next) => {
 	}
 });
 
-movieRouter.post('/addFavorites', auth, async (req, res, next) => {
+movieRouter.post('/favorites', auth, async (req, res, next) => {
 	try {
 		const { id, type } = req.body;
 		const response = Favorite.add(id, type, req.user.id);
@@ -43,7 +43,7 @@ movieRouter.post('/addFavorites', auth, async (req, res, next) => {
 	}
 });
 
-movieRouter.post('/getViews', auth, async (req, res) => {
+movieRouter.get('/views', auth, async (req, res, next) => {
 	try {
 		const response = await User.views(req.user.id);
 		res.status(200).json(response);

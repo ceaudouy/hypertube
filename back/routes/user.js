@@ -1,9 +1,16 @@
 import { Router } from 'express';
 
 import { User } from 'models';
-import { auth } from 'middlewares';
+import { passport, auth } from 'middlewares';
 
 const userRouter = Router();
+
+userRouter.get('/github', passport.authenticate('github', { session: false }));
+
+userRouter.get('/github/callback', passport.authenticate('github', { session: false }), (req, res) => {
+	console.log(req.user);
+	res.status(200).json({token: req.user.token});
+}) 
 
 userRouter.post('/register', async (req, res, next) => {
 	try {
@@ -19,7 +26,7 @@ userRouter.post('/signIn', async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
 		const response = await User.signIn({ email, password });
-		res.status(200).json(response);
+		res.status(200).json({token: response});
 	} catch (err) {
 		next(err);
 	}

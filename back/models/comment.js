@@ -1,8 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import { db } from 'middlewares';
 
-import User from './user';
-
 class Comment extends Model {};
 
 Comment.init({
@@ -19,8 +17,6 @@ Comment.init({
     allowNull: false
   }
 }, { sequelize: db, modelName: 'comment' });
-
-Comment.hasOne(User)
 
 Comment.add = async (comment, user) => {
   const newComment = await Comment.create(comment);

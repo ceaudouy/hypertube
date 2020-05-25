@@ -1,8 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import { db } from 'middlewares';
 
-import User from './user';
-
 class View extends Model {};
 
 View.init({

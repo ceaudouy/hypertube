@@ -6,6 +6,7 @@ import { db, ErrorHandler } from 'middlewares';
 
 import Favorite from './favorite';
 import View from './view';
+import Comment from './comment';
 
 class User extends Model {};
 
@@ -48,15 +49,22 @@ User.init({
 
 User.hasMany(Favorite);
 User.hasMany(View);
+User.hasMany(Comment);
+
+Favorite.belongsTo(User);
+View.belongsTo(User);
+Comment.belongsTo(User);
 
 User.beforeCreate( async (user) => {
-  return await bcrypt.hash(user.password, 10)
-  .then(hash => {
-    user.password = hash
-  })
-  .catch(err => {
-    throw new Error(err)
-  })
+  if (user.password) {
+    return await bcrypt.hash(user.password, 10)
+    .then(hash => {
+      user.password = hash
+    })
+    .catch(err => {
+      throw new Error(err)
+    })
+  }
 });
 
 User.register = async (user) => {
@@ -100,7 +108,8 @@ User.favorites = async (id) => {
 }
 
 User.views = async (id) => {
-  const views = await User.getViews();
+  const user = await User.findOne({where: {id: id}});
+  const views = await user.getViews();
   return views;
 }
 
