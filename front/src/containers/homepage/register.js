@@ -150,7 +150,7 @@ function Register() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const url = "http://localhost:3300/home/register";
+		const url = "http://localhost:3300/user/register";
 		const req = await ReqFetch(input, url);
 		setRequete(req);
 	}

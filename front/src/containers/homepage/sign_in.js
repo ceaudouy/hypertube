@@ -63,7 +63,7 @@ function SignIn() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const url = "http://localhost:3300/home/signIn";
+		const url = "http://localhost:3300/user/signIn";
 		const req = await ReqFetch(input, url);
 		setRequete(req);
 		localStorage.setItem('token', req.success);

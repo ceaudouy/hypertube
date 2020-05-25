@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/listFilm.css';
 import { makeStyles } from '@material-ui/styles';
 import PutFilm from '../../components/putFilm';
 import TypeSearch from '../../components/typeSearch';
+import '../../css/listFilm.css';
 
 const useStyle = makeStyles(theme => ({
 	notFound: {
@@ -24,7 +24,7 @@ export default function FavoritesMovies() {
 		setFilm([]);
 		var fav;
 		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/list/getFavorites`, {
+		fetch(`http://localhost:3300/movie/getFavorites`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
