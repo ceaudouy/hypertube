@@ -10,11 +10,12 @@ userRouter.get('/github', passport.authenticate('github', { session: false }));
 userRouter.get('/github/callback', passport.authenticate('github', { session: false }), (req, res) => {
 	console.log(req.user);
 	res.status(200).json({token: req.user.token});
-}) 
+})
 
 userRouter.post('/register', async (req, res, next) => {
 	try {
 		const { firstname, lastname, email, login, password } = req.body;
+		if (!password) throw new ErrorHandler(400, 'Missing required fields');
 		const response = await User.register({ firstname, lastname, email, login, password });
 		res.status(200).json(response);
 	} catch (err) {
