@@ -2,8 +2,8 @@ import React, { useState, useRef, useCallback } from 'react';
 import '../../css/listFilm.css';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import FetchAllMovies from './fetch';
-import PutFilm from '../../components/putFilm';
+import FetchAllMovies from './Fetch';
+import PutFilm from '../../components/PutFilm';
 
 export default function ListFilm(query, favorites, type) {
 	const [ pageNumber, setPageNumber ] = useState(1);
