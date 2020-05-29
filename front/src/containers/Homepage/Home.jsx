@@ -10,8 +10,6 @@ import SignIn from './SignIn';
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 `
 
 function TabPanel(props) {
@@ -51,7 +49,7 @@ function FullWidthTabs() {
 
 	return (
 		<MainContainer id="MainContainer - home.js">
-			<AppBar position="static" color="default">
+			{/* <AppBar position="static" color="default">
 				<Tabs value={value} onChange={handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth" >
 					<Tab label="Register" {...a11yProps(0)} />
 					<Tab label="Sign In" {...a11yProps(1)} />
@@ -64,7 +62,7 @@ function FullWidthTabs() {
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<SignIn />
 				</TabPanel>
-			</SwipeableViews>
+			</SwipeableViews> */}
 		</MainContainer>
 	);
 }
