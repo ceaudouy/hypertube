@@ -1,309 +1,213 @@
-import React, { useState } from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu, Button } from '@material-ui/core';
-import { AccountCircle, Search as SearchIcon, FavoriteRounded as FavoriteRoundedIcon, VisibilityRounded as VisibilityRoundedIcon, HighlightOffRounded as HighlightOffRoundedIcon, More as MoreIcon } from '@material-ui/icons';
+import React, { useEffect, useContext } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import styled, { keyframes, css } from "styled-components";
 
-const useStyles = makeStyles(theme => ({
-	grow: {
-		flexGrow: 1,
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	title: {
-		display: 'none',
-		[theme.breakpoints.up('sm')]: {
-			display: 'block',
-		},
-		color: 'white',
-		cursor: 'pointer',
-	},
-	search: {
-		position: 'relative',
-		borderRadius: theme.shape.borderRadius,
-		backgroundColor: fade(theme.palette.common.white, 0.15),
-		'&:hover': {
-			backgroundColor: fade(theme.palette.common.white, 0.25),
-		},
-		marginRight: theme.spacing(2),
-		marginLeft: 0,
-		width: '100%',
-		[theme.breakpoints.up('sm')]: {
-			marginLeft: theme.spacing(3),
-			width: 'auto',
-		},
-	},
-	searchIcon: {
-		width: theme.spacing(7),
-		height: '100%',
-		position: 'absolute',
-		pointerEvents: 'none',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	inputRoot: {
-		color: 'inherit',
-	},
-	inputInput: {
-		padding: theme.spacing(1, 1, 1, 7),
-		transition: theme.transitions.create('width'),
-		width: '100%',
-		[theme.breakpoints.up('md')]: {
-			width: 200,
-		},
-	},
-	sectionDesktop: {
-		display: 'none',
-		[theme.breakpoints.up('md')]: {
-			display: 'flex',
-		},
-	},
-	sectionMobile: {
-		display: 'flex',
-		[theme.breakpoints.up('md')]: {
-			display: 'none',
-		},
+import api from '../api/api'
+import { COLORS, BREAK_POINTS } from '../config/style'
+
+// import { useSnackbar } from 'notistack';
+// import { notifSocket, chatSocket } from '../../api/socket';
+// import { UserContext } from '../../context/UserContext';
+
+const Typography = styled.span`
+	display: none;
+	margin-left: 1rem;
+`
+
+const Element = styled.li`
+	width: 100%;
+`
+
+const Logo = styled(Element)`
+	font-weight: bold;
+	background-color: ${COLORS.BLACK_LIGHT};
+  	text-transform: uppercase;
+  	margin-bottom: 1rem;
+  	text-align: center;
+  	color: ${COLORS.GREY_LIGHT};
+  	font-size: 1.5rem;
+  	letter-spacing: 0.3ch;
+	& > svg {
+		transform: rotate(0deg);
+		transition: 600ms;
 	}
-}));
+	& > span {
+		display: inline;
+		position: absolute;
+		left: -999px;
+		transition: 600ms;
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		display: none;
+	}
+`
+
+const Navigation = styled.div`
+	position: fixed;
+	z-index: 999;
+	background-color: ${COLORS.BLACK};
+	transition: width 600ms ease;
+	&:hover ${Logo} > svg {
+		transform: rotate(-180deg);
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		bottom: 0;
+		width: 100vw;
+		height: 5rem;
+		overflow: scroll;
+		&:hover ${Typography} {
+			display: none;
+		}
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		top: 0;
+		width: 5rem;
+		height: 100vh;
+		&:hover {
+			width: 16rem;
+		}
+		&:hover ${Typography} {
+			display: inline;
+		}
+		&:hover ${Logo} > span {
+			left: 0px;
+		}
+	}
+`
+
+const Container = styled.ul`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	& > li:last-child {
+		margin-top: auto;
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		flex-direction: row;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+
+	}
+`
+
+// const shake = keyframes`
+//   0% { transform: rotate(0); }
+//   15% { transform: rotate(5deg); }
+//   30% { transform: rotate(-5deg); }
+//   45% { transform: rotate(4deg); }
+//   60% { transform: rotate(-4deg); }
+//   75% { transform: rotate(2deg); }
+//   85% { transform: rotate(-2deg); }
+//   92% { transform: rotate(1deg); }
+//   100% { transform: rotate(0); }
+// `
+
+const SLink = styled(Link)`
+	display: flex;
+	align-items: center;
+	height: 5rem;
+	text-decoration: none;
+	color: ${COLORS.GREY};
+	filter: grayscale(100%) opacity(.7);
+	transition: 600ms;
+	&:hover {
+		filter: grayscale(0%) opacity(1);
+		background-color: ${COLORS.BLACK_LIGHT};
+		color: ${COLORS.GREY_LIGHT};
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		justify-content: center;
+	}
+`
+
+const Icon = styled.i`
+	color: ${COLORS.PINK};
+	width: 2rem;
+	font-size: 2rem;
+  	min-width: 2rem;
+  	margin: 0 1.5rem;
+`
 
 function Header() {
-	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-	const [research, setResearch]= useState('');
-	const isMenuOpen = Boolean(anchorEl);
-	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-	const token = localStorage.getItem('token');
+	const history = useHistory();
 
-	const handleProfileMenuOpen = event => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleMobileMenuOpen = event => {
-		setMobileMoreAnchorEl(event.currentTarget);
-	};
-
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-		handleMobileMenuClose();
-	};
-
-	const handleMobileMenuClose = () => {
-		setMobileMoreAnchorEl(null);
-	};
-
-	const handleSubmit = () => {
-		if (research !== '') {
-			localStorage.setItem('research', research);
-			document.location.href = '/search';
+	const handleLogout = () => {
+		if (localStorage.getItem('token') !== undefined) {
+			api.post('/user/logout')
+			.then(() => {
+				localStorage.removeItem("token");
+				delete api.defaults.headers.common['Authorization'];
+				history.push("/");
+			})
+			.catch((err) => console.log(`${err.response.data.message}`));
 		}
 	}
 
-	const handleChange = (event) => {
-		setResearch(event.target.value);
-	}
-
-	const handleAccueil = () =>{
-		document.location.href = "/";
-	}
-
-	const handleFavorites = () => {
-		document.location.href = "/favorites";
-	}
-
-	const menuId = 'primary-search-account-menu';
-	const renderMenu = (
-		<Menu
-		anchorEl={anchorEl}
-		anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-		id={menuId}
-		keepMounted
-		transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-		open={isMenuOpen}
-		onClose={handleMenuClose}
-		>
-			{token === null ? (
-				<MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
-			) : (
-				<div>
-					<MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-					<MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
-				</div>
-			)}
-		</Menu>
+	return (
+		<Navigation>
+			<Container>
+				<Logo>
+					<SLink to={"/"}>
+						<Typography>Hypertube</Typography>
+						<Icon className="fas fa-grin-hearts fa-lg"/>
+					</SLink>
+				</Logo>
+				<Element>
+					<SLink to="/">
+						<Icon className="fas fa-user fa-lg"/>
+						<Typography>Register</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/match">
+						<Icon className="fab fa-hotjar fa-lg"/>
+						<Typography>Match</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/search">
+						<Icon className="fas fa-search fa-lg"/>
+						<Typography>Search</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/saw">
+						<Icon className="fas fa-child fa-lg"/>
+						<Typography>Interactions</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/chat">
+						<Icon className="fas fa-comment-dots fa-lg"/>
+						<Typography>Chat</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/map">
+						<Icon className="fas fa-map-marker-alt"/>
+						<Typography>Map</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/unblock">
+						<Icon className="fas fa-unlock fa-lg"/>
+						<Typography>Unblock</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink as="a" onClick={handleLogout}>
+						<Icon className="fas fa-sign-out-alt fa-lg"/>
+						<Typography>Logout</Typography>
+					</SLink>
+				</Element>
+			</Container>
+		</Navigation>
 	);
 
-	const mobileMenuId = 'primary-search-account-menu-mobile';
-	const renderMobileMenu = (
-		<Menu
-		anchorEl={mobileMoreAnchorEl}
-		anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-		id={mobileMenuId}
-		keepMounted
-		transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-		open={isMobileMenuOpen}
-		onClose={handleMobileMenuClose}
-		>
-			{token === null ? (
-				<MenuItem onClick={handleMobileMenuOpen}>
-					<IconButton
-					aria-label="account of current user"
-					aria-controls="primary-search-account-menu"
-					aria-haspopup="true"
-					color="inherit"
-					>
-						<AccountCircle />
-					</IconButton>
-					<p>Sign In</p>
-				</MenuItem>
-			) : (
-				<div>
-					{/* { SelectLanguage() } */}
-					<MenuItem>
-						<IconButton color="inherit">
-							<VisibilityRoundedIcon />
-						</IconButton>
-						<p>Views</p>
-					</MenuItem>
-					<MenuItem>
-						<IconButton color="inherit" onClick={handleFavorites}>
-							<FavoriteRoundedIcon />
-						</IconButton>
-					<p>Favorites</p>
-					</MenuItem>
-					<MenuItem onClick={handleProfileMenuOpen}>
-						<IconButton
-						aria-label="account of current user"
-						aria-controls="primary-search-account-menu"
-						aria-haspopup="true"
-						color="inherit"
-						>
-							<AccountCircle />
-						</IconButton>
-						<p>My Account</p>
-					</MenuItem>
-					<MenuItem onClick={handleProfileMenuOpen}>
-						<IconButton
-						aria-label="account of current user"
-						aria-controls="primary-search-account-menu"
-						aria-haspopup="true"
-						color="inherit"
-						>
-							<HighlightOffRoundedIcon />
-						</IconButton>
-						<p>Sign Out</p>
-					</MenuItem>
-				</div>
-			)}
-		</Menu>
-	);
-
-	if (token === null) {
-		return (
-			<div className={classes.grow}>
-			<AppBar position="static" color="secondary">
-			<Toolbar>
-				<Typography className={classes.title} variant="h6" noWrap onClick={handleAccueil}>
-					Hyperloop
-				</Typography>
-				<div className={classes.grow} />
-					<div className={classes.sectionDesktop}>
-						<IconButton
-						edge="end"
-						aria-label="account of current user"
-						aria-controls={menuId}
-						aria-haspopup="true"
-						onClick={handleProfileMenuOpen}
-						color="inherit"
-						>
-							<AccountCircle />
-						</IconButton>
-					</div>
-				<div className={classes.sectionMobile}>
-					<IconButton
-					aria-label="show more"
-					aria-controls={mobileMenuId}
-					aria-haspopup="true"
-					onClick={handleMobileMenuOpen}
-					color="inherit"
-					>
-						<MoreIcon />
-					</IconButton>
-				</div>
-				
-			</Toolbar>
-			</AppBar>
-			{renderMobileMenu}
-			{renderMenu}
-			</div>
-		)
-	} else {
-		return (
-			<div className={classes.grow}>
-			<AppBar position="static" color="secondary">
-			<Toolbar>
-
-				<Typography className={classes.title} variant="h6" noWrap onClick={handleAccueil}>
-					Hyperloop
-				</Typography>
-				<div className={classes.search}>
-					<div className={classes.searchIcon}>
-						<SearchIcon />
-					</div>
-					<InputBase
-					placeholder="Search…"
-					classes={{
-					root: classes.inputRoot,
-					input: classes.inputInput,
-					}}
-					inputProps={{ 'aria-label': 'search' }}
-					onChange={handleChange}
-					/>
-					<Button onClick={handleSubmit} variant="contained" color="primary">
-						Search
-					</Button>
-				</div>
-				<div className={classes.grow} />
-					<div className={classes.sectionDesktop}>
-					{/* { SelectLanguage() } */}
-					</div>
-					<div className={classes.sectionDesktop}>
-						<IconButton color="inherit">
-							<VisibilityRoundedIcon />
-						</IconButton>
-						<IconButton color="inherit" onClick={handleFavorites}>
-							<FavoriteRoundedIcon />
-						</IconButton>
-						<IconButton
-						edge="end"
-						aria-label="account of current user"
-						aria-controls={menuId}
-						aria-haspopup="true"
-						onClick={handleProfileMenuOpen}
-						color="inherit"
-						>
-							<AccountCircle />
-						</IconButton>
-					</div>
-				<div className={classes.sectionMobile}>
-					<IconButton
-					aria-label="show more"
-					aria-controls={mobileMenuId}
-					aria-haspopup="true"
-					onClick={handleMobileMenuOpen}
-					color="inherit"
-					>
-						<MoreIcon />
-					</IconButton>
-				</div>
-			</Toolbar>
-			</AppBar>
-			{renderMobileMenu}
-			{renderMenu}
-			</div>
-		)
-	};
 }
 
 export default Header;

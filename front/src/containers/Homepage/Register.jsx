@@ -1,98 +1,55 @@
 import React, { useState } from 'react';
-import { Avatar, TextField, Button, makeStyles, Snackbar, List, ListItem } from '@material-ui/core';
-import { Dialog, DialogTitle } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import styled from 'styled-components'
 import ReqFetch from './ReqFetch';
+import api from '../../api/api'
+import { COLORS } from '../../config/style'
 
-import logo1 from '../../css/1.png';
-import logo2 from '../../css/2.png';
-import logo3 from '../../css/3.png';
-import logo4 from '../../css/4.png';
-import logo5 from '../../css/5.png';
-import logo6 from '../../css/6.png';
+const MainContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
 
-const useStyle = makeStyles(theme => ({
-	root: {
-	'& .MuiTextField-root': {
-		margin: theme.spacing(1),
-		width: 150,
-		},
-	},
-	formContainer: {
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	button: {
-		width: "200px",
-	},
-	input: {
-		color: "white",
-	},
-	large: {
-		width: theme.spacing(7),
-		height: theme.spacing(7),
-		marginBottom: "10px",
-		cursor: 'pointer',
-	},
-	alert: {
-		top: "400px",
-	},
-	list: {
-		justifyContent: 'center',
-		paddingTop: '0%',
-	},
-	avatar: {
-		width: '12%',
-		height: '12%',
-	},
-	choose: {
-		fontStyle: "oblique",
-		textAlign: "center",
+const SignupForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: auto;
+	max-width: 50vw;
+	& * {
+		margin-top: 2vh;
+	};
+`
+
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
 	}
-}));
-
-function Alert(props) {
-	return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-function SimpleDialog(props) {
-	const classes = useStyle();
-	const { onClose, selectedValue, open } = props;
-	const array = [logo1, logo2, logo3, logo4, logo5, logo6];
-
-	const handleCloseIfClick = () => {
-		onClose(selectedValue);
-	};
-
-	const handleListItemClick = value => {
-		onClose(value);
-		return (value);
-	};
-
-	return (
-		<Dialog onClose={handleCloseIfClick} aria-labelledby="simple-dialog-title" open={open}>
-			<DialogTitle id="simple-dialog-title" className={classes.choose}>Choose your Avatar</DialogTitle>
-			<List>
-				{
-					array.map((logo, index) => {
-						return (
-							<ListItem button onClick={() => handleListItemClick(`${index}`)} className={classes.list}>
-								<img src={logo} alt="logo" className={classes.avatar} />
-							</ListItem>
-						)
-					})
-				}
-			</List>
-		</Dialog>
-	);
-}
+`
 
 function Register() {
-	const classes = useStyle();
 	const [input, setInput] = useState('');
-	const [requete, setRequete] = useState('');
+	const [request, setRequest] = useState('');
 	const [open, setOpen] = useState(false);
 	const [openAvatar, setOpenAvatar] = useState(false);
 	const [selectedValue, setSelectedValue] = useState();
@@ -121,30 +78,26 @@ function Register() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const url = "http://localhost:3300/user/register";
-		const req = await ReqFetch(input, url);
-		setRequete(req);
+		api.post('/user/register', input)
+		// .then()
+		// .catch()
+		// const url = "http://localhost:3300/user/register";
+		// const req = await ReqFetch(input, url);
+		// setRequest(req);
 	}
 
 	return (
-		<form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-			<div className={classes.formContainer}>
-				<Avatar className={classes.large} onClick={handleClickAvatar} onChange={handleChange} name="avatar" />
-				<SimpleDialog selectedValue={selectedValue} open={openAvatar} onClose={handleCloseAvatar} />
-				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="First Name" type="text" color="secondary" name="firstname"  autoComplete="current-firstname"/>
-				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Last Name" type="text" color="secondary" name="lastname" autoComplete="current-lastname"/>
-				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Login" type="text" color="secondary" name="login" autoComplete="current-login"/>
-				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Password" type="password" color="secondary" name="password" autoComplete="current-password"/>
-				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Email" type="email" color="secondary" name="email" autoComplete="current-email"/>
-				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>Register</Button>
-				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
-					 <Alert onClose={handleClose} severity={requete.error === undefined ? "success" : "error"}>
-						{requete.success}
-						{requete.error}
-					</Alert>
-				</Snackbar>
-			</div>
-		</form>
+		<MainContainer>
+			<SignupForm onSubmit={handleSubmit}>
+				<StyledInput onChange={handleChange} placeholder="first name" label="First Name" type="text" name="firstname" />
+				<StyledInput onChange={handleChange} placeholder="last name" label="Last Name" type="text" name="lastname" />
+				<StyledInput onChange={handleChange} placeholder="login" label="Login" type="text" name="login" />
+				<StyledInput onChange={handleChange} placeholder="email" label="Email" type="email" name="email" />
+				<StyledInput onChange={handleChange} placeholder="password" label="Password" type="password" name="password" />
+				<StyledInput onChange={handleChange} placeholder="confirm password" label="confirm password" type="password" name="confirm password" />
+				<SubmitButton type="submit" onClick={handleClick}>Register</SubmitButton>
+			</SignupForm> 
+		</MainContainer>
 	)
 }
 
