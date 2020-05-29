@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import pinguin from '../media/404.png';
+import travolta from '../media/lostTravolta.gif';
 
 const NotFoundContainer = styled.div`
 	display: flex;
@@ -19,7 +19,7 @@ const NotFound = () => {
 
 	return (
 		<NotFoundContainer>
-			<Travolta src="https://media.giphy.com/media/sU511xfb7ORqw/giphy.gif" />
+			<Travolta src={travolta} />
 		</NotFoundContainer>
 	)
 }
