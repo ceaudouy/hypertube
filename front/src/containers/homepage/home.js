@@ -18,14 +18,7 @@ function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
 	return (
-		<Typography
-		component="div"
-		role="tabpanel"
-		hidden={value !== index}
-		id={`full-width-tabpanel-${index}`}
-		aria-labelledby={`full-width-tab-${index}`}
-		{...other}
-		>
+		<Typography component="div" role="tabpanel" hidden={value !== index} id={`full-width-tabpanel-${index}`} aria-labelledby={`full-width-tab-${index}`} {...other} >
 			{value === index && <Box p={3}>{children}</Box>}
 		</Typography>
 	);
@@ -59,23 +52,12 @@ function FullWidthTabs() {
 	return (
 		<MainContainer>
 			<AppBar position="static" color="default">
-				<Tabs
-				value={value}
-				onChange={handleChange}
-				indicatorColor="secondary"
-				textColor="secondary"
-				variant="fullWidth"
-				aria-label="full width tabs example"
-				>
+				<Tabs value={value} onChange={handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth" >
 					<Tab label="Register" {...a11yProps(0)} />
 					<Tab label="Sign In" {...a11yProps(1)} />
 				</Tabs>
 			</AppBar>
-			<SwipeableViews
-			axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-			index={value}
-			onChangeIndex={handleChangeIndex}
-			>
+			<SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex} >
 				<TabPanel value={value} index={0} dir={theme.direction}>
 					<Register />
 				</TabPanel>
