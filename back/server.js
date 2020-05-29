@@ -9,6 +9,12 @@ dotenv.config();
 
 const app = express();
 
+app.options("http://localhost:3000", cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// disables 'x-powered-by', this makes it more difficult for users to see that we are using Express
+app.disable('x-powered-by');
+app.set('trust proxy', 1);
+
 app.use(express.json());
 app.use(cors());
 app.disable('x-powered-by');

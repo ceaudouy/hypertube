@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu, Button } from '@material-ui/core';
 import { AccountCircle, Search as SearchIcon, FavoriteRounded as FavoriteRoundedIcon, VisibilityRounded as VisibilityRoundedIcon, HighlightOffRounded as HighlightOffRoundedIcon, More as MoreIcon } from '@material-ui/icons';
+import SelectLanguage from './selectLanguage';
 
 const useStyles = makeStyles(theme => ({
 	grow: {

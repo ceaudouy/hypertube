@@ -1,8 +1,12 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import ButtonFavorite from './favoriteButton';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
+const playmovie = (elem, type) => {
+	document.location.href = '/watch?' + type + '&' + elem.id// encodeURI(elem.title !== undefined ? elem.title : elem.original_name); 
+}
 
 export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 	return (
