@@ -3,6 +3,7 @@ import { Avatar, TextField, Button, makeStyles, Snackbar, List, ListItem } from 
 import { Dialog, DialogTitle } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import ReqFetch from './req_fetch';
+
 import logo1 from '../../css/1.png';
 import logo2 from '../../css/2.png';
 import logo3 from '../../css/3.png';
@@ -59,6 +60,7 @@ function Alert(props) {
 function SimpleDialog(props) {
 	const classes = useStyle();
 	const { onClose, selectedValue, open } = props;
+	const array = [logo1, logo2, logo3, logo4, logo5, logo6];
 
 	const handleCloseIfClick = () => {
 		onClose(selectedValue);
@@ -71,27 +73,18 @@ function SimpleDialog(props) {
 
 	return (
 		<Dialog onClose={handleCloseIfClick} aria-labelledby="simple-dialog-title" open={open}>
-		<DialogTitle id="simple-dialog-title" className={classes.choose}>Choose your Avatar</DialogTitle>
-		<List>
-			<ListItem button onClick={() => handleListItemClick('1')} className={classes.list}>
-				<img src={logo1} alt="logo" className={classes.avatar} />
-			</ListItem>
-			<ListItem button onClick={() => handleListItemClick('2')} className={classes.list}>
-				<img src={logo2} alt="logo" className={classes.avatar} />
-			</ListItem>
-			<ListItem button onClick={() => handleListItemClick('3')} className={classes.list}>
-				<img src={logo3} alt="logo" className={classes.avatar} />
-			</ListItem>
-			<ListItem button onClick={() => handleListItemClick('4')} className={classes.list}>
-				<img src={logo4} alt="logo" className={classes.avatar} />
-			</ListItem>
-			<ListItem button onClick={() => handleListItemClick('5')} className={classes.list}>
-				<img src={logo5} alt="logo" className={classes.avatar} />
-			</ListItem>
-			<ListItem button onClick={() => handleListItemClick('6')} className={classes.list}>
-				<img src={logo6} alt="logo" className={classes.avatar} />
-			</ListItem>
-		</List>
+			<DialogTitle id="simple-dialog-title" className={classes.choose}>Choose your Avatar</DialogTitle>
+			<List>
+				{
+					array.map((logo, index) => {
+						return (
+							<ListItem button onClick={() => handleListItemClick(`${index}`)} className={classes.list}>
+								<img src={logo} alt="logo" className={classes.avatar} />
+							</ListItem>
+						)
+					})
+				}
+			</List>
 		</Dialog>
 	);
 }
@@ -103,7 +96,6 @@ function Register() {
 	const [open, setOpen] = useState(false);
 	const [openAvatar, setOpenAvatar] = useState(false);
 	const [selectedValue, setSelectedValue] = useState();
-	// const value = SimpleDialog('');
 
 	const handleClick = () => {
 		setOpen(true);
@@ -125,28 +117,7 @@ function Register() {
 		setSelectedValue(value);
 	};
 
-	// const handleChooseImg = () => {
-	// 	if (value === 1)
-	// 		return {logo1};
-	// 	else if (value === 2)
-	// 		return {logo2};
-	// 	else if (value === 3)
-	// 		return {logo3};
-	// 	else if (value === 4)
-	// 		return {logo4};
-	// 	else if (value === 5)
-	// 		return {logo5};
-	// 	else if (value === 6)
-	// 		return {logo6};
-	// 	else
-	// 		return;
-	// }
-
-	// Hooks -> check if value on input change & apply new value (next -> get value for API)
-	const handleChange = (e) => setInput({
-		...input,
-		[e.currentTarget.name]: e.currentTarget.value
-	})
+	const handleChange = (e) => setInput({...input, [e.currentTarget.name]: e.currentTarget.value})
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -158,71 +129,14 @@ function Register() {
 	return (
 		<form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 			<div className={classes.formContainer}>
-				<TextField
-				InputProps={{
-					className: classes.input
-				}}
-				label="First Name"
-				type="text"
-				color="secondary"
-				name="firstname"
-				onChange={handleChange}
-				autoComplete="current-firstname"
-				/>
-				<TextField
-				InputProps={{
-					className: classes.input
-				}}
-				label="Last Name"
-				type="text"
-				color="secondary"
-				name="lastname"
-				onChange={handleChange}
-				autoComplete="current-lastname"
-				/>
-				<TextField
-				InputProps={{
-					className: classes.input
-				}}
-				label="Login"
-				type="text"
-				color="secondary"
-				name="login"
-				onChange={handleChange}
-				autoComplete="current-login"
-				/>
-				<TextField
-				InputProps={{
-					className: classes.input
-				}}
-				label="Password"
-				type="password"
-				color="secondary"
-				name="password"
-				onChange={handleChange}
-				autoComplete="current-password"
-				/>
-				<TextField
-				InputProps={{
-					className: classes.input
-				}}
-				label="Email"
-				type="email"
-				color="secondary"
-				name="email"
-				onChange={handleChange}
-				autoComplete="current-email"
-				/>
-				<Avatar
-				className={classes.large}
-				onClick={handleClickAvatar}
-				onChange={handleChange}
-				name="avatar"
-				/>
+				<Avatar className={classes.large} onClick={handleClickAvatar} onChange={handleChange} name="avatar" />
 				<SimpleDialog selectedValue={selectedValue} open={openAvatar} onClose={handleCloseAvatar} />
-				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>
-					Register
-				</Button>
+				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="First Name" type="text" color="secondary" name="firstname"  autoComplete="current-firstname"/>
+				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Last Name" type="text" color="secondary" name="lastname" autoComplete="current-lastname"/>
+				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Login" type="text" color="secondary" name="login" autoComplete="current-login"/>
+				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Password" type="password" color="secondary" name="password" autoComplete="current-password"/>
+				<TextField onChange={handleChange} InputProps={{className: classes.input}} label="Email" type="email" color="secondary" name="email" autoComplete="current-email"/>
+				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>Register</Button>
 				<Snackbar className={classes.alert} open={open} autoHideDuration={6000} onClose={handleClose}>
 					 <Alert onClose={handleClose} severity={requete.error === undefined ? "success" : "error"}>
 						{requete.success}
