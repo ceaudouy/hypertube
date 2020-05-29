@@ -4,26 +4,34 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 
 import api from './api/api';
+import { BREAK_POINTS } from './config/style';
 
-import Header from './components/header';
-import Home from './containers/homepage/home';
-import NotFound from './components/notfound';
-import ListPage from './containers/listMovies/list_page';
-import FavoritesMovies from './containers/favoritesMovies/favoritesMovies';
-import SignOut from './containers/homepage/sign_out';
-import ViewsMovies from './containers/viewsMovies/viewsMovies';
-import Research from './containers/research/research';
-import Watch from './containers/watch/watch';
+import Header from './components/Header';
+import Home from './containers/Homepage/Home';
+import NotFound from './components/NotFound';
+import ListPage from './containers/ListMovies/ListPage';
+import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
+import SignOut from './containers/Homepage/SignOut';
+import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
+import Research from './containers/Research/Research';
+import Watch from './containers/Watch/Watch';
 
 import './index.css';
 
 const AppContainer = styled.div`
 	display: flex;
-	flex: 1;
-	height: auto;
+	flex-direction: column;
 	justify-content: center;
+	height: auto;
+	flex: 1;
 	& > * {
 		width: 100%;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		min-height: 100vh;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		min-height: 100vh;
 	}
 `
 
@@ -58,8 +66,8 @@ function Hyperloop() {
 
 	return (
 		<BrowserRouter>
-			<Header />
-			<AppContainer>
+			<AppContainer id="AppContainer">
+				<Header id="Header" />
 				<Switch>
 					<Route path="/" exact component={ Home } />
 					<Route path="/offline" component={ SignOut } />

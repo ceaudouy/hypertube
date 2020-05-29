@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/core/styles';
 import { AppBar, Tabs , Tab , Typography , Box } from '@material-ui/core'; 
-import Register from './register';
-import SignIn from './sign_in';
+import Register from './Register';
+import SignIn from './SignIn';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -50,7 +50,7 @@ function FullWidthTabs() {
 	};
 
 	return (
-		<MainContainer>
+		<MainContainer id="MainContainer - home.js">
 			<AppBar position="static" color="default">
 				<Tabs value={value} onChange={handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth" >
 					<Tab label="Register" {...a11yProps(0)} />
