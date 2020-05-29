@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, TextField, Button, makeStyles, Snackbar, List, ListItem } from '@material-ui/core';
 import { Dialog, DialogTitle } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import ReqFetch from './req_fetch';
+import ReqFetch from './ReqFetch';
 
 import logo1 from '../../css/1.png';
 import logo2 from '../../css/2.png';

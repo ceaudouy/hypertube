@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/listFilm.css';
 import { makeStyles } from '@material-ui/styles';
-import PutFilm from '../../components/putFilm';
-import TypeSearch from '../../components/typeSearch';
+import PutFilm from '../../components/PutFilm';
+import TypeSearch from '../../components/TypeSearch';
 
 const useStyle = makeStyles(theme => ({
 	notFound: {
