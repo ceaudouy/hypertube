@@ -11,10 +11,9 @@ import Header from './components/Header';
 import Home from './containers/Homepage/Home';
 import NotFound from './components/NotFound';
 import ListPage from './containers/ListMovies/ListPage';
-import SignIn from './containers/Homepage/SignIn';
-import SignUp from './containers/Homepage/SignUp';
+import SignIn from './containers/SignIn/SignIn';
+import SignUp from './containers/SignUp/SignUp';
 import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
-import SignOut from './containers/Homepage/SignOut';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
 import Research from './containers/Research/Research';
 import Watch from './containers/Watch/Watch';
@@ -80,7 +79,6 @@ function Hyperloop() {
 					<Route path="/" exact component={ Home } />
 					<Route path="/signin" component={ SignIn } />
 					<Route path="/signup" component={ SignUp } />
-					<Route path="/offline" component={ SignOut } />
 					<Route path="/watch" exact component={ Watch } />
 					<Route path="/search" exact component={ Research } />
 					<Route path="/views" exact component={ ViewsMovies } />
