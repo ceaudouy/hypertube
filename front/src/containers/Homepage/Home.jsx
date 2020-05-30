@@ -12,6 +12,16 @@ const MainContainer = styled.div`
 	flex-direction: column;
 `
 
+
+
+const Icon = styled.i`
+	color: pink;
+	width: 2rem;
+	font-size: 2rem;
+  	min-width: 2rem;
+  	margin: 0 1.5rem;
+`
+
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 

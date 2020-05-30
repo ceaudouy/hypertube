@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+import '@fortawesome/fontawesome-free/js/all'
 
 import api from './api/api';
 import { BREAK_POINTS } from './config/style';
@@ -71,8 +72,8 @@ function Hyperloop() {
 
 	return (
 		<BrowserRouter>
-			<AppContainer id="AppContainer">
 				<Header id="Header" />
+			<AppContainer id="AppContainer">
 				<Switch>
 					<Route path="/" exact component={ Home } />
 					<Route path="/offline" component={ SignOut } />
