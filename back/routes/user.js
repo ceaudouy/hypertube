@@ -17,6 +17,9 @@ userRouter.get('/github/callback', passport.authenticate('github', { session: fa
 })
 
 userRouter.post('/register', async (req, res, next) => {
+	console.log("req.body = ", req.body);
+	console.log(req.body);
+	
 	try {
 		const { firstname, lastname, email, login, password } = req.body;
 		if (!password) throw new ErrorHandler(400, 'Missing required fields');

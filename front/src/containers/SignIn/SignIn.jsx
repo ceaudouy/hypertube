@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import ReqFetch from '../Homepage/ReqFetch';
 import styled from "styled-components";
+
+import api from '../../api/api'
 import { COLORS, BREAK_POINTS } from '../../config/style'
 
 
@@ -48,20 +49,10 @@ const SubmitButton = styled.button`
 `
 
 function SignIn() {
-	const [input, setInput] = useState('');
-	const [request, setRequest] = useState('');
-	const [open, setOpen] = React.useState(false);
-
-	const handleClick = () => {
-		setOpen(true);
-	};
-
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-		setOpen(false);
-	};
+	const [input, setInput] = useState({
+		email: 'nicolas@vergne.com',
+		password: 'Test123456!'
+	 });
 
 	const handleGithubConnexion = () => {
 		
@@ -71,17 +62,22 @@ function SignIn() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const url = "http://localhost:3300/user/signIn";
-		const req = await ReqFetch(input, url);
-		setRequest(req);
-		localStorage.setItem('token', req.success);
+		api.post('/user/signIn', input)
+		.then((res) => {
+			console.log("CIUUUUUUU");
+			console.log(res);
+			localStorage.setItem('token', res.success);
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 	}
 
 	return (
 		<MainContainer>
-			<SignupForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<StyledInput type="text" placeholder="login" label="Login" name="login" onChange={handleChange} />
-				<StyledInput type="password" placeholder="password" label="Password" name="password" onChange={handleChange} />
+			<SignupForm noValidate>
+				<StyledInput type="text" name="email" placeholder="email" label="Email" onChange={handleChange} />
+				<StyledInput type="password" name="password" placeholder="password" label="Password" onChange={handleChange} />
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
 				{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="warning">
