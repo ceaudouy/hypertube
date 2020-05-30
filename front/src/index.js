@@ -37,39 +37,39 @@ const AppContainer = styled.div`
 	}
 `
 
-// const AuthenticatedRoute = ({ component: Component, ...rest}) => {
-// 	return (
-// 		<Route 
-// 			{...rest}
-// 			render = { props => {
-// 				if (localStorage.getItem("token"))
-// 				return (<Component {...props} />)
-// 				return (<Redirect to={{pathname: '/login', state: {from: props.location }}} />);
-// 			}}
-// 		/>
-// 	)
-// }
+const AuthenticatedRoute = ({ component: Component, ...rest}) => {
+	return (
+		<Route 
+			{...rest}
+			render = { props => {
+				if (localStorage.getItem("token"))
+				return (<Component {...props} />)
+				return (<Redirect to={{pathname: '/signin', state: {from: props.location }}} />);
+			}}
+		/>
+	)
+}
 
 function Hyperloop() {
 	const [user, setUser] = useState(undefined);
 
-	let token = localStorage.getItem('token');
+	// let token = localStorage.getItem('token');
 
-	if ( token === null && window.location.href !== 'http://localhost:3000/') {
-		document.location.href='/';
-	}
-
-	// if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
-	// 	api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-	// 	api.get('/user/me')
-	// 	.then((res) => {
-	// 		setUser(res.data);
-	// 	})
-	// 	.catch(err => {
-	// 		delete api.defaults.headers.common['Authorization'];
-	// 		console.log(err);
-	// 	});
+	// if ( token === null && window.location.href !== 'http://localhost:3000/') {
+	// 	document.location.href='/';
 	// }
+
+	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+		api.get('/user/me')
+		.then((res) => {
+			setUser(res.data);
+		})
+		.catch(err => {
+			delete api.defaults.headers.common['Authorization'];
+			console.log(err);
+		});
+	}
 
 	return (
 		<BrowserRouter>
@@ -77,13 +77,13 @@ function Hyperloop() {
 			<AppContainer id="AppContainer">
 				<Switch>
 					<Route path="/" exact component={ Home } />
-					<Route path="/signin" component={ SignIn } />
 					<Route path="/signup" component={ SignUp } />
-					<Route path="/watch" exact component={ Watch } />
-					<Route path="/search" exact component={ Research } />
-					<Route path="/views" exact component={ ViewsMovies } />
-					<Route path="/favorites" exact component={ FavoritesMovies } />
-					{/* <AuthenticatedRoute exact path="/" component={ListPage} /> */}
+					<Route path="/signin" component={ SignIn } />
+					<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
+					<AuthenticatedRoute exact path="/search" exact component={ Research } />
+					<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
+					<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
+					<AuthenticatedRoute exact path="/listpage" component={ListPage} />
 					<Route path="*" component={NotFound} />
 				</Switch>
 			</AppContainer>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import ReqFetch from '../Homepage/ReqFetch';
+
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
 
@@ -48,31 +48,13 @@ const SubmitButton = styled.button`
 `
 
 function SignUp() {
-	const [input, setInput] = useState('');
-	const [request, setRequest] = useState('');
-	const [open, setOpen] = useState(false);
-	const [openAvatar, setOpenAvatar] = useState(false);
-	const [selectedValue, setSelectedValue] = useState();
-
-	const handleClick = () => {
-		setOpen(true);
-	};
-
-	const handleClickAvatar = () => {
-		setOpenAvatar(true);
-	};
-
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-		setOpen(false);
-	};
-
-	const handleCloseAvatar = value => {
-		setOpenAvatar(false);
-		setSelectedValue(value);
-	};
+	const [input, setInput] = useState({
+	   firstname: 'Nicolas',
+	   lastname: 'Vergne',
+	   login: 'nivergne',
+	   email: 'nicolas@vergne.com',
+	   password: 'Test123456!'
+	});
 
 	const handleChange = (e) => setInput({...input, [e.currentTarget.name]: e.currentTarget.value})
 
@@ -89,13 +71,21 @@ function SignUp() {
 	return (
 		<MainContainer>
 			<SignupForm onSubmit={handleSubmit}>
-				<StyledInput onChange={handleChange} placeholder="first name" label="First Name" type="text" name="firstname" />
-				<StyledInput onChange={handleChange} placeholder="last name" label="Last Name" type="text" name="lastname" />
-				<StyledInput onChange={handleChange} placeholder="login" label="Login" type="text" name="login" />
-				<StyledInput onChange={handleChange} placeholder="email" label="Email" type="email" name="email" />
-				<StyledInput onChange={handleChange} placeholder="password" label="Password" type="password" name="password" />
-				<StyledInput onChange={handleChange} placeholder="confirm password" label="confirm password" type="password" name="confirm password" />
-				<SubmitButton type="submit" onClick={handleClick}>SignUp</SubmitButton>
+				<StyledInput onChange={handleChange} name="firstname" placeholder="first name" label="First Name" type="text" />
+				<StyledInput onChange={handleChange} name="lastname" placeholder="last name" label="Last Name" type="text" />
+				<StyledInput onChange={handleChange} name="login" placeholder="login" label="Login" type="text" />
+				<StyledInput onChange={handleChange} name="email" placeholder="email" label="Email" type="email" />
+				<StyledInput onChange={handleChange} name="password" placeholder="password" label="Password" type="password" />
+				
+				{/* <StyledInput onChange={handleChange} name="confirm password" placeholder="confirm password" label="confirm password" type="password" /> */}
+				
+				{/* <StyledInput onChange={handleChange} name="firstname" value="Nicolas" placeholder="first name" label="First Name" type="text" />
+				<StyledInput onChange={handleChange} name="lastname" value="Vergne" placeholder="last name" label="Last Name" type="text" />
+				<StyledInput onChange={handleChange} name="login" value="nivergne" placeholder="login" label="Login" type="text" />
+				<StyledInput onChange={handleChange} name="email" value="nicolas@vergne.fr" placeholder="email" label="Email" type="email" />
+				<StyledInput onChange={handleChange} name="password" value="Test123456!" placeholder="password" label="Password" type="password" />
+				<StyledInput onChange={handleChange} name="confirm password" value="Test123456!" placeholder="confirm password" label="confirm password" type="password" /> */}
+				<SubmitButton type="submit" onClick={handleSubmit}>SignUp</SubmitButton>
 			</SignupForm> 
 		</MainContainer>
 	)
