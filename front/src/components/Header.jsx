@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import styled, { keyframes, css } from "styled-components";
+import styled from "styled-components";
 
 import api from '../api/api'
 import { COLORS, BREAK_POINTS } from '../config/style'
@@ -94,18 +94,6 @@ const Container = styled.ul`
 	}
 `
 
-// const shake = keyframes`
-//   0% { transform: rotate(0); }
-//   15% { transform: rotate(5deg); }
-//   30% { transform: rotate(-5deg); }
-//   45% { transform: rotate(4deg); }
-//   60% { transform: rotate(-4deg); }
-//   75% { transform: rotate(2deg); }
-//   85% { transform: rotate(-2deg); }
-//   92% { transform: rotate(1deg); }
-//   100% { transform: rotate(0); }
-// `
-
 const SLink = styled(Link)`
 	display: flex;
 	align-items: center;
@@ -160,42 +148,6 @@ function Header() {
 					<SLink to="/">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Register</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/match">
-						<Icon className="fab fa-hotjar fa-lg"/>
-						<Typography>Match</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/search">
-						<Icon className="fas fa-search fa-lg"/>
-						<Typography>Search</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/saw">
-						<Icon className="fas fa-child fa-lg"/>
-						<Typography>Interactions</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/chat">
-						<Icon className="fas fa-comment-dots fa-lg"/>
-						<Typography>Chat</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/map">
-						<Icon className="fas fa-map-marker-alt"/>
-						<Typography>Map</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/unblock">
-						<Icon className="fas fa-unlock fa-lg"/>
-						<Typography>Unblock</Typography>
 					</SLink>
 				</Element>
 				<Element>
