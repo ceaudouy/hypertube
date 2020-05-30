@@ -5,10 +5,6 @@ import styled from "styled-components";
 import api from '../api/api'
 import { COLORS, BREAK_POINTS } from '../config/style'
 
-// import { useSnackbar } from 'notistack';
-// import { notifSocket, chatSocket } from '../../api/socket';
-// import { UserContext } from '../../context/UserContext';
-
 const Typography = styled.span`
 	display: none;
 	margin-left: 1rem;
@@ -151,7 +147,25 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
-					<SLink as="a" onClick={handleLogout}>
+					<SLink to="/search">
+						<Icon className="fas fa-user fa-lg"/>
+						<Typography>Search</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/signup">
+						<Icon className="fas fa-user fa-lg"/>
+						<Typography>signup</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/signin">
+						<Icon className="fas fa-user fa-lg"/>
+						<Typography>signin</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/" onClick={handleLogout}>
 						<Icon className="fas fa-sign-out-alt fa-lg"/>
 						<Typography>Logout</Typography>
 					</SLink>

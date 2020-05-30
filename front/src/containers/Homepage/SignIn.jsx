@@ -1,43 +1,55 @@
 import React, { useState } from 'react';
-import { TextField, Button, makeStyles, Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
 import ReqFetch from './ReqFetch';
+import styled from "styled-components";
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
-const useStyle = makeStyles(theme => ({
-	root: {
-	'& .MuiTextField-root': {
-		margin: theme.spacing(1),
-		width: 150,
-		},
-	},
-	formContainer: {
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	button: {
-		width: "200px",
-	},
-	input: {
-		color: "white",
-	},
-	fortytwo: {
-		marginTop: '30%',
-	},
-	fortytwo2: {
-		marginTop: '3%',
+
+const MainContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
+
+const SignupForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: auto;
+	max-width: 50vw;
+	& * {
+		margin-top: 2vh;
+	};
+`
+
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
 	}
-}));
-
-function Alert(props) {
-	return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+`
 
 function SignIn() {
-	const classes = useStyle();
 	const [input, setInput] = useState('');
-	const [requete, setRequete] = useState('');
+	const [request, setRequest] = useState('');
 	const [open, setOpen] = React.useState(false);
 
 	const handleClick = () => {
@@ -61,19 +73,19 @@ function SignIn() {
 		e.preventDefault();
 		const url = "http://localhost:3300/user/signIn";
 		const req = await ReqFetch(input, url);
-		setRequete(req);
+		setRequest(req);
 		localStorage.setItem('token', req.success);
 	}
 
 	return (
-		<form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-			<div className={classes.formContainer}>
-				<TextField InputProps={{className: classes.input}} label="Login" type="text" color="secondary" name="login" onChange={handleChange} autoComplete="current-login" />
-				<TextField InputProps={{className: classes.input}} label="Password" type="password" color="secondary" name="password" onChange={handleChange} autoComplete="current-password" />
-				<Button type="submit" variant="contained" color="secondary" className={classes.button} onClick={handleClick}>Sign In</Button>
-				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+		<MainContainer>
+			<SignupForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<StyledInput type="text" placeholder="login" label="Login" name="login" onChange={handleChange} />
+				<StyledInput type="password" placeholder="password" label="Password" name="password" onChange={handleChange} />
+				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
+				{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="warning">
-						{requete.error}
+						{request.error}
 					</Alert>
 				</Snackbar>
 				<Button variant="contained" color="secondary" className={classes.fortytwo}>
@@ -84,9 +96,9 @@ function SignIn() {
 				</Button>
 				<Button variant="contained" color="secondary" className={classes.fortytwo2}>
 					Sign In with Gmail
-				</Button>
-			</div>
-		</form>
+				</Button> */}
+			</SignupForm>
+		</MainContainer>
 	)
 }
 

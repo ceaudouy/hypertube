@@ -47,7 +47,7 @@ const SubmitButton = styled.button`
 	}
 `
 
-function Register() {
+function SignUp() {
 	const [input, setInput] = useState('');
 	const [request, setRequest] = useState('');
 	const [open, setOpen] = useState(false);
@@ -95,10 +95,10 @@ function Register() {
 				<StyledInput onChange={handleChange} placeholder="email" label="Email" type="email" name="email" />
 				<StyledInput onChange={handleChange} placeholder="password" label="Password" type="password" name="password" />
 				<StyledInput onChange={handleChange} placeholder="confirm password" label="confirm password" type="password" name="confirm password" />
-				<SubmitButton type="submit" onClick={handleClick}>Register</SubmitButton>
+				<SubmitButton type="submit" onClick={handleClick}>SignUp</SubmitButton>
 			</SignupForm> 
 		</MainContainer>
 	)
 }
 
-export default Register;
+export default SignUp;

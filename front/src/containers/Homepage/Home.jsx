@@ -4,22 +4,12 @@ import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/core/styles';
 import { AppBar, Tabs , Tab , Typography , Box } from '@material-ui/core'; 
-import Register from './Register';
+import SignUp from './SignUp';
 import SignIn from './SignIn';
 
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-`
-
-
-
-const Icon = styled.i`
-	color: pink;
-	width: 2rem;
-	font-size: 2rem;
-  	min-width: 2rem;
-  	margin: 0 1.5rem;
 `
 
 function TabPanel(props) {
@@ -61,13 +51,13 @@ function FullWidthTabs() {
 		<MainContainer id="MainContainer - home.js">
 			{/* <AppBar position="static" color="default">
 				<Tabs value={value} onChange={handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth" >
-					<Tab label="Register" {...a11yProps(0)} />
+					<Tab label="SignUp" {...a11yProps(0)} />
 					<Tab label="Sign In" {...a11yProps(1)} />
 				</Tabs>
 			</AppBar>
 			<SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex} >
 				<TabPanel value={value} index={0} dir={theme.direction}>
-					<Register />
+					<SignUp />
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<SignIn />
