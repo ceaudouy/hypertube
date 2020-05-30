@@ -155,7 +155,7 @@ function Header() {
 				<Element>
 					<SLink to="/signup">
 						<Icon className="fas fa-user fa-lg"/>
-						<Typography>sign Up</Typography>
+						<Typography>Sign Up</Typography>
 					</SLink>
 				</Element>
 				<Element>
