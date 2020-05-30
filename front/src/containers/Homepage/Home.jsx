@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/core/styles';
 import { AppBar, Tabs , Tab , Typography , Box } from '@material-ui/core'; 
-import SignUp from './SignUp';
-import SignIn from './SignIn';
 
 const MainContainer = styled.div`
 	display: flex;

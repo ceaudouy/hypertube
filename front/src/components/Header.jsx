@@ -121,7 +121,7 @@ function Header() {
 
 	const handleLogout = () => {
 		if (localStorage.getItem('token') !== undefined) {
-			api.post('/user/logout')
+			api.post('/user/signOut')
 			.then(() => {
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
@@ -143,25 +143,31 @@ function Header() {
 				<Element>
 					<SLink to="/">
 						<Icon className="fas fa-user fa-lg"/>
-						<Typography>Register</Typography>
+						<Typography>Profile</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/search">
-						<Icon className="fas fa-user fa-lg"/>
+						<Icon className="fas fa-search"/>
 						<Typography>Search</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/signup">
 						<Icon className="fas fa-user fa-lg"/>
-						<Typography>signup</Typography>
+						<Typography>sign Up</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/signin">
 						<Icon className="fas fa-user fa-lg"/>
-						<Typography>signin</Typography>
+						<Typography>Sign In</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/losttravolta">
+						<Icon className="fab fa-freebsd"/>
+						<Typography>Lost</Typography>
 					</SLink>
 				</Element>
 				<Element>

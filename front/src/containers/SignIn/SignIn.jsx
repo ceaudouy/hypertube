@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReqFetch from './ReqFetch';
+import ReqFetch from '../Homepage/ReqFetch';
 import styled from "styled-components";
 import { COLORS, BREAK_POINTS } from '../../config/style'
 
