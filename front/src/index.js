@@ -14,7 +14,7 @@ import ListPage from './containers/ListMovies/ListPage';
 import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
 import SignOut from './containers/Homepage/SignOut';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
-import Research from './containers/Research/Research';
+import Research from './containers/Research/Research'
 import Watch from './containers/Watch/Watch';
 
 import './index.css';
