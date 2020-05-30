@@ -7,13 +7,13 @@ import api from './api/api';
 import { BREAK_POINTS } from './config/style';
 
 import Header from './components/Header';
-import Home from './containers/homepage/Home'
+import Home from './containers/Homepage/Home';
 import NotFound from './components/NotFound';
-import ListPage from './containers/listMovies/ListPage';
-import FavoritesMovies from './containers/favoritesMovies/FavoritesMovies';
+import ListPage from './containers/ListMovies/ListPage';
+import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
 import SignOut from './containers/Homepage/SignOut';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
-import Research from './containers/research/Research';
+import Research from './containers/Research/Research'
 import Watch from './containers/Watch/Watch';
 
 import './index.css';
