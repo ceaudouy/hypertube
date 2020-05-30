@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import listFilm from '../listMovies/listFilm';
-import TypeSearch from '../../components/typeSearch';
+import listFilm from '../ListMovies/ListFilm';
+import TypeSearch from '../../components/TypeSearch';
 
 export default function Research() {
 	const research = localStorage.getItem('research');

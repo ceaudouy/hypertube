@@ -160,7 +160,7 @@ function Header() {
 				</MenuItem>
 			) : (
 				<div>
-					{ SelectLanguage() }
+					{/* { SelectLanguage() } */}
 					<MenuItem>
 						<IconButton color="inherit">
 							<VisibilityRoundedIcon />
@@ -267,7 +267,7 @@ function Header() {
 				</div>
 				<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-					{ SelectLanguage() }
+					{/* { SelectLanguage() } */}
 					</div>
 					<div className={classes.sectionDesktop}>
 						<IconButton color="inherit">

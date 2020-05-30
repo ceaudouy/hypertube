@@ -1,8 +1,7 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
-import ButtonFavorite from './favoriteButton';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import { Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import ButtonFavorite from './FavoriteButton';
 
 const playmovie = (elem, type) => {
 	document.location.href = '/watch?' + type + '&' + elem.id// encodeURI(elem.title !== undefined ? elem.title : elem.original_name); 
@@ -39,9 +38,9 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 							</CardContent>
 							<CardActions disableSpacing className="button-card">
 								<ButtonFavorite elem={ elem } favorites={ favorites } type={ type } />
-								<IconButton onClick={ e => playmovie(elem, type) } aria-label="add to favorites">
+								{/* <IconButton onClick={ e => playmovie(elem, type) } aria-label="add to favorites">
 									<PlayCircleOutlineIcon />
-								</IconButton>
+								</IconButton> */}
 								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>

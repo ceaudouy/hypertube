@@ -1,36 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Header from './components/header';
-import Home from './containers/homepage/home';
-import NotFound from './components/notfound';
-import ListPage from './containers/listMovies/list_page';
-import FavoritesMovies from './containers/favoritesMovies/favoritesMovies';
-import SignOut from './containers/homepage/sign_out';
-import ViewsMovies from './containers/viewsMovies/viewsMovies';
-import Research from './containers/research/research';
-import Watch from './containers/watch/watch';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+
+import api from './api/api';
+import { BREAK_POINTS } from './config/style';
+
+import Header from './components/Header';
+import Home from './containers/homepage/Home'
+import NotFound from './components/NotFound';
+import ListPage from './containers/listMovies/ListPage';
+import FavoritesMovies from './containers/favoritesMovies/FavoritesMovies';
+import SignOut from './containers/Homepage/SignOut';
+import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
+import Research from './containers/research/Research';
+import Watch from './containers/Watch/Watch';
+
+import './index.css';
+
+const AppContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: auto;
+	flex: 1;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		min-height: 100vh;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		min-height: 100vh;
+	}
+	& > * {
+		width: 100%;
+	}
+`
+
+// const AuthenticatedRoute = ({ component: Component, ...rest}) => {
+// 	return (
+// 		<Route 
+// 			{...rest}
+// 			render = { props => {
+// 				if (localStorage.getItem("token"))
+// 				return (<Component {...props} />)
+// 				return (<Redirect to={{pathname: '/login', state: {from: props.location }}} />);
+// 			}}
+// 		/>
+// 	)
+// }
 
 function Hyperloop() {
+	const [user, setUser] = useState(undefined);
+
 	let token = localStorage.getItem('token');
 
 	if ( token === null && window.location.href !== 'http://localhost:3000/') {
 		document.location.href='/';
 	}
-	// Road for FRONT-END
+
+	// if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+	// 	api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+	// 	api.get('/user/me')
+	// 	.then((res) => {
+	// 		setUser(res.data);
+	// 	})
+	// 	.catch(err => {
+	// 		delete api.defaults.headers.common['Authorization'];
+	// 		console.log(err);
+	// 	});
+	// }
+
 	return (
-		<Router>
-			<Header />
-			<Switch>
-				<Route path="/" exact component={ token === null ? Home : ListPage } />
-				<Route  path="/favorites" exact component={ FavoritesMovies } />
-				<Route  path="/views" exact component={ ViewsMovies } />
-				<Route  path="/search" exact component={ Research } />
-				<Route path="/watch" exact component={ Watch } />
-				<Route path="/offline" component={ SignOut } />
-				<Route component={NotFound} />
-			</Switch>
-		</Router>
+		<BrowserRouter>
+			<AppContainer id="AppContainer">
+				<Header id="Header" />
+				<Switch>
+					<Route path="/" exact component={ Home } />
+					<Route path="/offline" component={ SignOut } />
+					<Route path="/watch" exact component={ Watch } />
+					<Route path="/search" exact component={ Research } />
+					<Route path="/views" exact component={ ViewsMovies } />
+					<Route path="/favorites" exact component={ FavoritesMovies } />
+					{/* <AuthenticatedRoute exact path="/" component={ListPage} /> */}
+					<Route path="*" component={NotFound} />
+				</Switch>
+			</AppContainer>
+		</BrowserRouter>
 	);
 }
 
