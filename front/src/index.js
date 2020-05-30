@@ -77,6 +77,18 @@ function Hyperloop() {
 
 	console.log("index.js => user: ", user);
 
+	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+		api.get('/user/me')
+		.then((res) => {
+			setUser(res.data);
+		})
+		.catch(err => {
+			delete api.defaults.headers.common['Authorization'];
+			console.log(err);
+		});
+	}
+
 	return (
 		<UserContext.Provider value={[user, setUser]}>
 			<BrowserRouter>
