@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom';
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
@@ -48,6 +49,8 @@ const SubmitButton = styled.button`
 `
 
 function SignUp() {
+	const history = useHistory();
+
 	const [input, setInput] = useState({
 	   firstname: 'Nicolas',
 	   lastname: 'Vergne',
@@ -61,8 +64,10 @@ function SignUp() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		api.post('/user/register', input)
-		// .then()
-		// .catch()
+		.then(() => {
+			history.push('/signin')
+		})
+		.catch()
 		// const url = "http://localhost:3300/user/register";
 		// const req = await ReqFetch(input, url);
 		// setRequest(req);

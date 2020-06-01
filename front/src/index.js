@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import '@fortawesome/fontawesome-free/js/all'
 
 import api from './api/api';
+import { UserContext } from './context/UserContext'
 import { BREAK_POINTS } from './config/style';
 
 import Header from './components/Header';
@@ -72,22 +73,24 @@ function Hyperloop() {
 	}
 
 	return (
-		<BrowserRouter>
-			<Header />
-			<AppContainer id="AppContainer">
-				<Switch>
-					<Route path="/" exact component={ Home } />
-					<Route path="/signup" component={ SignUp } />
-					<Route path="/signin" component={ SignIn } />
-					<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
-					<AuthenticatedRoute exact path="/search" exact component={ Research } />
-					<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
-					<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
-					<AuthenticatedRoute exact path="/listpage" component={ListPage} />
-					<Route path="*" component={NotFound} />
-				</Switch>
-			</AppContainer>
-		</BrowserRouter>
+		<UserContext.Provider value={[user, setUser]}>
+			<BrowserRouter>
+				<Header />
+				<AppContainer id="AppContainer">
+					<Switch>
+						<Route path="/" exact component={ Home } />
+						<Route path="/signup" component={ SignUp } />
+						<Route path="/signin" component={ SignIn } />
+						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
+						<AuthenticatedRoute exact path="/search" exact component={ Research } />
+						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
+						<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
+						<AuthenticatedRoute exact path="/listpage" component={ListPage} />
+						<Route path="*" component={NotFound} />
+					</Switch>
+				</AppContainer>
+			</BrowserRouter>
+		</UserContext.Provider>
 	);
 }
 

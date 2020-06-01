@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import styled from "styled-components";
 
 import api from '../api/api'
+import { UserContext } from '../context/UserContext';
 import { COLORS, BREAK_POINTS } from '../config/style'
 
 const Typography = styled.span`
@@ -118,6 +119,11 @@ const Icon = styled.i`
 
 function Header() {
 	const history = useHistory();
+	const [user, setUser] = useContext(UserContext);
+	const [isLog, setIsLog] = useState(false);
+
+	if (user !== undefined && isLog === false)
+		setIsLog(true);
 
 	const handleLogout = () => {
 		if (localStorage.getItem('token') !== undefined) {
@@ -125,6 +131,7 @@ function Header() {
 			.then(() => {
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
+				setUser(undefined);
 				history.push("/");
 			})
 			.catch((err) => console.log(`${err.response.data.message}`));
@@ -170,12 +177,15 @@ function Header() {
 						<Typography>Lost</Typography>
 					</SLink>
 				</Element>
-				<Element>
-					<SLink to="/" onClick={handleLogout}>
-						<Icon className="fas fa-sign-out-alt fa-lg"/>
-						<Typography>Logout</Typography>
-					</SLink>
-				</Element>
+				{
+					isLog === true && 
+					<Element>
+						<SLink to="/" onClick={handleLogout}>
+							<Icon className="fas fa-sign-out-alt fa-lg"/>
+							<Typography>Logout</Typography>
+						</SLink>
+					</Element>
+				}
 			</Container>
 		</Navigation>
 	);
