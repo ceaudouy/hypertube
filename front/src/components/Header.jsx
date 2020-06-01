@@ -129,6 +129,7 @@ function Header() {
 		if (localStorage.getItem('token') !== undefined) {
 			api.post('/user/signOut')
 			.then(() => {
+				console.log("handlelogout");
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
 				setUser(undefined);
@@ -169,6 +170,12 @@ function Header() {
 					<SLink to="/signin">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Sign In</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/gameoflife">
+						<Icon className="fas fa-dice"/>
+						<Typography>Game Of Life</Typography>
 					</SLink>
 				</Element>
 				<Element>
