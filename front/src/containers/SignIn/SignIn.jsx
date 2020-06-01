@@ -68,7 +68,7 @@ function SignIn() {
 		api.post('/user/signIn', input)
 		.then((res) => {
 			setUser(res.data);
-			localStorage.setItem('token', res.success);
+			localStorage.setItem('token', res.data.token);
 		})
 		.catch((err) => {
 			console.log(err)
