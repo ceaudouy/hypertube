@@ -9,13 +9,14 @@ import { UserContext } from './context/UserContext'
 import { BREAK_POINTS } from './config/style';
 
 import Header from './components/Header';
-import Home from './containers/Homepage/Home';
+import Homepage from './containers/Homepage/Homepage';
 import NotFound from './components/NotFound';
 import ListPage from './containers/ListMovies/ListPage';
 import SignIn from './containers/SignIn/SignIn';
 import SignUp from './containers/SignUp/SignUp';
 import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
+import GameOfLife from './containers/GameOfLife/GameOfLife';
 import Research from './containers/Research/Research';
 import Watch from './containers/Watch/Watch';
 
@@ -28,9 +29,11 @@ const AppContainer = styled.div`
 	height: auto;
 	flex: 1;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-left: 5rem;
 		min-height: 100vh;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-bottom: 5rem;
 		min-height: 100vh;
 	}
 	& > * {
@@ -72,13 +75,15 @@ function Hyperloop() {
 		});
 	}
 
+	console.log("index.js => user: ", user);
+
 	return (
 		<UserContext.Provider value={[user, setUser]}>
 			<BrowserRouter>
 				<Header />
 				<AppContainer id="AppContainer">
 					<Switch>
-						<Route path="/" exact component={ Home } />
+						<Route path="/" exact component={ Homepage } />
 						<Route path="/signup" component={ SignUp } />
 						<Route path="/signin" component={ SignIn } />
 						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
@@ -86,6 +91,7 @@ function Hyperloop() {
 						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/listpage" component={ListPage} />
+						<AuthenticatedRoute exact path="/gameoflife" component={GameOfLife} />
 						<Route path="*" component={NotFound} />
 					</Switch>
 				</AppContainer>
