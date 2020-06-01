@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from "styled-components";
 
 import api from '../../api/api'
+import { UserContext } from '../../context/UserContext';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 
 
@@ -49,6 +50,8 @@ const SubmitButton = styled.button`
 `
 
 function SignIn() {
+	const [user, setUser] = useContext(UserContext);
+
 	const [input, setInput] = useState({
 		email: 'nicolas@vergne.com',
 		password: 'Test123456!'
@@ -64,8 +67,7 @@ function SignIn() {
 		e.preventDefault();
 		api.post('/user/signIn', input)
 		.then((res) => {
-			console.log("CIUUUUUUU");
-			console.log(res);
+			setUser(res.data);
 			localStorage.setItem('token', res.success);
 		})
 		.catch((err) => {
