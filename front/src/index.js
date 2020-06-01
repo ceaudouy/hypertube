@@ -75,12 +75,13 @@ function Hyperloop() {
 				<Header id="Header" />
 			<AppContainer id="AppContainer">
 				<Switch>
-					<Route path="/" exact component={ Home } />
+					{/* <Route path="/" exact component={ Home } /> */}
 					<Route path="/offline" component={ SignOut } />
 					<Route path="/watch" exact component={ Watch } />
 					<Route path="/search" exact component={ Research } />
 					<Route path="/views" exact component={ ViewsMovies } />
 					<Route path="/favorites" exact component={ FavoritesMovies } />
+					<Route exact path="/" component={ListPage} />
 					{/* <AuthenticatedRoute exact path="/" component={ListPage} /> */}
 					<Route path="*" component={NotFound} />
 				</Switch>
