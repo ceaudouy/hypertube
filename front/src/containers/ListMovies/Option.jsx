@@ -4,6 +4,7 @@ import Select from 'react-select';
 // import Select from '@material-ui/core/Select';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
+import { COLORS } from '../../config/style'
 
 const OptionContainer = styled.div `
 	display: flex;
@@ -24,78 +25,43 @@ const OneOption = styled.div `
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	align-items: stretch;
 	margin-top: 10px;
+	margin-bottom: 7px;
 	margin-left: 5px;
 	margin-right: 4px;
 	max-width: 200px;
 `
 
-const  groupBadgeStyles = {
-	backgroundColor: '#adb5bd',
-	borderRadius: '2em',
-	color: '#adb5bdD',
-	display: 'inline-block',
-	fontSize: 12,
-	fontWeight: 'normal',
-	lineHeight: '1',
-	minWidth: 1,
-	padding: '0.16666666666667em 0.5em',
-	textAlign: 'center',
-}
+const Button = styled.button`
+	border-radius: 5px;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	outline: none;
+	border: none;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.BLACK_LIGHT};
+	box-shadow: 2px 2px 12px #555;
+`
 
-const groupStyles = {
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-};
-
-const formatGroupLabel = data => (
-	<div style={groupStyles}>
-	  <span>{data.label}</span>
-	  <span style={ groupBadgeStyles }>{data.options.length}</span>
-	</div>
-  );
-// const FormatGroupLabel = styled.select`
-// 	width: 70%;
-// 	margin-left: auto;
-// 	margin-right: auto;
-// 	margin-bottom: 5px;
-// 	background-color: #adb5bd;
-//   	/* color: white; */
-//   	padding: 12px;
-//   	border: none;
-//   	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-// 	outline: none;
-// `
 
 const Text = styled.div`
 	color: white;
 	font-size: 0.9em;
 	margin-left: 7%;
-	margin-bottom: 10px;
-	
-`
-
-const FormControl = styled.div `
-	margin: 5px;
+	margin-bottom: 2px;
 `
 
 export default function OptionMenu(setQuery, type) {
 	const [genre, setGenre] = React.useState('');
-	const [openGenre, setOpenGenre] = React.useState(false);
 	const [date, setDate] = React.useState('');
 	const [date2, setDate2] = React.useState('');
-	const [openDate, setOpenDate] = React.useState(false);
 	const [vote, setVote] = React.useState('');
-	const [openVote, setOpenVote] = React.useState(false);
 	const [order, setOrder] = React.useState('');
-	const [openOrder, setOpenOrder] = React.useState(false);
 
 
 	const optionsGenre = [
-		{value: '', label: 'Select Genre'},
 		{value: 28, label: 'Action'},
 		{value: 12, label: 'Adventure'},
 		{value: 16, label: 'Animation'},
@@ -116,24 +82,51 @@ export default function OptionMenu(setQuery, type) {
 		{value: 10752, label: 'War'},
 		{value: 37, label: 'Western'},
 	]
+	const optionsDate = [
+		{value: 2020, label: '2020'},
+		{value: 2010, label: '2010 - 2019'},
+		{value: 2000, label: '2000 - 2009'},
+		{value: 1990, label: '1990 - 1999'},
+		{value: 1980, label: '1980 - 1989'},
+		{value: 1970, label: '1970 - 1979'},
+		{value: 1960, label: '1960 - 1969'},
+		{value: 1950, label: '1950 - 1959'},
+	]
+
+	const optionsStars = [
+		{value: 5,label: '5 stars'},
+		{value: 4,label: '4 stars'},
+		{value: 3,label: '3 stars'},
+		{value: 2,label: '2 stars'},
+		{value: 1,label: '1 star'},
+		{value: 0,label: '0 star'},
+	]
+
+	const optionsOrder = [
+		{value: 3, label: 'Popularity ↑'},
+		{value: 4, label: 'Popularity ↓'},
+		{value: 5, label: 'Date ↑'},
+		{value: 6, label: 'Date ↓'},
+		{value: 7, label: 'Stars ↑'},
+		{value: 8, label: 'Stars ↓'},
+	]
 
 	// setValue //
 	const genreChange = event => {
-		console.log(event.target.value)
-		setGenre(event.target.value);
+		setGenre(event.label);
 	};
 
 	const dateChange = event => {
-		setDate(event.target.value);
-		setDate2(event.target.value + 9);
+		setDate(event.label);
+		setDate2(event.label + 9);
 	};
 
 	const voteChange = event => {
-		setVote(event.target.value);
+		setVote(event.label);
 	};
 
 	const orderChange = event => {
-		setOrder(event.target.value);
+		setOrder(event.label);
 	};
 
 	// Set query for the research //
@@ -171,46 +164,23 @@ export default function OptionMenu(setQuery, type) {
 	<OptionContainer>
 		<OneOption>
 			<Text>Genre :</Text>
-			<Select  options={ optionsGenre } formatGroupLabel={ formatGroupLabel } />
+			<Select  onChange={ genreChange } options={ optionsGenre } />
 		</OneOption>
 		<OneOption>
 			<Text>Date :</Text>
-			{/* <Select onChange={ dateChange }>
-				<option value={''}>Select Date</option>
-				<option value={2020}>2020</option>
-				<option value={2010}>2010 - 2019</option>
-				<option value={2000}>2000 - 2009</option>
-				<option value={1990}>1990 - 1999</option>
-				<option value={1980}>1980 - 1989</option>
-				<option value={1970}>1970 - 1979</option>
-				<option value={1960}>1960 - 1969</option>
-				<option value={1950}>1950 - 1959</option>
-			</Select> */}
+			<Select onChange={ dateChange } options={ optionsDate } />
 		</OneOption>
 		<OneOption>
 			<Text>Stars :</Text>
-			{/* <Select onChange={ voteChange }>
-				<option value={''}>Select stars</option>
-				<option value={5}>5 stars</option>
-				<option value={4}>4 stars</option>
-				<option value={3}>3 stars</option>
-				<option value={2}>2 stars</option>
-				<option value={1}>1 star</option>
-				<option value={0}>0 star</option>
-			</Select> */}
+			<Select onChange={ voteChange } options={ optionsStars } />
 		</OneOption>
 		<OneOption>
-			<Text>Order by :</Text>
-			{/* <Select onChange={ orderChange }>
-				<option value={''}>Order by</option>
-				<option value={3}>Popularity up</option> {/* fleche haut */}
-				{/* <option value={4}>Popularity down</option> fleche bas */}
-				{/* <option value={5}>Date up</option> fleche haut */}
-				{/* <option value={6}>Date down</option> fleche bas */}
-				{/* <option value={7}>Stars up</option> fleche haut */}
-				{/* <option value={8}>Stars down</option> fleche bas */}
-			{/* </Select> */}
+			<Text>Order by:</Text>
+			<Select onChange={ orderChange } options={ optionsOrder} />
 		</OneOption>
+		<Button onClick={ submit }>
+				Search
+		 </Button>
 	</OptionContainer>
 )
 }
