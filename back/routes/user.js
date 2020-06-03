@@ -5,6 +5,10 @@ import { passport, auth } from 'middlewares';
 
 const userRouter = Router();
 
+userRouter.get('/', auth, (req, res) => {
+	res.status(200).json(req.user);
+})
+
 userRouter.get('/github', passport.authenticate('github', { session: false }));
 
 userRouter.get('/github/callback', passport.authenticate('github', { session: false }), (req, res) => {
