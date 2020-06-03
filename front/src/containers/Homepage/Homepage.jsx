@@ -43,9 +43,10 @@ function Homepage() {
 		
 	return (
 		<MainContainer id="MainContainer - home.js">
-			{/* <Typography>{text}</Typography> */}
 			<StyledCanvas id="canv"></StyledCanvas>
-			<Card></Card>
+			{/* <Card>
+				<Typography>{text}</Typography>
+			</Card> */}
 		</MainContainer>
 	);
 }

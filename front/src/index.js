@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+import styled from 'styled-components';
 import '@fortawesome/fontawesome-free/js/all'
 
 import api from './api/api';
@@ -57,37 +57,10 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 function Hyperloop() {
 	const [user, setUser] = useState(undefined);
 
-	// let token = localStorage.getItem('token');
-
-	// if ( token === null && window.location.href !== 'http://localhost:3000/') {
-	// 	document.location.href='/';
-	// }
-
-	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
-		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-		api.get('/user/me')
-		.then((res) => {
-			setUser(res.data);
-		})
-		.catch(err => {
-			delete api.defaults.headers.common['Authorization'];
-			console.log(err);
-		});
-	}
-
-	console.log("index.js => user: ", user);
-
-	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
-		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-		api.get('/user/me')
-		.then((res) => {
-			setUser(res.data);
-		})
-		.catch(err => {
-			delete api.defaults.headers.common['Authorization'];
-			console.log(err);
-		});
-	}
+	useEffect(() => {
+		if (localStorage.getItem('token'))
+			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+	}, [setUser, localStorage.token])
 
 	return (
 		<UserContext.Provider value={[user, setUser]}>

@@ -67,7 +67,8 @@ function SignIn() {
 		e.preventDefault();
 		api.post('/user/signIn', input)
 		.then((res) => {
-			setUser(res.data);
+			// setUser(res.data);
+			console.log("you've signed in");
 			localStorage.setItem('token', res.data.token);
 		})
 		.catch((err) => {
