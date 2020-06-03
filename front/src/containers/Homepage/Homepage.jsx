@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import Ballpool from './Ballpool'
+import BallPool from './BallPool'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -16,8 +16,20 @@ const Typography = styled.span`
 `
 
 const StyledCanvas  = styled.canvas`
+	position: absolute;
+	z-index: -2;
 	height: 100vh;
 	width: auto;
+`
+
+const Card = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 20vh;
+	width: 20vw;
+	background-color: white;
 `
 
 function Homepage() {
@@ -26,15 +38,14 @@ function Homepage() {
 		text = localStorage.token;
 
 	useEffect(() => {
-		Ballpool();
+		BallPool();
 	})
 		
-	// console.log("text", text);
-
 	return (
 		<MainContainer id="MainContainer - home.js">
 			{/* <Typography>{text}</Typography> */}
 			<StyledCanvas id="canv"></StyledCanvas>
+			<Card></Card>
 		</MainContainer>
 	);
 }
