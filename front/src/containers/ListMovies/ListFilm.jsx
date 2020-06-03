@@ -1,9 +1,11 @@
 import React, { useState, useRef, useCallback } from 'react';
 import '../../css/listFilm.css';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import FetchAllMovies from './Fetch';
 import PutFilm from '../../components/PutFilm';
+import styled from 'styled-components'
+
+const ContainerDisplay = styled.div`
+`
 
 export default function ListFilm(query, favorites, type) {
 	const [ pageNumber, setPageNumber ] = useState(1);
@@ -27,19 +29,17 @@ export default function ListFilm(query, favorites, type) {
 		if (node) observer.current.observe(node)
 	}, [loading, hasMore])
 
-	if (favorites[0] !== "empty") {
+		// if (favorites[0] !== "empty") {
 		return (
 			<div>
-				<React.Fragment>
-					<Container fixed>
-						<Typography component="div" className="list-film" >
+					<ContainerDisplay>
+						{/* <Typography component="div" className="list-film" > */}
 							{ PutFilm(film, favorites, type, lastFilmElementRef) }
 							<div className="loading">{loading && 'Loading...'}</div>
 							<div>{error && 'Error'}</div>
-						</Typography>
-					</Container>
-				</React.Fragment>
+						{/* </Typography> */}
+					</ContainerDisplay>
 			</div>
 		)
-	}
+	// }
 }
