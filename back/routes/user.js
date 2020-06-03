@@ -39,7 +39,7 @@ userRouter.post('/signIn', async (req, res, next) => {
 
 userRouter.post('/signOut', auth, async (req, res, next) => {
 	try {
-		User.signOut(req.use);
+		User.signOut(req.user);
 		res.status(200).send();
 	} catch (err) {
 		next(err);
