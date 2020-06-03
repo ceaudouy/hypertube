@@ -1,4 +1,4 @@
-function Ballpool() {
+function BallPool() {
     var c = document.getElementById('canv');
     var $ = c.getContext('2d');
     var u = 0;
@@ -127,4 +127,4 @@ function Ballpool() {
     run();
 }
 
-export default Ballpool;
+export default BallPool;
