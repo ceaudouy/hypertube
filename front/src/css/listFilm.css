@@ -83,3 +83,27 @@
 	display: flex;
 	justify-content: space-around;
 }
+
+.black {
+	color: #23232e;
+	width: 2rem;
+	font-size: 2rem;
+  	min-width: 2rem;
+  	margin: 0 1.5rem;
+}
+
+.green{
+	color: #ffffff;
+	width: 2rem;
+	font-size: 2rem;
+  	min-width: 2rem;
+  	margin: 0 1.5rem;
+}
+/* 
+const Icon = styled.i`
+width: 2rem;
+font-size: 2rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+`
+return (<Icon style={{color: COLORS.BLACK}} className="fas fa-heart" />) */

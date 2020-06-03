@@ -14,8 +14,8 @@ const OptionContainer = styled.div `
 	margin: 10;
 	background-color: #adb5bd;
 	height: 400px;
-	margin-top: 20px;
-	margin-left: 13px;
+	margin-top: 5vw;
+	margin-left: 3vw;
 	border-radius: 5px;
 	min-width: 180px;
 `

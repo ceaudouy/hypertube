@@ -31,15 +31,11 @@ export default function ListFilm(query, favorites, type) {
 
 		// if (favorites[0] !== "empty") {
 		return (
-			<div>
-					<ContainerDisplay>
-						{/* <Typography component="div" className="list-film" > */}
-							{ PutFilm(film, favorites, type, lastFilmElementRef) }
-							<div className="loading">{loading && 'Loading...'}</div>
-							<div>{error && 'Error'}</div>
-						{/* </Typography> */}
-					</ContainerDisplay>
-			</div>
+				<ContainerDisplay>
+					{ PutFilm(film, favorites, type, lastFilmElementRef) }
+					<div className="loading">{loading && 'Loading...'}</div>
+					<div>{error && 'Error'}</div>
+				</ContainerDisplay>
 		)
 	// }
 }
