@@ -125,16 +125,16 @@ function Header() {
 	if (user !== undefined && isLog === false)
 		setIsLog(true);
 
-		api.get('/user')
-		.then((res) => {
-			setUser(res.data);
-			console.log("setting user in index.js", res.data)
-		})
-		.then(console.log("index.js === user: ", user))
-		.catch(err => {
-			delete api.defaults.headers.common['Authorization'];
-			console.log(err);
-		});
+		// api.get('/user')
+		// .then((res) => {
+		// 	setUser(res.data);
+		// 	console.log("setting user in index.js", res.data)
+		// })
+		// .then(console.log("index.js === user: ", user))
+		// .catch(err => {
+		// 	delete api.defaults.headers.common['Authorization'];
+		// 	console.log(err);
+		// });
 
 	const handleLogout = () => {
 		if (localStorage.getItem('token') !== undefined) {
