@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OptionMenu from './Option';
-import listFilm from './ListFilm';
+import ListFilm from './ListFilm';
 import TypeSearch from '../../components/TypeSearch';
 import styled from 'styled-components'
 
@@ -38,7 +38,7 @@ export default function ListPage() {
 			{/* { TypeSearch(type, setType, setQuery, query) } */}
 			<HomePage>
 				{OptionMenu(setQuery, type)}
-				{listFilm(query, favorites, type)}
+				{ListFilm(query, favorites, type)}
 			</HomePage>
 		</div>
 	)
