@@ -19,6 +19,4 @@ View.add = async (movie, type) => {
   return view;
 }
 
-View.sync();
-
 export default View;

@@ -20,7 +20,7 @@ Comment.init({
 
 Comment.add = async (comment, user) => {
   const newComment = await Comment.create(comment);
-  await newComment.addUser(user);
+  await user.addComment(newComment);
   return newComment;
 }
 
@@ -28,7 +28,5 @@ Comment.get = async (type, movie) => {
   const comments = await Comment.findAll({where: {type, movie}});
   return comments;
 }
-
-Comment.sync();
 
 export default Comment;

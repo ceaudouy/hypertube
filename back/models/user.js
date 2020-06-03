@@ -124,6 +124,4 @@ User.views = async (id) => {
   return views;
 }
 
-User.sync();
-
 export default User;

@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import { User } from 'models';
 import { db } from 'middlewares';
 
 class Favorite extends Model {};
@@ -26,7 +27,5 @@ Favorite.add = async (movie, type, user) => {
   
   return favorite;
 }
-
-Favorite.sync();
 
 export default Favorite;

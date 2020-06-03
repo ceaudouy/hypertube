@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { handleError, passport } from 'middlewares';
-
+import { handleError, passport, db } from 'middlewares';
 import { userRouter, movieRouter } from 'routes';
 
 dotenv.config();
 
 const app = express();
+
+db.sync({ force: true })
 
 app.use(express.json());
 app.use(cors());
