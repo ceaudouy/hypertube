@@ -112,8 +112,7 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 								{ overview }
 							</Overview>
 							<Footer>
-								{ ButtonFavorite(elem, favorites, type) }
-								{/* <ButtonFavorite elem={ elem } favorites={ favorites } type={ type } /> */}
+								<ButtonFavorite elem={elem} favorites={favorites} type={type} />
 								<SLink to={ '/watch?' + type + '&' + elem.id }>
 									<Icon className="far fa-play-circle" />
 								</SLink>
