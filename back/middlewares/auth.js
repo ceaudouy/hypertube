@@ -29,7 +29,7 @@ passport.use(new GitHubStrategy({
   callbackURL: "http://localhost:3300/user/github/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    let user = await User.findOrCreate({
+    let user = await User.scope('complete').findOrCreate({
       where: { githubId: profile.id },
       defaults: {
         login: profile.username,

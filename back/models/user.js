@@ -45,7 +45,18 @@ User.init({
   token: {
     type: Sequelize.STRING 
   }
-}, { sequelize: db, modelName: 'user' });
+}, {
+  defaultScope: {
+    attributes: { exclude: ['password', 'token'] }
+  },
+  scopes: {
+  complete: {
+    attributes: {}
+  }
+  }, 
+  sequelize: db,
+  modelName: 'user' 
+});
 
 User.hasMany(Favorite);
 User.hasMany(View);
@@ -84,7 +95,7 @@ User.register = async (user) => {
 }
 
 User.signIn = async (user) => {
-  const signingUser = await User.findOne({where: {email: user.email}});
+  const signingUser = await User.scope('complete').findOne({where: {email: user.email}});
   if (!signingUser) throw new ErrorHandler(403, 'user not found');
 
   if (await bcrypt.compare(user.password, signingUser.password)) {
