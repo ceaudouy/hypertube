@@ -18,11 +18,11 @@ Favorite.init({
 Favorite.add = async (movie, type, user) => {
   let favorite = undefined;
 
-  if (await Favorite.findOne({ where: { movie, type, user } })) {
+  if (await Favorite.findOne({ where: { movie, type, userId: user.id } })) {
     favorite = await Favorite.destroy({ where: { movie, type } })
-    user.addFavorite(favorite);
   } else {
     favorite = await Favorite.create({ movie, type });
+    await user.addFavorite(favorite);
   }
   
   return favorite;

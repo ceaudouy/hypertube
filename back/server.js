@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 
-db.sync({ force: true })
+db.sync()
 
 app.use(express.json());
 app.use(cors());

@@ -14,8 +14,9 @@ View.init({
   }
 }, { sequelize: db, modelName: 'view' });
 
-View.add = async (movie, type) => {
-  const view = View.create({ movie, type });
+View.add = async (movie, type, user) => {
+  const view = await View.create({ movie, type });
+  await user.addView(view);
   return view;
 }
 

@@ -113,13 +113,13 @@ User.signOut = async (user) => {
   User.update({ token: null }, {where: { id: user.id }})
 }
 
-User.favorites = async (id) => {
-  const favorites = await User.getFavorites();
+User.favorites = async (user) => {
+  const favorites = await user.getFavorites();
+
   return favorites;
 }
 
-User.views = async (id) => {
-  const user = await User.findOne({where: {id: id}});
+User.views = async (user) => {
   const views = await user.getViews();
   return views;
 }

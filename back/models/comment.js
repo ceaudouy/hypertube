@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import { User } from 'models';
 import { db } from 'middlewares';
 
 class Comment extends Model {};
@@ -25,7 +26,12 @@ Comment.add = async (comment, user) => {
 }
 
 Comment.get = async (type, movie) => {
-  const comments = await Comment.findAll({where: {type, movie}});
+  const comments = await Comment.findAll({
+    where: {type, movie},
+    include: [
+      { model: User }
+    ]
+  });
   return comments;
 }
 
