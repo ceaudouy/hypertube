@@ -17,7 +17,7 @@ const OptionContainer = styled.div `
 	margin-top: 20px;
 	margin-left: 13px;
 	border-radius: 5px;
-	width: 180px;
+	min-width: 180px;
 `
 
 const OneOption = styled.div `
