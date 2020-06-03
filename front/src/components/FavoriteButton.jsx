@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
-import { COLORS, BREAK_POINTS } from '../config/style'
 
 	const Icon = styled.i`
 		width: 2rem;
@@ -12,19 +11,32 @@ import { COLORS, BREAK_POINTS } from '../config/style'
 	`
 
 
-export default function ButtonFavorite(elem, favorites, type) {
-	// const [color, setColor] = useState(COLORS.GREEN);
-	var color = COLORS.GREEN
+export default function ButtonFavorite(props) {
+	const [color, setColor] = useState(props.favorites.includes(props.elem.id) === true ? 'red' : 'grey');
 
 
-	const handleClick = event => {
-		console.log(event)
-		color = color == COLORS.BLACK ? COLORS.GREEN : COLORS.BLACK;
+	const handleClick = id => {
+		var token = localStorage.getItem('token');
+		// fetch(`http://localhost:3300/movie/addFavorites`, {
+		// 	method: 'POST',
+		// 	credentials: 'include',
+		// 	headers: new Headers({
+		// 		'Content-Type': 'application/json',
+		// 		'Authorization': token
+		// 	}),
+		// 	body: JSON.stringify(
+		// 		{
+		// 			id: id,
+		// 			type: props.type
+		// 		}
+		// 	)
+		// })
+		setColor(color == 'red' ? 'grey' : 'red');
 	}
 
 	return (
-		<div onClick={ e => handleClick(e) }>
-			<Icon style={{color: color}} className="fas fa-heart"></Icon>
+		<div onClick={ e => handleClick(props.elem.id) }>
+			<FavoriteIcon className={color == 'red' ? "favorite" : ""} />
 		</div>
 	)
 }
