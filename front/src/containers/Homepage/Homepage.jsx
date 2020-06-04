@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import api from '../../api/api'
+import loader from '../../components/Loader/Loader'
 
 import BallPool from './BallPool'
+import Loader from '../../components/Loader/Loader'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -37,21 +39,24 @@ const Card = styled.div`
 
 function Homepage() {
 	const [user, setUser] = useState(undefined);
+	// const [fetch, setFetch] = useState(false);
 
 	useEffect(() => {
-		// BallPool();
+		BallPool();
 		api.get('/user')
 		.then((res) => {
 			console.log("homepage - /user succes");
 			setUser(res.data);
+			// setFetch(true);
 		})
 		.catch(err => {
 			console.log("homepage - /user failure");
 			console.log(err);
 		});
-	})
+	}, [])
 		
 	return (
+		// fetch === true ? 
 		<MainContainer id="MainContainer - home.js">
 			<StyledCanvas id="canv"></StyledCanvas>
 			<Card>
@@ -60,6 +65,7 @@ function Homepage() {
 				</Typography>
 			</Card>
 		</MainContainer>
+		// : <Loader/>
 	);
 }
 

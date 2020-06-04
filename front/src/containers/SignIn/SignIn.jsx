@@ -85,20 +85,6 @@ function SignIn() {
 				<StyledInput type="text" name="email" placeholder="email" label="Email" onChange={handleChange} />
 				<StyledInput type="password" name="password" placeholder="password" label="Password" onChange={handleChange} />
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
-				{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-					<Alert onClose={handleClose} severity="warning">
-						{request.error}
-					</Alert>
-				</Snackbar>
-				<Button variant="contained" color="secondary" className={classes.fortytwo}>
-					Sign In with 42
-				</Button>
-				<Button onClick={handleGithubConnexion} variant="contained" color="secondary" className={classes.fortytwo2}>
-					Sign In with Github
-				</Button>
-				<Button variant="contained" color="secondary" className={classes.fortytwo2}>
-					Sign In with Gmail
-				</Button> */}
 			</SignupForm>
 		</MainContainer>
 	)
