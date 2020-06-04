@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import styled from "styled-components";
 
 import api from '../api/api'
-import { UserContext } from '../context/UserContext';
 import { COLORS, BREAK_POINTS } from '../config/style'
 
 const Typography = styled.span`
@@ -119,22 +118,19 @@ const Icon = styled.i`
 
 function Header() {
 	const history = useHistory();
-	const [user, setUser] = useContext(UserContext);
 	const [isLog, setIsLog] = useState(false);
 
-	if (user !== undefined && isLog === false)
-		setIsLog(true);
-
-		// api.get('/user')
-		// .then((res) => {
-		// 	setUser(res.data);
-		// 	console.log("setting user in index.js", res.data)
-		// })
-		// .then(console.log("index.js === user: ", user))
-		// .catch(err => {
-		// 	delete api.defaults.headers.common['Authorization'];
-		// 	console.log(err);
-		// });
+	useEffect(() => {
+		api.get('/user')
+		.then((res) => {
+			console.log("header - /user succes");
+			setIsLog(true);
+		})
+		.catch(err => {
+			console.log("header - /user failure");
+			console.log(err);
+		});
+	})
 
 	const handleLogout = () => {
 		if (localStorage.getItem('token') !== undefined) {
@@ -143,7 +139,6 @@ function Header() {
 				console.log("handlelogout");
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
-				setUser(undefined);
 				history.push("/");
 			})
 			.catch((err) => console.log(`${err.response.data.message}`));

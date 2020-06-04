@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import styled from 'styled-components';
 import '@fortawesome/fontawesome-free/js/all'
+import { SnackbarProvider } from 'notistack';
 
 import api from './api/api';
-import { UserContext } from './context/UserContext'
 import { BREAK_POINTS } from './config/style';
 
 import Header from './components/Header';
@@ -63,7 +63,7 @@ function Hyperloop() {
 	}, [setUser, localStorage.token])
 
 	return (
-		<UserContext.Provider value={[user, setUser]}>
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
 			<BrowserRouter>
 				<Header />
 				<AppContainer id="AppContainer">
@@ -81,7 +81,7 @@ function Hyperloop() {
 					</Switch>
 				</AppContainer>
 			</BrowserRouter>
-		</UserContext.Provider>
+		</SnackbarProvider>
 	);
 }
 

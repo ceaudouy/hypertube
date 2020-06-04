@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import { useSnackbar } from 'notistack';
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
@@ -50,6 +51,7 @@ const SubmitButton = styled.button`
 
 function SignUp() {
 	const history = useHistory();
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const [input, setInput] = useState({
 	   firstname: 'Nicolas',
@@ -65,12 +67,15 @@ function SignUp() {
 		e.preventDefault();
 		api.post('/user/register', input)
 		.then(() => {
-			history.push('/signin')
+			enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
+			setTimeout(closeSnackbar(), 1000);
+			setTimeout(history.push('/signin'), 1000);
 		})
-		.catch()
-		// const url = "http://localhost:3300/user/register";
-		// const req = await ReqFetch(input, url);
-		// setRequest(req);
+		.catch((err) => {
+			console.log(err);
+			enqueueSnackbar(`A problem occured`, {variant: 'error'});
+			setTimeout(closeSnackbar(), 1000);
+		})
 	}
 
 	return (

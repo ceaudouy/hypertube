@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+
+import api from '../../api/api'
 
 import BallPool from './BallPool'
 
@@ -29,24 +31,34 @@ const Card = styled.div`
 	align-items: center;
 	height: 20vh;
 	width: 20vw;
-	background-color: white;
+	color: white;
+	background-color: black;
 `
 
 function Homepage() {
-	let text = "no token";
-	if (localStorage.length !== 0)
-		text = localStorage.token;
+	const [user, setUser] = useState(undefined);
 
 	useEffect(() => {
-		BallPool();
+		// BallPool();
+		api.get('/user')
+		.then((res) => {
+			console.log("homepage - /user succes");
+			setUser(res.data);
+		})
+		.catch(err => {
+			console.log("homepage - /user failure");
+			console.log(err);
+		});
 	})
 		
 	return (
 		<MainContainer id="MainContainer - home.js">
 			<StyledCanvas id="canv"></StyledCanvas>
-			{/* <Card>
-				<Typography>{text}</Typography>
-			</Card> */}
+			<Card>
+				<Typography>
+					{ user !== undefined && user.firstname }
+				</Typography>
+			</Card>
 		</MainContainer>
 	);
 }

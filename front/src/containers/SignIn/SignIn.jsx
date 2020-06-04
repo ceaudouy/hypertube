@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import styled from "styled-components";
+import { useSnackbar } from 'notistack';
 
 import api from '../../api/api'
-import { UserContext } from '../../context/UserContext';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 
 
@@ -50,12 +50,12 @@ const SubmitButton = styled.button`
 `
 
 function SignIn() {
-	const [user, setUser] = useContext(UserContext);
-
 	const [input, setInput] = useState({
 		email: 'nicolas@vergne.com',
 		password: 'Test123456!'
 	 });
+
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleGithubConnexion = () => {
 		
@@ -67,12 +67,15 @@ function SignIn() {
 		e.preventDefault();
 		api.post('/user/signIn', input)
 		.then((res) => {
-			// setUser(res.data);
-			console.log("you've signed in");
-			localStorage.setItem('token', res.data.token);
+			localStorage.token = res.data.token;
+			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+			enqueueSnackbar(`You're connected!`, {variant: 'success'});
+			setTimeout(closeSnackbar(), 1000);
 		})
 		.catch((err) => {
 			console.log(err)
+			enqueueSnackbar(`A problem occured`, {variant: 'error'});
+			setTimeout(closeSnackbar(), 1000);
 		})
 	}
 
