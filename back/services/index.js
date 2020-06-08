@@ -1,0 +1,1 @@
+export { default as fetchMovies, ENDPOINTS } from './torrentSearch';
