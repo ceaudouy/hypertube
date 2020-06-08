@@ -3,10 +3,16 @@ import OptionMenu from './Option';
 import ListFilm from './ListFilm';
 import TypeSearch from '../../components/TypeSearch';
 import styled from 'styled-components'
+import { COLORS, BREAK_POINTS } from '../../config/style';
 
 const HomePage = styled.div `
 	display: flex;
 	justify-content: space-around;
+	flex-direction: row;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+			flex-direction: column;
+			align-items: center;
+	}
 `
 
 export default function ListPage() {
