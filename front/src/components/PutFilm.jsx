@@ -27,6 +27,10 @@ const ContainerCard = styled.div `
 	margin-right: 4px;
 	background-color: #adb5bd;
 	border-radius: 5px;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-left: auto;
+		margin-right: auto;
+	}
 `
 const ContainerHeader = styled.div`
 	margin-bottom: 5px;
