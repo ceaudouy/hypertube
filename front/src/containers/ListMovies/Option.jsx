@@ -54,7 +54,7 @@ const Text = styled.div`
 	margin-bottom: 2px;
 `
 
-export default function OptionMenu(setQuery, type) {
+export default function OptionMenu(props) {
 	const [genre, setGenre] = React.useState('');
 	const [date, setDate] = React.useState('');
 	const [date2, setDate2] = React.useState('');
@@ -67,8 +67,13 @@ export default function OptionMenu(setQuery, type) {
 	};
 
 	const dateChange = event => {
+<<<<<<< HEAD
 		setDate(event.value);
 		setDate2(parseInt(event.value) + 9);
+=======
+		setDate(event.label);
+		setDate2(parseInt(event.label) + 9);
+>>>>>>> Selection film ou serie listpage
 	};
 
 	const voteChange = event => {
@@ -103,7 +108,11 @@ export default function OptionMenu(setQuery, type) {
 				queryOrder = '&sort_by=vote_average.' + trie;
 			}
 		}
+<<<<<<< HEAD
 		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+=======
+		props.setQuery('https://api.themoviedb.org/3/discover/' + props.type + '?api_key=b936c3df071b03229069cfcbe5276410&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+>>>>>>> Selection film ou serie listpage
 	}
 
 	return (
