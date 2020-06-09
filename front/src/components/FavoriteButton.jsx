@@ -14,7 +14,7 @@ export default function ButtonFavorite(props) {
 
 
 	const handleClick = id => {
-		var token = localStorage.getItem('token');
+		// var token = localStorage.getItem('token');
 		// fetch(`http://localhost:3300/movie/addFavorites`, {
 		// 	method: 'POST',
 		// 	credentials: 'include',
@@ -29,12 +29,12 @@ export default function ButtonFavorite(props) {
 		// 		}
 		// 	)
 		// })
-		setColor(color == 'red' ? 'grey' : 'red');
+		setColor(color === 'red' ? 'grey' : 'red');
 	}
 
 	return (
 		<div onClick={ e => handleClick(props.elem.id) }>
-			<FavoriteIcon className={color == 'red' ? "favorite" : ""} />
+			<FavoriteIcon className={color === 'red' ? "favorite" : ""} />
 		</div>
 	)
 }
