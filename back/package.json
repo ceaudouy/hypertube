@@ -5,9 +5,11 @@
     "build": "babel . --out-dir dist",
     "start": "nodemon --exec babel-node server.js",
     "fetch": "babel-node services/torrentSearch.js",
-    "lint": "eslint --ignore-path .gitignore . --fix",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
-    "validate": "npm run lint && npm run format"
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "lint": "eslint --ignore-path .gitignore .",
+    "format": "npm run prettier -- --write",
+    "format:check": "npm run prettier -- --list-different",
+    "validate": "npm run lint && npm run format:check"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,7 @@
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
+    "lint-staged": "^10.2.9",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   },
