@@ -12,10 +12,10 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	}, [query, setPageNumber])
 
 	useEffect(() => {
-		// console.log(query);
 		setLoading(true);
 		setError(false);
 		const url = query + pageNumber.toString();
+		console.log(url);
 		fetch(url, {
 			headers: new Headers({
 				'Content-Type': 'application/json',

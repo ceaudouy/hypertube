@@ -54,7 +54,7 @@ const Text = styled.div`
 	margin-bottom: 2px;
 `
 
-export default function OptionMenu(props) {
+export default function OptionMenu(setQuery, type) {
 	const [genre, setGenre] = React.useState('');
 	const [date, setDate] = React.useState('');
 	const [date2, setDate2] = React.useState('');
@@ -63,20 +63,20 @@ export default function OptionMenu(props) {
 
 	// setValue //
 	const genreChange = event => {
-		setGenre(event.label);
+		setGenre(event.value);
 	};
 
 	const dateChange = event => {
-		setDate(event.label);
-		setDate2(parseInt(event.label) + 9);
+		setDate(event.value);
+		setDate2(parseInt(event.value) + 9);
 	};
 
 	const voteChange = event => {
-		setVote(event.label);
+		setVote(event.value);
 	};
 
 	const orderChange = event => {
-		setOrder(event.label);
+		setOrder(event.value);
 	};
 
 	// Set query for the research //
@@ -104,7 +104,7 @@ export default function OptionMenu(props) {
 				queryOrder = '&sort_by=vote_average.' + trie;
 			}
 		}
-		props.setQuery('https://api.themoviedb.org/3/discover/' + props.type + '?api_key=b936c3df071b03229069cfcbe5276410&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (
@@ -131,14 +131,6 @@ export default function OptionMenu(props) {
 	</OptionContainer>
 )
 }
-
-
-
-
-
-
-
-
 
 // export default function OptionMenu(setQuery, type) {
 // 	const classes = useStyles();
@@ -243,7 +235,7 @@ export default function OptionMenu(props) {
 // 				// setPageNumber(11);
 // 			}
 // 		}
-// 		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=b936c3df071b03229069cfcbe5276410&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+// 		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 // 	}
 
 
