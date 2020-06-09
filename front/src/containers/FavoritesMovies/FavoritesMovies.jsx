@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/styles';
 import PutFilm from '../../components/PutFilm';
 import TypeSearch from '../../components/TypeSearch';
 import '../../css/listFilm.css';
+import styled from 'styled-components'
+import { COLORS } from '../../config/style';
 
-const useStyle = makeStyles(theme => ({
-	notFound: {
-		paddingTop: "100px",
-		textAlign: "center",
-		color: "white",
-		fontSize: "2vw",
-	}
-}));
+const Homepage = styled.div`
+	display: flex;
+	justify-content: space-around;
+`
+const Text = styled.div`
+	display: flex;
+	justify-content: center;
+	color: ${COLORS.WHITE};
+`
+
 
 export default function FavoritesMovies() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=b936c3df071b03229069cfcbe5276410&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
+	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
-	const classes = useStyle();
 
 	useEffect(() => {
 		setFilm([]);
@@ -42,7 +44,7 @@ export default function FavoritesMovies() {
 
 		var tab = [];
 		fav.forEach(element => {
-			const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=b936c3df071b03229069cfcbe5276410&language=' + localStorage.getItem('langue')
+			const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue')
 			fetch(url, {
 				headers: new Headers({
 					'Content-Type': 'application/json',
@@ -67,16 +69,16 @@ export default function FavoritesMovies() {
 		return (
 			<div>
 				{ TypeSearch(type, setType, setQuery, query) }
-				<div className={classes.notFound}>You don't have favorite movie!</div>
+				<Text>You don't have favorite movie!</Text>
 			</div>
 		)
 	} else {
 		return (
 			<div>
 				{ TypeSearch(type, setType, setQuery, query) }
-				<div className="home-page">
+				<Homepage>
 					{PutFilm(film, favorites, type)}
-				</div>
+				</Homepage>
 			</div>
 		)
 	}

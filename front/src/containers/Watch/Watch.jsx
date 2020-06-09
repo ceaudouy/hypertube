@@ -115,8 +115,8 @@ export default function Watch() {
 	const [detail, setDetail] = useState([]);
 	const [casting, setCasting] = useState([]);
 
-	var info = 'https://api.themoviedb.org/3/' + type + '/' + movie + '?api_key=b936c3df071b03229069cfcbe5276410&language=' + localStorage.getItem('langue');
-	var cast = 'https://api.themoviedb.org/3/' + type + '/' + movie + '/credits?api_key=b936c3df071b03229069cfcbe5276410';
+	var info = 'https://api.themoviedb.org/3/' + type + '/' + movie + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
+	var cast = 'https://api.themoviedb.org/3/' + type + '/' + movie + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
 	
 	useEffect(() => {
 		fetch(info, {
