@@ -1,1 +1,1 @@
-export { default as fetchMovies, ENDPOINTS } from './torrentSearch';
+export { fetchMovies } from './torrentSearch'

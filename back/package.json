@@ -2,9 +2,12 @@
   "name": "hyperloop",
   "version": "1.0.0",
   "scripts": {
-    "prod": "node server.js",
+    "build": "babel . --out-dir dist",
     "start": "nodemon --exec babel-node server.js",
-    "fetch": "babel-node services/torrentSearch.js"
+    "fetch": "babel-node services/torrentSearch.js",
+    "lint": "eslint --ignore-path .gitignore . --fix",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "validate": "npm run lint && npm run format"
   },
   "repository": {
     "type": "git",
@@ -35,7 +38,11 @@
     "@babel/preset-env": "^7.7.7",
     "babel-plugin-module-resolver": "^4.0.0",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^4.2.5",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
   },
   "description": ""
 }
