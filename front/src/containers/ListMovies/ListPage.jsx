@@ -41,7 +41,7 @@ export default function ListPage() {
 
 	return (
 		<div>
-			{/* { TypeSearch(type, setType, setQuery, query) } */}
+			{ TypeSearch(type, setType, setQuery, query) }
 			<HomePage>
 				{OptionMenu(setQuery, type)}
 				{ListFilm(query, favorites, type)}

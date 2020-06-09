@@ -1,6 +1,5 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
 import ButtonFavorite from './FavoriteButton';
 import styled from 'styled-components'
 import { COLORS, BREAK_POINTS } from '../config/style'
@@ -64,10 +63,6 @@ const Footer = styled.div`
 	flex-direction: row;
 	align-items: center;
 `
-const Play = styled.div`
-	color: ${COLORS.BLACK_LIGHT};
-	size: 15px;
-`
 
 const SLink = styled(Link)`
 	display: flex;
@@ -84,10 +79,6 @@ const Icon = styled.i`
   	min-width: 2rem;
   	margin: 0 1.5rem;
 `
-
-const playmovie = (elem, type) => {
-	document.location.href = '/watch?' + type + '&' + elem.id
-}
 
 export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 	
