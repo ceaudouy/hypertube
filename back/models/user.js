@@ -65,68 +65,68 @@ User.init({
   modelName: 'user' 
 });
 
-User.hasMany(Favorite);
-User.hasMany(View);
-User.hasMany(Comment);
+User.hasMany(Favorite)
+User.hasMany(View)
+User.hasMany(Comment)
 
-Favorite.belongsTo(User);
-View.belongsTo(User);
-Comment.belongsTo(User);
+Favorite.belongsTo(User)
+View.belongsTo(User)
+Comment.belongsTo(User)
 
-User.beforeCreate( async (user) => {
+User.beforeCreate(async user => {
   if (user.password) {
-    return await bcrypt.hash(user.password, 10)
-    .then(hash => {
-      user.password = hash
-    })
-    .catch(err => {
-      throw new Error(err)
-    })
+    return await bcrypt
+      .hash(user.password, 10)
+      .then(hash => {
+        user.password = hash
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
   }
-});
+})
 
-User.register = async (user) => {
+User.register = async user => {
   const existingUser = await User.findOne({
     where: {
-      [Op.or]: [
-        { email: user.email },
-        { login: user.login }
-      ]
-    }
+      [Op.or]: [{ email: user.email }, { login: user.login }],
+    },
   })
-  if (existingUser) throw new ErrorHandler(403, 'User exists');
+  if (existingUser) throw new ErrorHandler(403, 'User exists')
 
-  const newUser = await User.create(user);
-  return newUser;
+  const newUser = await User.create(user)
+
+  return newUser
 }
 
-User.signIn = async (user) => {
-  const signingUser = await User.scope('complete').findOne({where: {email: user.email}});
-  if (!signingUser) throw new ErrorHandler(403, 'user not found');
+User.signIn = async user => {
+  const signingUser = await User.scope('complete').findOne({
+    where: { email: user.email },
+  })
+  if (!signingUser) throw new ErrorHandler(403, 'user not found')
 
   if (await bcrypt.compare(user.password, signingUser.password)) {
     if (!signingUser.token) {
-      const token = jwt.sign({ id: signingUser.id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: signingUser.id }, process.env.JWT_SECRET)
       await User.update({ token: token }, { where: { id: signingUser.id } })
-      return token;
-    }
-    else
-      return signingUser.token;
+      return token
+    } else return signingUser.token
   }
 }
 
-User.signOut = async (user) => {
-  User.update({ token: null }, {where: { id: user.id }})
+User.signOut = async user => {
+  User.update({ token: null }, { where: { id: user.id } })
 }
 
-User.favorites = async (user) => {
-  const favorites = await user.getFavorites();
-  return favorites;
+User.favorites = async user => {
+  const favorites = await user.getFavorites()
+
+  return favorites
 }
 
-User.views = async (user) => {
-  const views = await user.getViews();
-  return views;
+User.views = async user => {
+  const views = await user.getViews()
+  return views
 }
 
 User.edit = async (user) => {

@@ -1,38 +1,39 @@
-import Sequelize, { Model } from 'sequelize';
-import { User } from 'models';
-import { db } from 'middlewares';
+import Sequelize, { Model } from 'sequelize'
+import { User } from 'models'
+import { db } from 'middlewares'
 
-class Comment extends Model {};
+class Comment extends Model {}
 
-Comment.init({
-  type: {
-    type: Sequelize.STRING,
-    allowNull: false
+Comment.init(
+  {
+    type: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    movie: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    comment: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
   },
-  movie: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  comment: {
-    type: Sequelize.STRING,
-    allowNull: false
-  }
-}, { sequelize: db, modelName: 'comment' });
+  { sequelize: db, modelName: 'comment' }
+)
 
 Comment.add = async (comment, user) => {
-  const newComment = await Comment.create(comment);
-  await user.addComment(newComment);
-  return newComment;
+  const newComment = await Comment.create(comment)
+  await user.addComment(newComment)
+  return newComment
 }
 
 Comment.get = async (type, movie) => {
   const comments = await Comment.findAll({
-    where: {type, movie},
-    include: [
-      { model: User }
-    ]
-  });
-  return comments;
+    where: { type, movie },
+    include: [{ model: User }],
+  })
+  return comments
 }
 
-export default Comment;
+export default Comment
