@@ -1,41 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import styled from 'styled-components'
+import { COLORS } from '../config/style'
 
-const useStyles = makeStyles({
-	root: {
-		width: 500,
-		backgroundColor: '#333',
-	},
-	button: {
-		color: '#f50057',
-		variant: 'outlined',
-	}
-});
-	
+const TypeContainer = styled.div`
+	display: flex;
+	justify-content: flex-start;
+`
+
+const TypeButton = styled.button`
+	width: 75px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 12px;
+	border-radius: 5px;
+	background-color: ${COLORS.GREY_LOVE};
+	border: none;
+	outline: none;
+
+`
+
 export default function TypeSearch(type, setType, setQuery, query) {
-	const classes = useStyles();
-	const [value, setValue] = useState(0);
 	var tmp = query.split('/')[5].split('?')[1];
 	var option = query.split('/')[4];
-
 		
 	useEffect(() => {
 		setQuery('https://api.themoviedb.org/3/' + option + '/' + type + '?' + tmp);
 	}, [type, setQuery, tmp, option])
 	
+	const handleClick = e => {
+		setType( type === 'movie' ? 'tv' : 'movie' );
+	}
+
 	return (
-		<BottomNavigation
-			value={value}
-			onChange={(event, newValue) => {
-				setValue(newValue);
-				setType(newValue === 0 ? 'movie' : 'tv');
-			}}
-			showLabels
-			className={classes.root}
-		>
-			<BottomNavigationAction className={classes.button} label="Movies" />
-			<BottomNavigationAction className={classes.button} label="Series" />
-		</BottomNavigation>
+		<TypeContainer>
+			<TypeButton onClick={ e => handleClick(e) }>{ type === 'movie' ? 'Movies' : 'TV Show' }</TypeButton>
+		</TypeContainer>
 	);
 }

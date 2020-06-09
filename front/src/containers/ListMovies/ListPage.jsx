@@ -3,22 +3,16 @@ import OptionMenu from './Option';
 import ListFilm from './ListFilm';
 import TypeSearch from '../../components/TypeSearch';
 import styled from 'styled-components'
-<<<<<<< HEAD
-import { COLORS, BREAK_POINTS } from '../../config/style';
-=======
->>>>>>> 6315100e48f801d6eea69e8bac296eb3503eb5d7
+import { BREAK_POINTS } from '../../config/style';
 
 const HomePage = styled.div `
 	display: flex;
 	justify-content: space-around;
-<<<<<<< HEAD
 	flex-direction: row;
 	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 			flex-direction: column;
 			align-items: center;
 	}
-=======
->>>>>>> 6315100e48f801d6eea69e8bac296eb3503eb5d7
 `
 
 export default function ListPage() {
@@ -47,7 +41,7 @@ export default function ListPage() {
 
 	return (
 		<div>
-			{/* { TypeSearch(type, setType, setQuery, query) } */}
+			{ TypeSearch(type, setType, setQuery, query) }
 			<HomePage>
 				{OptionMenu(setQuery, type)}
 				{ListFilm(query, favorites, type)}
