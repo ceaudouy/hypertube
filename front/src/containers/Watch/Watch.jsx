@@ -8,10 +8,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import SelectEpisode from './SelectEpisode';
 import Comment from './Comment';
+import styled from 'styled-components';
+import { COLORS } from '../../config/style'
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -28,35 +30,109 @@ const useStyles = makeStyles(theme => ({
 	  },
 }));
 
-function PutCasting(casting) {
+const ContainerWatch = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const Header = styled.div`
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 5px;	
+`
+
+const ContainerInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	background-color: ${COLORS.BLACK};
+	border-radius: 5px;
+	margin: 1vw;
+`
+
+const Text = styled.div`
+	color: ${COLORS.WHITE};
+	margin: 5px;
+	padding: 5px;
+`
+
+const TextSecondaire = styled.div`
+	font-style: italic;
+	margin: 10px;
+	font-size: 13px;
+`
+
+const Genre = styled.div`
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+	justify-content: center;
+	padding: 5px;
+`
+
+const ContainerCasting = styled.div`
+`
+
+const DisplayCasting = styled.div`
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+	margin: 10px;
+
+`
+
+const Casting = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	align-items: stretch;
+	margin-top: 10px;
+	margin-left: 5px;
+	width: 170px;
+	margin-right: 5px;
+	border-radius: 5px;
+	background-color: #adb5bd;
+`
+
+const Media = styled.img`
+	display: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	width: 80%;
+`
+
+function PutCasting(props) {
 	const classes = useStyles();
 
 	return (
-		<div>
-			<Paper className={classes.control}>
-				<Typography paragraph>Casting:</Typography>
-				<div className="display-casting">
-					{ casting.map((elem, index) => {
+		<ContainerInfo>
+				<Text>Casting:</Text>
+				<DisplayCasting>
+					{ props.casting.map((elem, index) => {
 						if (elem.profile_path === undefined || elem.profile_path === null) {
 							return ('');
 						}
 						return (
-							<Card key={ index } className="casting">
-								<CardContent>
-								<img className="media" src={"http://image.tmdb.org/t/p/w185/" + elem.profile_path} alt="" />
-								<Typography gutterBottom variant="h5" component="h2">
+							<Casting key={ index }>
+								<Media src={"http://image.tmdb.org/t/p/w185/" + elem.profile_path} alt="" />
+								<Text>
 									{ elem.name }
-								</Typography>
-								<Typography variant="body2" color="textSecondary" component="p">
+								</Text>
+								<TextSecondaire>
 									{ elem.character }
-								</Typography>
-								</CardContent>
-							</Card>
+								</TextSecondaire>
+							</Casting>
 						)
 					})}
-				</div>
-        	</Paper>
-		</div>
+				</DisplayCasting>
+		</ContainerInfo>
 	)
 }
 
@@ -71,10 +147,10 @@ function InfoMovie(detail, casting) {
 				aria-controls="panel1a-content"
 				id="panel1a-header"
 				>
-				<Typography className={classes.heading}>More information</Typography>
+				More information
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="info">
-					<div className="watch-date">
+					<Header>
 						<div>
 							{ detail.release_date !== undefined ? detail.release_date : detail.first_air_date }
 						</div>
@@ -82,27 +158,24 @@ function InfoMovie(detail, casting) {
 							{ detail.episode_run_time !== undefined ? detail.episode_run_time === undefined ? "error" : detail.episode_run_time[0] : detail.runtime } min
 						</div>
 						<Rating name="read-only" precision={ 0.5 } value={ detail.vote_average / 2 } size="small" readOnly />
-					</div>
-					
-					<Paper className={classes.control}>
-						<Typography paragraph>Overview:</Typography>
-						<Typography paragraph>
-							{detail.overview}
-						</Typography>
-        			</Paper>
-					<Paper className={classes.control}>
-						<Typography paragraph>Genres:</Typography>
-						<div className="watch-genre">
+					</Header>
+					<ContainerInfo>
+						<Text>Overview:</Text>
+						<Text>{detail.overview}</Text>
+					</ContainerInfo>
+					<ContainerInfo>
+						<Text>Genres:</Text>
+						<Genre>
 							{detail.genres === undefined ? '' : detail.genres.map((elem, index) => {
 								return (
-									<div className="genres" key={ index } >
+									<Text key={ index } >
 										{ elem.name }
-									</div>
+									</Text>
 								)
 							})}
-						</div>
-					</Paper>
-					{ PutCasting(casting) }
+						</Genre>
+					</ContainerInfo>
+					<PutCasting casting={casting} />
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
     	</div>
@@ -119,7 +192,11 @@ export default function Watch() {
 	var cast = 'https://api.themoviedb.org/3/' + type + '/' + movie + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
 	
 	useEffect(() => {
+		const abortController = new AbortController()
+		const signal = abortController.signal
+
 		fetch(info, {
+			signal: signal,
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
@@ -135,6 +212,7 @@ export default function Watch() {
 		});
 		
 		fetch(cast, {
+			signal: signal,
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
@@ -149,15 +227,19 @@ export default function Watch() {
 			console.log("Error for the casting !")
 		})
 
+
+		return function cleanup() {
+			abortController.abort()
+		}
 	}, [info, cast])
 
 	return (
-		<div className="watch-all">
+		<ContainerWatch>
 			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
 			<div className="film">
 			</div>
 			{ casting === [] ? '' : InfoMovie(detail, casting.slice(0, 8)) }
-			{ Comment() }
-		</div>
+			{/* <Comment /> */}
+		</ContainerWatch>
 	)
 }
