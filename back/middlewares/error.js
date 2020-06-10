@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 class ErrorHandler extends Error {
   constructor(statusCode, message) {
     super()
@@ -6,7 +8,7 @@ class ErrorHandler extends Error {
   }
 }
 
-const handleError = (err, req, res) => {
+const handleError = (err, req, res, next) => {
   if (err instanceof ErrorHandler) {
     console.error(err.message)
     const { statusCode, message } = err
