@@ -24,7 +24,6 @@ const OneOption = styled.div `
 	margin-left: 5px;
 	margin-right: 4px;
 	width: 100px;
-
 `
 
 const Text = styled.div`
