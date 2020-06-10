@@ -1,9 +1,18 @@
 import { Router } from 'express'
 
-import { Comment, Favorite, User, View } from 'models'
+import { Comment, Favorite, User, View, Movie } from 'models'
 import { auth } from 'middlewares'
 
 const movieRouter = Router()
+
+movieRouter.get('/all', async (req, res, next) => {
+  try {
+    const response = await Movie.findAll()
+    res.status(200).json(response)
+  } catch (err) {
+    next(err)
+  }
+})
 
 movieRouter.post('/comment', auth, async (req, res, next) => {
   try {
