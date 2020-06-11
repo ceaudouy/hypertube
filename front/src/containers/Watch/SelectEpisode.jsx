@@ -24,6 +24,7 @@ const OneOption = styled.div `
 	margin-left: 5px;
 	margin-right: 4px;
 	width: 100px;
+
 `
 
 const Text = styled.div`
@@ -35,10 +36,12 @@ const Text = styled.div`
 
 const Select = styled.select`
 	outline: none;
+	:after {
+		outline: none;
+		background-color: #eee;
+	}
 `
-
 export default function SelectEpisode(seasons) {
-	const [saison, setSaison] = useState(seasons === undefined ? 0 : seasons[0].episode_count);
 	const [episodeNBR, setEpisodeNBR] = useState(0);
 
 	const handleChange = e => {
@@ -46,7 +49,11 @@ export default function SelectEpisode(seasons) {
 		if (select === '') {
 			return ;
 		}
-		setEpisodeNBR(seasons[select - 1].episode_count);
+		if (seasons[0].season_number === 0) {
+			setEpisodeNBR(seasons[select].episode_count);
+		} else {
+			setEpisodeNBR(seasons[select - 1].episode_count);
+		}
 	} 
 
 	const episode = () => {
@@ -64,11 +71,13 @@ export default function SelectEpisode(seasons) {
 				<Select onChange={ e => handleChange(e) }>
 					<option value="">Select season</option>
 					{ seasons && seasons.map((elem, index) => {
-						console.log(elem)
+						if (elem.season_number === 0) {
+							return ('');
+						}
 						return (
 							<option key={ index } value={ elem.season_number }>season { elem.season_number } </option>
-						);
-					})}
+							);
+						})}
 				</Select>
 			</OneOption>
 			<OneOption>
