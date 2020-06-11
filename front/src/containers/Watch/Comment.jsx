@@ -1,27 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import api from '../../api/api'
-import { Container } from "@material-ui/core";
+import { COLORS } from '../../config/style';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  '& > *': {
-		margin: theme.spacing(1),
-	  },
-	},
-	comment: {
-		width: '60%',
-	},
-	button: {
-		widht: '20%',
-		margin: theme.spacing(1),
-	}
-  }));
+const ContainerComment = styled.div`
+`
+const CommentText = styled.div`
+	margin: 5px;
+	display: flex;
+	align-items: center;
+`
+
+const Button = styled.button`
+	border-radius: 5px;
+	background-color: ${COLORS.BLUE};
+	width: 20%; 
+	color: ${COLORS.WHITE};
+	outline: none;
+	border: none;
+	height: 3vw;
+	margin: 1vw;
+`
+
+const Display = styled.div`
+	margin: 5px;
+	padding: 5px;
+`
+
+const Center = styled.div`
+ 	display: flex;
+	justify-content: center;
+`
+
+const Barre = styled.div`
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px solid #272727;
+	width: 70%;
+`
 
 export default function Comment() {
-	const classes = useStyles();
 	const [input, setInput] = useState('');
 	const [comment, setComment] = useState([]);
 	const [reload, setReload] = useState(1);
@@ -36,7 +55,7 @@ export default function Comment() {
 		const type = window.location.href.split('?')[1].split('&')[0];
 		const movie = window.location.href.split('&')[1];
 
-		api.post('/movie/comment', type, movie)
+		api.get('/movie/comment', movie, type)
 		.then((res) => {
 			console.log(res);
 		})
@@ -69,27 +88,34 @@ export default function Comment() {
 			const type = window.location.href.split('?')[1].split('&')[0];
 			const movie = window.location.href.split('&')[1];
 		
-			const token = localStorage.getItem('token');
-			fetch('http://localhost:3300/movie/comment', {
-				method: 'POST',
-				credentials: 'include',
-				headers: new Headers({
-					'Content-Type': 'application/json',
-					'Authorization': token
-				}),
-				body: JSON.stringify(
-					{
-						comment: input,
-						movie: movie,
-						type: type,
-					}
-				)
-			}).then(response => {
-				return response.json();
-			}).then(parsedData => {
-				setInput('');
-				setReload(reload + 1);
+
+			api.post('/movie/comment', movie, type)
+			.then((res) => {
+				console.log(res);
 			})
+			.catch((err) => {
+				console.log(err)
+			})
+			// fetch('http://localhost:3300/movie/comment', {
+			// 	method: 'POST',
+			// 	credentials: 'include',
+			// 	headers: new Headers({
+			// 		'Content-Type': 'application/json',
+			// 		'Authorization': token
+			// 	}),
+			// 	body: JSON.stringify(
+			// 		{
+			// 			comment: input,
+			// 			movie: movie,
+			// 			type: type,
+			// 		}
+			// 	)
+			// }).then(response => {
+			// 	return response.json();
+			// }).then(parsedData => {
+			// 	setInput('');
+			// 	setReload(reload + 1);
+			// })
 		}
 	}
 
@@ -115,17 +141,36 @@ export default function Comment() {
 	}
 
 	return (
-		// <ContainerComment>
+		<ContainerComment>
 			<form onSubmit={handleClick}>
-				<div className="comment">
+				<CommentText>
 					<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
-					<Button type="submit" className={classes.button} variant="contained" color="primary">
+					<Button type="submit">
        					Ajouter un commentaire
       				</Button>
-				  </div>
+				</CommentText>
 			</form>
-
-		// </ContainerComment>
+			<div className="comment-section">
+				{comment.map((elem, index) => {
+					return (
+						<div key={ index }>
+							<Display>
+								<div>
+									{elem.login}:
+								</div>
+								<Center>
+									{elem.comment}
+								</Center>
+								<div>
+									{ elem.login === login ? <DeleteIcon onClick={ e => handleDelete(elem) } /> : '' }
+								</div>
+							</Display>
+							<Barre />
+						</div>
+					)
+				})}
+			</div>
+		</ContainerComment>
 
 
 
@@ -139,26 +184,7 @@ export default function Comment() {
       	// 			</Button>
 		// 		  </div>
 		// 	</form>
-		// 	<div className="comment-section">
-		// 		{comment.map((elem, index) => {
-		// 			return (
-		// 				<div key={ index }>
-		// 					<div className="comment-display" >
-		// 						<div>
-		// 							{elem.login}:
-		// 						</div>
-		// 						<div className="comment-center">
-		// 							{elem.comment}
-		// 						</div>
-		// 						<div>
-		// 							{ elem.login === login ? <DeleteIcon onClick={ e => handleDelete(elem) } /> : '' }
-		// 						</div>
-		// 					</div>
-		// 					<div className="trait" />
-		// 				</div>
-		// 			)
-		// 		})}
-		// 	</div>
+		
 		// </div>
 	)
 }

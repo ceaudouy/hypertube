@@ -16,6 +16,7 @@ export const COLORS = {
 	WHITE: '#FFFFFF',
 	PINK_GRADIENT: '#FF5864',
 	ORANGE_GRADIENT: '#FF655B',
+	BLUE: '#045ED7',
 }
 
 export const SPACING = {

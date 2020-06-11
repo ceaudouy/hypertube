@@ -3,7 +3,8 @@ import OptionMenu from './Option';
 import ListFilm from './ListFilm';
 import TypeSearch from '../../components/TypeSearch';
 import styled from 'styled-components'
-import { COLORS, BREAK_POINTS } from '../../config/style';
+import { BREAK_POINTS } from '../../config/style';
+import api from '../../api/api'
 
 const HomeContainer = styled.div`
 	display: flex;
@@ -35,24 +36,33 @@ export default function ListPage() {
 	const [type, setType] = useState('movie');
 	const [favorites, setFavorites] = useState(['empty']);
 
-	// useEffect(() => {
-	// 	var token = localStorage.getItem('token');
-	// 	fetch(`http://localhost:3300/list/getFavorites`, {
-	// 		method: 'POST',
-	// 		credentials: 'include',
-	// 		headers: new Headers({
-	// 			'Content-Type': 'application/json',
-	// 			'Authorization': token
-	// 		}),
-	// 		body: JSON.stringify({
-	// 			type: type,
-	// 		})
-	// 	}).then((response) => {
-	// 		return response.json();
-	// 	}).then((parsedData) => {
-	// 		setFavorites(parsedData.favorites);
-	// 	})
-	// }, [type])
+	useEffect(() => {
+		api.get('/movie/favorites')
+		.then((res) => {
+			console.log(res);
+			setFavorites(res);
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+
+		// fetch(`http://localhost:3300/list/getFavorites`, {
+		// 	method: 'POST',
+		// 	credentials: 'include',
+		// 	headers: new Headers({
+		// 		'Content-Type': 'application/json',
+		// 		'Authorization': token
+		// 	}),
+		// 	body: JSON.stringify({
+		// 		type: type,
+		// 	})
+		// }).then((response) => {
+		// 	return response.json();
+		// }).then((parsedData) => {
+		// 	setFavorites(parsedData.favorites);
+		// })
+	}, [type])
 
 	const handleChange = e => {
 		if (e.target.value === '') {
