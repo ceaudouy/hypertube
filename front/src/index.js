@@ -63,17 +63,17 @@ function Hyperloop() {
 	// 	document.location.href='/';
 	// }
 
-	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
-		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-		api.get('/user/me')
-		.then((res) => {
-			setUser(res.data);
-		})
-		.catch(err => {
-			delete api.defaults.headers.common['Authorization'];
-			console.log(err);
-		});
-	}
+	// if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+	// 	api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+	// 	// api.get('/user/me')       
+	// 	.then((res) => {
+	// 		setUser(res.data);
+	// 	})
+	// 	.catch(err => {
+	// 		delete api.defaults.headers.common['Authorization'];
+	// 		console.log(err);
+	// 	});
+	// }
 
 	console.log("index.js => user: ", user);
 

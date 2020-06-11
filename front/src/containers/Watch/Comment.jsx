@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import api from '../../api/api'
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,23 +35,32 @@ export default function Comment() {
 	useEffect(() => {
 		const type = window.location.href.split('?')[1].split('&')[0];
 		const movie = window.location.href.split('&')[1];
-		fetch('http://localhost:3300/movie/getComment', {
-			method: 'post',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-			}),
-			body: JSON.stringify(
-				{
-					type: type,
-					movie: movie,
-				}
-			)
-		}).then(response => {
-			return response.json();
-		}).then( parsedData => {
-			setComment(parsedData.response);
-			setLogin(parsedData.login)
+
+		api.post('/movie/comment', type, movie)
+		.then((res) => {
+			console.log(res);
 		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+		// fetch('http://localhost:3300/movie/getComment', {
+		// 	method: 'post',
+		// 	headers: new Headers({
+		// 		'Content-Type': 'application/json',
+		// 	}),
+		// 	body: JSON.stringify(
+		// 		{
+		// 			type: type,
+		// 			movie: movie,
+		// 		}
+		// 	)
+		// }).then(response => {
+		// 	return response.json();
+		// }).then( parsedData => {
+		// 	setComment(parsedData.response);
+		// 	setLogin(parsedData.login)
+		// })
 	},[setComment, reload]);
 
 	const handleClick = (e) => {
@@ -104,7 +115,7 @@ export default function Comment() {
 	}
 
 	return (
-		<div>
+		// <ContainerComment>
 			<form onSubmit={handleClick}>
 				<div className="comment">
 					<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
@@ -113,26 +124,41 @@ export default function Comment() {
       				</Button>
 				  </div>
 			</form>
-			<div className="comment-section">
-				{comment.map((elem, index) => {
-					return (
-						<div key={ index }>
-							<div className="comment-display" >
-								<div>
-									{elem.login}:
-								</div>
-								<div className="comment-center">
-									{elem.comment}
-								</div>
-								<div>
-									{ elem.login === login ? <DeleteIcon onClick={ e => handleDelete(elem) } /> : '' }
-								</div>
-							</div>
-							<div className="trait" />
-						</div>
-					)
-				})}
-			</div>
-		</div>
+
+		// </ContainerComment>
+
+
+
+
+		// <div>
+		// 	<form onSubmit={handleClick}>
+		// 		<div className="comment">
+		// 			<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
+		// 			<Button type="submit" className={classes.button} variant="contained" color="primary">
+       	// 				Ajouter un commentaire
+      	// 			</Button>
+		// 		  </div>
+		// 	</form>
+		// 	<div className="comment-section">
+		// 		{comment.map((elem, index) => {
+		// 			return (
+		// 				<div key={ index }>
+		// 					<div className="comment-display" >
+		// 						<div>
+		// 							{elem.login}:
+		// 						</div>
+		// 						<div className="comment-center">
+		// 							{elem.comment}
+		// 						</div>
+		// 						<div>
+		// 							{ elem.login === login ? <DeleteIcon onClick={ e => handleDelete(elem) } /> : '' }
+		// 						</div>
+		// 					</div>
+		// 					<div className="trait" />
+		// 				</div>
+		// 			)
+		// 		})}
+		// 	</div>
+		// </div>
 	)
 }
