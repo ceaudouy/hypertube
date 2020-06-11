@@ -47,7 +47,7 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 			{...rest}
 			render = { props => {
 				if (localStorage.getItem("token"))
-				return (<Component {...props} />)
+					return (<Component {...props} />)
 				return (<Redirect to={{pathname: '/signin', state: {from: props.location }}} />);
 			}}
 		/>
@@ -57,10 +57,8 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 function Hyperloop() {
 	const [user, setUser] = useState(undefined);
 
-	useEffect(() => {
-		if (localStorage.getItem('token'))
-			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-	}, [setUser, localStorage.token])
+	if (localStorage.getItem('token'))
+		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
@@ -68,9 +66,9 @@ function Hyperloop() {
 				<Header />
 				<AppContainer id="AppContainer">
 					<Switch>
-						<Route path="/" exact component={ Homepage } />
-						<Route path="/signup" component={ SignUp } />
-						<Route path="/signin" component={ SignIn } />
+						<Route exact path="/" component={ Homepage } />
+						<Route exact path="/signup" component={ SignUp } />
+						<Route exact path="/signin" component={ SignIn } />
 						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/search" exact component={ Research } />
 						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />

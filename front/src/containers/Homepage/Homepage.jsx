@@ -5,7 +5,6 @@ import api from '../../api/api'
 import loader from '../../components/Loader/Loader'
 
 import BallPool from './BallPool'
-import Loader from '../../components/Loader/Loader'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -45,6 +44,7 @@ function Homepage() {
 		BallPool();
 		api.get('/user')
 		.then((res) => {
+			console.log(res);
 			console.log("homepage - /user succes");
 			setUser(res.data);
 			// setFetch(true);
