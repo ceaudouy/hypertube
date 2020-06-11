@@ -17,12 +17,15 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 		setError(false);
 		const url = query + pageNumber.toString();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		axios.get(url)
 		.then(res => res.data)
 		.then((parsedData) => {
 			if (parsedData.results !== undefined) {
 =======
 		console.log(url);
+=======
+>>>>>>> select episode ok | before rebase from guroux
 		fetch(url, {
 			headers: new Headers({
 				'Content-Type': 'application/json',
