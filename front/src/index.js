@@ -57,8 +57,30 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 function Hyperloop() {
 	const [user, setUser] = useState(undefined);
 
+<<<<<<< HEAD
 	if (localStorage.getItem('token'))
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+=======
+	// let token = localStorage.getItem('token');
+
+	// if ( token === null && window.location.href !== 'http://localhost:3000/') {
+	// 	document.location.href='/';
+	// }
+
+	// if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+	// 	api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+	// 	// api.get('/user/me')       
+	// 	.then((res) => {
+	// 		setUser(res.data);
+	// 	})
+	// 	.catch(err => {
+	// 		delete api.defaults.headers.common['Authorization'];
+	// 		console.log(err);
+	// 	});
+	// }
+
+	console.log("index.js => user: ", user);
+>>>>>>> select episode ok | before rebase from guroux
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
