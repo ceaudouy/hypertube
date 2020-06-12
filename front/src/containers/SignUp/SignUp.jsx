@@ -23,7 +23,7 @@ const SignupForm = styled.form`
 	margin-top: auto;
 	max-width: 50vw;
 	& * {
-		margin-top: 2vh;
+		margin-top: 3vh;
 	};
 	--text-color: #afafaf;
 `
@@ -108,7 +108,7 @@ function SignUp() {
 				<Input type="email" name='email' handleChange={handleEmail}/>
 				<Input type="password" name='password' handleChange={handlePassword}/>
 				<Input type="password" name='confirmation' handleChange={handleConfirmation}/>
-				<PasswordStrength strength={strength} input={input}/>
+				<PasswordStrength strength={strength} password={input.password}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>SignUp</SubmitButton>
 			</SignupForm> 
 		</MainContainer>

@@ -40,14 +40,16 @@ const BarFour = styled(Bar)`
 
 const PasswordIndicationContainer = styled.div`
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
-const Typography = styled.p`
+const Typography = styled.label`
 	color: ${p => p.active ? 'green' : 'grey'};
 `
 
-const PasswordStrength = ({strength, input}) => {
+const PasswordStrength = ({strength, password}) => {
     return (
         <PasswordStrenghContainer>
             <PasswordStrenghBarContainer>
@@ -57,10 +59,10 @@ const PasswordStrength = ({strength, input}) => {
                 <BarFour active={strength > 3}></BarFour>
             </PasswordStrenghBarContainer>
             <PasswordIndicationContainer>
-                <Typography active={input.password.search(/[0-9]/) > -1}>{ input.password.search(/[A-Z]/) > -1 ? <>😄</> : <>😞</>} number </Typography>
-                <Typography active={input.password.search(/[A-Z]/) > -1}>{ input.password.search(/[A-Z]/) > -1 ? <>😄</> : <>😞</>} capital letter </Typography>
-                <Typography active={input.password.search(/[^A-Za-z0-9]/) > -1}>{ input.password.search(/[^A-Za-z0-9]/) > -1 ? <>😄</> : <>😞</>} special character </Typography>
-                <Typography active={input.password.length > 5}>{ input.password.length > 5 ? <>😄</> : <>😞</>} number of characters </Typography>
+                <Typography active={password.search(/[0-9]/) > -1}>number { password.search(/[A-Z]/) > -1 ? <>😄</> : <></>}</Typography>
+                <Typography active={password.search(/[A-Z]/) > -1}>capital letter { password.search(/[A-Z]/) > -1 ? <>😄</> : <></>}</Typography>
+                <Typography active={password.search(/[^A-Za-z0-9]/) > -1}>special character { password.search(/[^A-Za-z0-9]/) > -1 ? <>😄</> : <></>}</Typography>
+                <Typography active={password.length > 5}>number of characters { password.length > 5 ? <>😄</> : <></>}</Typography>
             </PasswordIndicationContainer>
         </PasswordStrenghContainer>
     )
