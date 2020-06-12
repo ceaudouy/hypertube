@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../config/style'
@@ -9,11 +8,6 @@ const Icon = styled.i`
 	min-width: 2rem;
 	margin: 0 1.5rem;
 `
-=======
-import React, { useState } from 'react';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import api from '../api/api'
->>>>>>> add axios request not working
 
 export default function ButtonFavorite(props) {
 	const [color, setColor] = useState(props.favorites.includes(props.elem.id) === true ? 'red' : 'grey');

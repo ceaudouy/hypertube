@@ -60,7 +60,6 @@ function SignIn() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(input);
 		api.post('/user/signIn', input)
 		.then((res) => {
 			localStorage.token = res.data.token;

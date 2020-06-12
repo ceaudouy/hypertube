@@ -18,6 +18,7 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 		const url = query + pageNumber.toString();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		axios.get(url)
 		.then(res => res.data)
 		.then((parsedData) => {
@@ -26,6 +27,9 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 		console.log(url);
 =======
 >>>>>>> select episode ok | before rebase from guroux
+=======
+		console.log(url);
+>>>>>>> Revert "select episode ok | before rebase from guroux"
 		fetch(url, {
 			headers: new Headers({
 				'Content-Type': 'application/json',

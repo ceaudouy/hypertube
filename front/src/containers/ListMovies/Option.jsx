@@ -60,7 +60,7 @@ export default function OptionMenu(setQuery, type) {
 	const [date2, setDate2] = React.useState('');
 	const [vote, setVote] = React.useState('');
 	const [order, setOrder] = React.useState('');
-
+	console.log(optionsGenre);
 	// setValue //
 	const genreChange = event => {
 		setGenre(event.value);
@@ -91,6 +91,7 @@ export default function OptionMenu(setQuery, type) {
 
 	// Set query for the research //
 	const submit = () => {
+		// setPageNumber(1);
 		var queryGenre = '';
 		var queryDate = '';
 		var queryVote = '';
@@ -127,6 +128,7 @@ export default function OptionMenu(setQuery, type) {
 	return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> select episode ok | before rebase from guroux
 		<OptionContainer>
@@ -153,6 +155,8 @@ export default function OptionMenu(setQuery, type) {
 	)	
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> Revert "select episode ok | before rebase from guroux"
 	<OptionContainer>
 		<OneOption>
 			<Text>Genre :</Text>
@@ -175,10 +179,14 @@ export default function OptionMenu(setQuery, type) {
 		 </Button>
 	</OptionContainer>
 )
+<<<<<<< HEAD
 >>>>>>> tableau objet option dans un fichier + responsive listpage
 }
 <<<<<<< HEAD
 =======
+=======
+}
+>>>>>>> Revert "select episode ok | before rebase from guroux"
 
 // export default function OptionMenu(setQuery, type) {
 // 	const classes = useStyles();
@@ -554,7 +562,10 @@ export default function OptionMenu(setQuery, type) {
 // 	//   	</div>
 // 	// );
 // }
+<<<<<<< HEAD
 >>>>>>> recherche add dans la page principal
 =======
 }
 >>>>>>> select episode ok | before rebase from guroux
+=======
+>>>>>>> Revert "select episode ok | before rebase from guroux"
