@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import travolta from '../media/lostTravolta.gif';
+import travolta from '../../media/lostTravolta.gif';
 
 const NotFoundContainer = styled.div`
 	display: flex;

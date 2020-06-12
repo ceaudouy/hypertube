@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
+import Input from '../../components/Input/Input'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -23,16 +24,10 @@ const SignupForm = styled.form`
 	& * {
 		margin-top: 2vh;
 	};
-`
-
-const StyledInput = styled.input`
-	display: inline-block;
-	width: 100%;
-	margin: 8px 0;
-	padding: 12px 20px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
+	--text-color: #afafaf;
+	& * {
+		margin-top: 2vh;
+	};
 `
 
 const SubmitButton = styled.button`
@@ -61,8 +56,13 @@ function SignUp() {
 	   password: 'Test123456!'
 	});
 
-	const handleChange = (e) => setInput({...input, [e.currentTarget.name]: e.currentTarget.value})
-
+	 
+	const handleFirstname = (e) => setInput({...input, firstname: e.target.value})
+	const handleLastname = (e) => setInput({...input, lastname: e.target.value})
+	const handleLogin = (e) => setInput({...input, login: e.target.value})
+	const handleEmail = (e) => setInput({...input, email: e.target.value})
+	const handlePassword = (e) => setInput({...input, password: e.target.value})
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		api.post('/user/register', input)
@@ -81,20 +81,11 @@ function SignUp() {
 	return (
 		<MainContainer>
 			<SignupForm onSubmit={handleSubmit}>
-				<StyledInput onChange={handleChange} name="firstname" placeholder="first name" label="First Name" type="text" />
-				<StyledInput onChange={handleChange} name="lastname" placeholder="last name" label="Last Name" type="text" />
-				<StyledInput onChange={handleChange} name="login" placeholder="login" label="Login" type="text" />
-				<StyledInput onChange={handleChange} name="email" placeholder="email" label="Email" type="email" />
-				<StyledInput onChange={handleChange} name="password" placeholder="password" label="Password" type="password" />
-				
-				{/* <StyledInput onChange={handleChange} name="confirm password" placeholder="confirm password" label="confirm password" type="password" /> */}
-				
-				{/* <StyledInput onChange={handleChange} name="firstname" value="Nicolas" placeholder="first name" label="First Name" type="text" />
-				<StyledInput onChange={handleChange} name="lastname" value="Vergne" placeholder="last name" label="Last Name" type="text" />
-				<StyledInput onChange={handleChange} name="login" value="nivergne" placeholder="login" label="Login" type="text" />
-				<StyledInput onChange={handleChange} name="email" value="nicolas@vergne.fr" placeholder="email" label="Email" type="email" />
-				<StyledInput onChange={handleChange} name="password" value="Test123456!" placeholder="password" label="Password" type="password" />
-				<StyledInput onChange={handleChange} name="confirm password" value="Test123456!" placeholder="confirm password" label="confirm password" type="password" /> */}
+				<Input type="text" name='firstname' handleChange={handleFirstname}/>
+				<Input type="text" name='lastname' handleChange={handleLastname}/>
+				<Input type="text" name='login' handleChange={handleLogin}/>
+				<Input type="email" name='email' handleChange={handleEmail}/>
+				<Input type="password" name='password' handleChange={handlePassword}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>SignUp</SubmitButton>
 			</SignupForm> 
 		</MainContainer>

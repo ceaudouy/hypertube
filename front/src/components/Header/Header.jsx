@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react'
+import { useHistory, Link } from 'react-router-dom'
+import styled from "styled-components"
 
-import api from '../api/api'
-import { COLORS, BREAK_POINTS } from '../config/style'
+import api from '../../api/api'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 const Typography = styled.span`
 	display: none;

@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { COLORS } from "../config/style"
+import { COLORS } from "../../config/style"
 
 const InputName = styled.label`
 	color: var(--text-color);
@@ -64,9 +64,9 @@ const InputContainer = styled.div`
 	}
 `
 
-const Input = ({name, handleChange}) => (
+const Input = ({type, name, handleChange}) => (
     <InputContainer>
-        <InputValue type={name} name={name} placeholder=" " onChange={handleChange} />
+        <InputValue type={type} name={name} placeholder=" " onChange={handleChange} />
         <InputName htmlFor={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</InputName>
     </InputContainer>
 )

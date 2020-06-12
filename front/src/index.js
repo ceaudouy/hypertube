@@ -8,9 +8,9 @@ import { SnackbarProvider } from 'notistack';
 import api from './api/api';
 import { BREAK_POINTS } from './config/style';
 
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Homepage from './containers/Homepage/Homepage';
-import NotFound from './components/NotFound';
+import NotFound from './containers/NotFound/NotFound';
 import ListPage from './containers/ListMovies/ListPage';
 import SignIn from './containers/SignIn/SignIn';
 import SignUp from './containers/SignUp/SignUp';
