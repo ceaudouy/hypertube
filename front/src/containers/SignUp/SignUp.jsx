@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack'
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
 import Input from '../../components/Input/Input'
+import PasswordStrength from '../../components/PasswordStrength/PasswordStrength'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -25,9 +26,6 @@ const SignupForm = styled.form`
 		margin-top: 2vh;
 	};
 	--text-color: #afafaf;
-	& * {
-		margin-top: 2vh;
-	};
 `
 
 const SubmitButton = styled.button`
@@ -53,29 +51,52 @@ function SignUp() {
 	   lastname: 'Vergne',
 	   login: 'nivergne',
 	   email: 'nicolas@vergne.com',
-	   password: 'Test123456!'
+	   password: 'Test123456!',
+	   confirmation: 'Test123456!'
 	});
 
-	 
-	const handleFirstname = (e) => setInput({...input, firstname: e.target.value})
-	const handleLastname = (e) => setInput({...input, lastname: e.target.value})
-	const handleLogin = (e) => setInput({...input, login: e.target.value})
-	const handleEmail = (e) => setInput({...input, email: e.target.value})
-	const handlePassword = (e) => setInput({...input, password: e.target.value})
-	
-	const handleSubmit = async (e) => {
+	const handleFirstname = (e) => setInput({...input, firstname: e.target.value});
+	const handleLastname = (e) => setInput({...input, lastname: e.target.value});
+	const handleLogin = (e) => setInput({...input, login: e.target.value});
+	const handleEmail = (e) => setInput({...input, email: e.target.value});
+	const handleConfirmation  = (e) => setInput({...input, confirmation: e.target.value});
+
+	let validations = [];
+	const [strength, setStrengh] = useState(0);
+
+	const handlePassword = (e) => {
 		e.preventDefault();
-		api.post('/user/register', input)
-		.then(() => {
-			enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
+		setInput({...input, password: e.target.value});
+		
+		validations = [
+			(e.target.value.length > 5),
+			(e.target.value.search(/[A-Z]/) > -1),
+			(e.target.value.search(/[A-Z]/) > -1),
+			(e.target.value.search(/[^A-Za-z0-9]/) > -1),
+		]
+		setStrengh(validations.reduce((acc, cur) => acc + cur));
+	}
+
+
+	const handleSubmit = async (e) => {
+		if (input.password === input.confirmation) {
+			e.preventDefault();
+			api.post('/user/register', input)
+			.then(() => {
+				enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
+				setTimeout(closeSnackbar(), 1000);
+				setTimeout(history.push('/signin'), 1000);
+			})
+			.catch((err) => {
+				console.log(err);
+				enqueueSnackbar(`A problem occured`, {variant: 'error'});
+				setTimeout(closeSnackbar(), 1000);
+			})
+		}
+		else {
+			enqueueSnackbar(`password does not match`, {variant: 'error'});
 			setTimeout(closeSnackbar(), 1000);
-			setTimeout(history.push('/signin'), 1000);
-		})
-		.catch((err) => {
-			console.log(err);
-			enqueueSnackbar(`A problem occured`, {variant: 'error'});
-			setTimeout(closeSnackbar(), 1000);
-		})
+		}
 	}
 
 	return (
@@ -86,6 +107,8 @@ function SignUp() {
 				<Input type="text" name='login' handleChange={handleLogin}/>
 				<Input type="email" name='email' handleChange={handleEmail}/>
 				<Input type="password" name='password' handleChange={handlePassword}/>
+				<Input type="password" name='confirmation' handleChange={handleConfirmation}/>
+				<PasswordStrength strength={strength} input={input}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>SignUp</SubmitButton>
 			</SignupForm> 
 		</MainContainer>
