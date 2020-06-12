@@ -70,24 +70,6 @@ export default function Comment() {
 		.catch((err) => {
 			console.log(err)
 		})
-
-		// fetch('http://localhost:3300/movie/getComment', {
-		// 	method: 'post',
-		// 	headers: new Headers({
-		// 		'Content-Type': 'application/json',
-		// 	}),
-		// 	body: JSON.stringify(
-		// 		{
-		// 			type: type,
-		// 			movie: movie,
-		// 		}
-		// 	)
-		// }).then(response => {
-		// 	return response.json();
-		// }).then( parsedData => {
-		// 	setComment(parsedData.response);
-		// 	setLogin(parsedData.login)
-		// })
 	},[setComment, reload]);
 
 	const handleClick = (e) => {

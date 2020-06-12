@@ -65,7 +65,6 @@ function SignIn() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(input);
 		api.post('/user/signIn', input)
 		.then((res) => {
 			setUser(res.data);
