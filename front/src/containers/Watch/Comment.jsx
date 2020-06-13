@@ -20,13 +20,6 @@ const useStyles = makeStyles((theme) => ({
 	}
   }));
 
-const CommentSection = styled.div`
-	margin-left: auto;
-	margin-right: auto;
-	width: 80%;
-	background: #adb5bd;
-`
-
 export default function Comment() {
 	const classes = useStyles();
 	const [input, setInput] = useState('');
@@ -45,7 +38,6 @@ export default function Comment() {
 
 		api.post('/movie/comment', type, movie)
 		.then((res) => {
-			setComment(res);
 			console.log(res);
 		})
 		.catch((err) => {
@@ -76,18 +68,15 @@ export default function Comment() {
 		if (input && input !== "") {
 			const type = window.location.href.split('?')[1].split('&')[0];
 			const movie = window.location.href.split('&')[1];
-			const obj = {movie: movie, type: type, comment: input}
+		
 
-			console.log(obj);
-			api.post('/movie/comment', obj)
+			api.post('/movie/comment', movie, type)
 			.then((res) => {
 				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err)
 			})
-		
-		
 			// fetch('http://localhost:3300/movie/comment', {
 			// 	method: 'POST',
 			// 	credentials: 'include',
@@ -142,7 +131,7 @@ export default function Comment() {
       				</Button>
 				  </div>
 			</form>
-			<CommentSection>
+			<div className="comment-section">
 				{comment.map((elem, index) => {
 					return (
 						<div key={ index }>
@@ -161,7 +150,22 @@ export default function Comment() {
 						</div>
 					)
 				})}
-			</CommentSection>
+			</div>
 		</ContainerComment>
+
+
+
+
+		// <div>
+		// 	<form onSubmit={handleClick}>
+		// 		<div className="comment">
+		// 			<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
+		// 			<Button type="submit" className={classes.button} variant="contained" color="primary">
+       	// 				Ajouter un commentaire
+      	// 			</Button>
+		// 		  </div>
+		// 	</form>
+		
+		// </div>
 	)
 }
