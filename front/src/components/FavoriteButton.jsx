@@ -1,26 +1,23 @@
 import React, {useState} from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import api from '../api/api'
 
 export default function ButtonFavorite(props) {
+
+	// console.log(props.favorites[0].movie);
 	const [color, setColor] = useState(props.favorites.includes(props.elem.id) === true ? 'red' : 'grey');
 
 
 	const handleClick = id => {
-		var token = localStorage.getItem('token');
-		// fetch(`http://localhost:3300/movie/addFavorites`, {
-		// 	method: 'POST',
-		// 	credentials: 'include',
-		// 	headers: new Headers({
-		// 		'Content-Type': 'application/json',
-		// 		'Authorization': token
-		// 	}),
-		// 	body: JSON.stringify(
-		// 		{
-		// 			id: id,
-		// 			type: props.type
-		// 		}
-		// 	)
-		// })
+		const obj = {type: props.type, movie: id};
+
+		api.post('/movie/favorites', obj)
+		.then((res) => {
+			console.log(res)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 		setColor(color == 'red' ? 'grey' : 'red');
 	}
 

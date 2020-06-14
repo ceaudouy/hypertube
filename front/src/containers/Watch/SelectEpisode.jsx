@@ -64,7 +64,6 @@ export default function SelectEpisode(seasons) {
 				<Select onChange={ e => handleChange(e) }>
 					<option value="">Select season</option>
 					{ seasons && seasons.map((elem, index) => {
-						console.log(elem)
 						return (
 							<option key={ index } value={ elem.season_number }>season { elem.season_number } </option>
 						);

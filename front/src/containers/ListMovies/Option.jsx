@@ -60,7 +60,7 @@ export default function OptionMenu(setQuery, type) {
 	const [date2, setDate2] = React.useState('');
 	const [vote, setVote] = React.useState('');
 	const [order, setOrder] = React.useState('');
-	console.log(optionsGenre);
+
 	// setValue //
 	const genreChange = event => {
 		setGenre(event.value);

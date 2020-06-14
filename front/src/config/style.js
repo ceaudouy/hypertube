@@ -21,6 +21,7 @@ export const COLORS = {
 	PASSWORD_YELLOW: '#FFFF00',
 	PASSWORD_YELLOWGREEN: '#B0FF00',
 	PASSWORD_GREEN: '#00FF00',
+	BLUE: '#045ED7',
 }
 
 export const SPACING = {

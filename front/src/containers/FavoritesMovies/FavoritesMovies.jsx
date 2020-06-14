@@ -4,6 +4,7 @@ import TypeSearch from '../../components/TypeSearch';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style';
+import api from '../../api/api'
 
 const Homepage = styled.div`
 	display: flex;
@@ -25,45 +26,39 @@ export default function FavoritesMovies() {
 	useEffect(() => {
 		setFilm([]);
 		var fav;
-		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/movie/getFavorites`, {
-			method: 'POST',
-			credentials: 'include',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				'Authorization': token
-			}),
-			body: JSON.stringify({
-				type: type,
+		api.get('/movie/favorites')
+		.then((res) => {
+			let fav = []
+			for(let i = 0; res.data[i] !== undefined; i++) {
+				if (res.data[i].type === type)
+					fav[i] = res.data[i].movie;
+			} 
+			setFavorites(fav);
+			var tab = [];
+			fav.forEach(element => {
+				const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue')
+				fetch(url, {
+					headers: new Headers({
+						'Content-Type': 'application/json',
+					}),
+				}).then((response) => {
+					if (response.ok) {
+						return response.json();
+					}
+				}).then((parsedData) => {
+					if (parsedData !== undefined) {
+						tab[0] = parsedData;
+						setFilm(prevFilm => {
+							return [...new Set([...prevFilm, ...tab])]
+						});
+					}
+				});
 			})
-		}).then((response) => {
-			return response.json();
-		}).then((parsedData) => {
-			fav = parsedData.favorites;
-			setFavorites(parsedData.favorites);
-
-		var tab = [];
-		fav.forEach(element => {
-			const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue')
-			fetch(url, {
-				headers: new Headers({
-					'Content-Type': 'application/json',
-				}),
-			}).then((response) => {
-				if (response.ok) {
-					return response.json();
-				}
-			}).then((parsedData) => {
-				if (parsedData !== undefined) {
-					tab[0] = parsedData;
-					setFilm(prevFilm => {
-						return [...new Set([...prevFilm, ...tab])]
-					});
-				}
-			});
 		})
-	})
-}, [type]);
+		.catch((err) => {
+			console.log(err)
+		})
+	}, [type]);
 
 	if (favorites.length === 0) {
 		return (

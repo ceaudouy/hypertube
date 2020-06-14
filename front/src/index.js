@@ -17,7 +17,6 @@ import SignUp from './containers/SignUp/SignUp';
 import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
 import GameOfLife from './containers/GameOfLife/GameOfLife';
-import Research from './containers/Research/Research';
 import Watch from './containers/Watch/Watch';
 
 import './index.css';
@@ -70,7 +69,6 @@ function Hyperloop() {
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
 						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
-						<AuthenticatedRoute exact path="/search" exact component={ Research } />
 						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/listpage" component={ListPage} />

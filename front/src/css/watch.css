@@ -80,6 +80,8 @@
 	width: 60%;
 	resize: none;
 	margin: 5px;
+	border: none;
+	outline: none;
 }
 
 .comment-section{ 

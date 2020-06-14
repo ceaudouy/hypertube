@@ -97,7 +97,6 @@ export default function Comment() {
 			const movie = window.location.href.split('&')[1];
 			const obj = {movie: movie, type: type, comment: input}
 
-			console.log(obj);
 			api.post('/movie/comment', obj)
 			.then((res) => {
 				console.log(res);
