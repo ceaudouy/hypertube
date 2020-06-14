@@ -1,27 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import api from '../../api/api'
-import { Container } from "@material-ui/core";
+import { COLORS } from '../../config/style';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  '& > *': {
-		margin: theme.spacing(1),
-	  },
-	},
-	comment: {
-		width: '60%',
-	},
-	button: {
-		widht: '20%',
-		margin: theme.spacing(1),
-	}
-  }));
+const ContainerComment = styled.div`
+`
+const CommentText = styled.div`
+	margin: 5px;
+	display: flex;
+	align-items: center;
+`
+
+const Button = styled.button`
+	border-radius: 5px;
+	background-color: ${COLORS.BLUE};
+	width: 20%; 
+	color: ${COLORS.WHITE};
+	outline: none;
+	border: none;
+	height: 3vw;
+	margin: 1vw;
+`
+
+const Display = styled.div`
+	margin: 5px;
+	padding: 5px;
+`
+
+const Center = styled.div`
+ 	display: flex;
+	justify-content: center;
+`
+
+const Barre = styled.div`
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px solid #272727;
+	width: 70%;
+`
+
+const CommentSection = styled.div`
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	background: #adb5bd;
+`
 
 export default function Comment() {
-	const classes = useStyles();
 	const [input, setInput] = useState('');
 	const [comment, setComment] = useState([]);
 	const [reload, setReload] = useState(1);
@@ -36,8 +62,9 @@ export default function Comment() {
 		const type = window.location.href.split('?')[1].split('&')[0];
 		const movie = window.location.href.split('&')[1];
 
-		api.post('/movie/comment', type, movie)
+		api.get('/movie/comment', movie, type)
 		.then((res) => {
+			setComment(res);
 			console.log(res);
 		})
 		.catch((err) => {
@@ -68,15 +95,18 @@ export default function Comment() {
 		if (input && input !== "") {
 			const type = window.location.href.split('?')[1].split('&')[0];
 			const movie = window.location.href.split('&')[1];
-		
+			const obj = {movie: movie, type: type, comment: input}
 
-			api.post('/movie/comment', movie, type)
+			console.log(obj);
+			api.post('/movie/comment', obj)
 			.then((res) => {
 				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err)
 			})
+		
+		
 			// fetch('http://localhost:3300/movie/comment', {
 			// 	method: 'POST',
 			// 	credentials: 'include',
@@ -124,14 +154,14 @@ export default function Comment() {
 	return (
 		<ContainerComment>
 			<form onSubmit={handleClick}>
-				<div className="comment">
+				<CommentText>
 					<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
-					<Button type="submit" className={classes.button} variant="contained" color="primary">
+					<Button type="submit">
        					Ajouter un commentaire
       				</Button>
-				  </div>
+				</CommentText>
 			</form>
-			<div className="comment-section">
+			<CommentSection>
 				{comment.map((elem, index) => {
 					return (
 						<div key={ index }>
@@ -150,22 +180,7 @@ export default function Comment() {
 						</div>
 					)
 				})}
-			</div>
+			</CommentSection>
 		</ContainerComment>
-
-
-
-
-		// <div>
-		// 	<form onSubmit={handleClick}>
-		// 		<div className="comment">
-		// 			<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
-		// 			<Button type="submit" className={classes.button} variant="contained" color="primary">
-       	// 				Ajouter un commentaire
-      	// 			</Button>
-		// 		  </div>
-		// 	</form>
-		
-		// </div>
 	)
 }

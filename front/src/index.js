@@ -61,7 +61,7 @@ function Hyperloop() {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 
 	return (
-		<UserContext.Provider value={[user, setUser]}>
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
 			<BrowserRouter>
 				<Header />
 				<AppContainer id="AppContainer">
@@ -79,7 +79,8 @@ function Hyperloop() {
 					</Switch>
 				</AppContainer>
 			</BrowserRouter>
-		</UserContext.Provider>
+		</SnackbarProvider>
 	);
 }
+
 ReactDOM.render(<Hyperloop />, document.getElementById('root'));

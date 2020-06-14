@@ -33,7 +33,7 @@ const Input = styled.input`
 export default function ListPage() {
 	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
 	const [type, setType] = useState('movie');
-	const [favorites, setFavorites] = useState(['empty']);
+	const [favorites, setFavorites] = useState(['empty', 'none']);
 
 	// useEffect(() => {
 	// 	var token = localStorage.getItem('token');
