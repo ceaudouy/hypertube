@@ -149,21 +149,15 @@ function Header() {
 					</SLink>
 				</Logo>
 				<Element>
-					<SLink to="/">
-						<Icon className="fas fa-user fa-lg"/>
-						<Typography>Profile</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/search">
-						<Icon className="fas fa-search"/>
-						<Typography>Search</Typography>
-					</SLink>
-				</Element>
-				<Element>
 					<SLink to="/profile">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Profile</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/listpage">
+						<Icon className="fas fa-search"/>
+						<Typography>Search</Typography>
 					</SLink>
 				</Element>
 				<Element>

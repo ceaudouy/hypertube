@@ -48,6 +48,7 @@ const InputValue = styled.input`
 `
 
 const InputContainer = styled.div`
+	--text-color: #afafaf;
 	position: relative;
 	width: 100%;
 	border-bottom: 2px solid var(--text-color);
