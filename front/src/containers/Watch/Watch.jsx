@@ -14,11 +14,13 @@ import Comment from './Comment';
 import styled from 'styled-components';
 import { COLORS } from '../../config/style'
 import { Container } from "@material-ui/core";
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		maxWidth: 250,
 		margin: theme.spacing(1),
+		width: '100%',
 	  }, 
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
@@ -183,13 +185,12 @@ function InfoMovie(detail, casting) {
 }
 
 export default function Watch() {
-	const type = window.location.href.split('?')[1].split('&')[0];
-	const movie = window.location.href.split('&')[1];
 	const [detail, setDetail] = useState([]);
 	const [casting, setCasting] = useState([]);
+	const { type, id } = useParams();
 
-	var info = 'https://api.themoviedb.org/3/' + type + '/' + movie + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
-	var cast = 'https://api.themoviedb.org/3/' + type + '/' + movie + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
+	var info = 'https://api.themoviedb.org/3/' + type + '/' + id + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
+	var cast = 'https://api.themoviedb.org/3/' + type + '/' + id + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
 	
 	useEffect(() => {
 		const abortController = new AbortController()
@@ -236,10 +237,10 @@ export default function Watch() {
 	return (
 		<ContainerWatch>
 			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
-			<div className="film">
-			</div>
+			{/* <div className="film"> */}
+			{/* </div> */}
 			{ casting === [] ? '' : InfoMovie(detail, casting.slice(0, 8)) }
-			{/* <Comment /> */}
+			<Comment />
 		</ContainerWatch>
 	)
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import ButtonFavorite from './FavoriteButton';
 import styled from 'styled-components'
-import { COLORS, BREAK_POINTS } from '../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 import { Link } from 'react-router-dom';
 
 const ConstainerDisplay = styled.div`
@@ -108,7 +108,7 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 							</Overview>
 							<Footer>
 								<ButtonFavorite elem={elem} favorites={favorites} type={type} />
-								<SLink to={ '/watch?' + type + '&' + elem.id }>
+								<SLink to={ `/watch/${type}/${elem.id}` }>
 									<Icon className="far fa-play-circle" />
 								</SLink>
 								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />

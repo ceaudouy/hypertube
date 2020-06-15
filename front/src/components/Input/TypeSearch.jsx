@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components'
-import { COLORS } from '../config/style'
+import { COLORS } from '../../config/style'
 
 const TypeContainer = styled.div`
 	display: flex;

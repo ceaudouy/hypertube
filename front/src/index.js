@@ -68,7 +68,7 @@ function Hyperloop() {
 						<Route exact path="/" component={ Homepage } />
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
-						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
+						<AuthenticatedRoute exact path="/watch/:type/:id" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/listpage" component={ListPage} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OptionMenu from './Option';
 import ListFilm from './ListFilm';
-import TypeSearch from '../../components/TypeSearch';
+import TypeSearch from '../../components/Input/TypeSearch';
 import styled from 'styled-components'
 import { BREAK_POINTS } from '../../config/style';
 import api from '../../api/api'

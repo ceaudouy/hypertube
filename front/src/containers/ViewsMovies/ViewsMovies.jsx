@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/listFilm.css';
-import PutFilm from '../../components/PutFilm';
-import TypeSearch from '../../components/TypeSearch';
+import PutFilm from '../../components/Display/PutFilm';
+import TypeSearch from '../../components/Input/TypeSearch';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style';
 

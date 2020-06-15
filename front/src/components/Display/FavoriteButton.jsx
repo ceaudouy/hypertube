@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import api from '../api/api'
+import api from '../../api/api'
 
 export default function ButtonFavorite(props) {
 

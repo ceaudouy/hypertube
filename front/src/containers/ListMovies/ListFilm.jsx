@@ -1,12 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
 import '../../css/listFilm.css';
 import FetchAllMovies from './Fetch';
-import PutFilm from '../../components/PutFilm';
+import PutFilm from '../../components/Display/PutFilm';
 import styled from 'styled-components'
 
 const ContainerDisplay = styled.div`
-	
-
 `
 
 export default function ListFilm(query, favorites, type) {

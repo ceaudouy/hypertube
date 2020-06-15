@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from 'styled-components'
 import { COLORS } from '../../config/style'
 
@@ -38,7 +38,6 @@ const Select = styled.select`
 `
 
 export default function SelectEpisode(seasons) {
-	const [saison, setSaison] = useState(seasons === undefined ? 0 : seasons[0].episode_count);
 	const [episodeNBR, setEpisodeNBR] = useState(0);
 
 	const handleChange = e => {

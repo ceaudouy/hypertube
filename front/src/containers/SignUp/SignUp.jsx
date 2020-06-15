@@ -79,8 +79,8 @@ function SignUp() {
 
 
 	const handleSubmit = async (e) => {
+		e.preventDefault();
 		if (input.password === input.confirmation) {
-			e.preventDefault();
 			api.post('/user/register', input)
 			.then(() => {
 				enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
