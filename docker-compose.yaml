@@ -20,6 +20,8 @@ services:
       JWT_SECRET: "hypertube"
       GITHUB_ID: "f5aee4b642c3f31d7a83"
       GITHUB_SECRET: "ab93a2aaeb83aaca6f122d60d426c00378c1fba0"
+      FORTYTWO_ID: "c455f7124e747b8aa997c911a5b8f18cab3f43f0b454cee14411e1d3e56cae80"
+      FORTYTWO_SECRET: "018bf1af403a3c06d4b8968fabf33ecea69db2787acc37df7983b9acd5c9244b"
     command: ["./wait-for-it.sh", "mysql:3306","-t", "0", "--", "npm", "start"]
   mysql:
     image: mysql:latest

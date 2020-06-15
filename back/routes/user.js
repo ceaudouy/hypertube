@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import { User } from 'models';
 import { passport, auth } from 'middlewares';
 
@@ -14,6 +13,13 @@ userRouter.get('/github', passport.authenticate('github', { session: false }));
 userRouter.get('/github/callback', passport.authenticate('github', { session: false }), (req, res) => {
 	console.log(req.user);
 	res.status(200).json({token: req.user.token});
+})
+
+userRouter.get('/fortytwo', passport.authenticate('fortytwo', { session: false }));
+
+userRouter.get('/fortytwo/callback', passport.authenticate('fortytwo', { session: false }), (req, res) => {
+	console.log(req.user);
+	res.status(200).json({ token: req.user.token });
 })
 
 userRouter.post('/register', async (req, res, next) => {
@@ -45,6 +51,17 @@ userRouter.post('/signOut', auth, async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-})
+});
+
+userRouter.post('/update', async (req, res, next) => {
+	try {
+		const { firstname, lastname, login, email, password, pathImage } = req.body;
+		const response = await User.edit({ firstname, lastname, login, email, password, pathImage });
+		delete response.password;
+		res.status(200).json(response);
+	} catch (err) {
+		next(err);
+	}
+});
 
 export default userRouter;

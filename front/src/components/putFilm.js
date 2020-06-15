@@ -35,9 +35,9 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 							</CardContent>
 							<CardActions disableSpacing className="button-card">
 								<ButtonFavorite elem={ elem } favorites={ favorites } type={ type } />
-								<IconButton onClick={ e => playmovie(elem, type) } aria-label="add to favorites">
-									<PlayCircleOutlineIcon />
-								</IconButton>
+								{/* <IconButton onClick={ e => playmovie(elem, type) } aria-label="add to favorites"> */}
+									{/* <PlayCircleOutlineIcon /> */}
+								{/* </IconButton> */}
 								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
 							</CardActions>
 						</Card>

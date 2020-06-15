@@ -13,7 +13,10 @@ class User extends Model {};
 User.init({
   githubId: {
     type: Sequelize.INTEGER
-  },
+	},
+	fortytwoId: {
+		type: Sequelize.INTEGER
+	},
   firstname: {
     type: Sequelize.STRING,
     validate: {
@@ -43,8 +46,12 @@ User.init({
     type: Sequelize.STRING,
   },
   token: {
-    type: Sequelize.STRING 
-  }
+    type: Sequelize.STRING,
+	},
+	pathImage: {
+		type: Sequelize.STRING,
+		defaultValue: '../images/one.jpg',
+	}
 }, {
   defaultScope: {
     attributes: { exclude: ['password', 'token'] }
@@ -53,7 +60,7 @@ User.init({
   complete: {
     attributes: {}
   }
-  }, 
+  },
   sequelize: db,
   modelName: 'user' 
 });
@@ -90,7 +97,6 @@ User.register = async (user) => {
   if (existingUser) throw new ErrorHandler(403, 'User exists');
 
   const newUser = await User.create(user);
-
   return newUser;
 }
 
@@ -115,13 +121,31 @@ User.signOut = async (user) => {
 
 User.favorites = async (user) => {
   const favorites = await user.getFavorites();
-
   return favorites;
 }
 
 User.views = async (user) => {
   const views = await user.getViews();
   return views;
+}
+
+User.edit = async (user) => {
+	const editUser = await User.scope('complete').findOne({where: {id: user.id}})
+	if (user.firstname != editUser.firstname)
+		return await User.update({ firstname: user.firstname }, { where: { id: user.id }})
+	if (user.lastname != editUser.lastname)
+		return await User.update({ lastname: user.lastname }, { where: { id: user.id }})
+	if (user.login != editUser.login)
+		return await User.update({ login: user.login }, { where: { id: user.id }})
+	if (user.email != editUser.email)
+		return await User.update({ email: user.email }, { where: { id: user.id }})
+	if (user.pathImage != editUser.pathImage)
+		return await User.update({ pathImage: user.pathImage }, { where: { id: user.id }})
+	if (user.password) {
+		const newPassword = await bcrypt.hash(user.password, 10)
+		if (newPassword != editUser.password)
+			return await User.update({ password: newPassword }, { where: { id: user.id }})
+	}
 }
 
 export default User;

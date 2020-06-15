@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { handleError, passport, db } from 'middlewares';
 import { userRouter, movieRouter } from 'routes';
-import { fetchMovies } from 'services';
+// import { fetchMovies } from 'services';
 
 dotenv.config();
 
@@ -22,6 +22,6 @@ app.use('/movie', movieRouter);
 
 app.use(handleError);
 
-fetchMovies();
+// fetchMovies();
 
 app.listen(3300);
