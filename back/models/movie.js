@@ -9,27 +9,25 @@ Movie.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    seeds: {
+    se: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    peers: {
+    le: {
       type: Sequelize.INTEGER,
     },
-    size: {
-      type: Sequelize.STRING,
-    },
-    provider: {
-      type: Sequelize.STRING,
-    },
-    link: {
+    url: {
       type: Sequelize.STRING,
       validate: {
         isUrl: true,
       },
     },
+    provider: {
+      type: Sequelize.STRING,
+    },
     magnet: {
       type: Sequelize.STRING(1250),
+      allowNull: false,
     },
   },
   { sequelize: db, modelName: 'movie' }
