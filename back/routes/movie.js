@@ -25,7 +25,7 @@ movieRouter.post('/comment', auth, async (req, res, next) => {
 
 movieRouter.get('/comment', async (req, res, next) => {
   try {
-    const { type, movie } = req.body
+    const { type, movie } = req.query
     const response = await Comment.get(type, movie)
     res.status(200).json(response)
   } catch (err) {
