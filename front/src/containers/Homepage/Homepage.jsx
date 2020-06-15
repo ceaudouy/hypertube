@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import api from '../../api/api'
-import loader from '../../components/Loader/Loader'
+import Loader from '../../components/Loader/Loader'
 
 import BallPool from './BallPool'
 

@@ -18,6 +18,7 @@ import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
 import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
 import GameOfLife from './containers/GameOfLife/GameOfLife';
 import Watch from './containers/Watch/Watch';
+import Profile from './containers/Profile/Profile';
 
 import './index.css';
 
@@ -80,6 +81,7 @@ function Hyperloop() {
 						<Route exact path="/" component={ Homepage } />
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
+						<AuthenticatedRoute exact path="/profile" exact component={ Profile } />
 						<AuthenticatedRoute exact path="/watch" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" exact component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" exact component={ FavoritesMovies } />

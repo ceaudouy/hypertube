@@ -161,6 +161,12 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
+					<SLink to="/profile">
+						<Icon className="fas fa-user fa-lg"/>
+						<Typography>Profile</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/signup">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Sign Up</Typography>
