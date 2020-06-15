@@ -1,12 +1,15 @@
 import React from "react"
 import styled from "styled-components"
-import { COLORS } from "../../config/style"
+import { COLORS, BREAK_POINTS } from "../../config/style"
 
 const PasswordStrenghContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+    & > * {
+		margin-top: 2vh;
+	};
 `
 
 const PasswordStrenghBarContainer = styled.div`
@@ -43,10 +46,19 @@ const PasswordIndicationContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    & > * {
+		margin-top: 1vh;
+	};
 `
 
 const Typography = styled.label`
 	color: ${p => p.active ? 'green' : 'grey'};
+    @media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+        font-size: ;
+	}
+    @media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+        font-size: 0.8rem;
+	}
 `
 
 const PasswordStrength = ({strength, password}) => {

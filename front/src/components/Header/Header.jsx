@@ -122,14 +122,8 @@ function Header() {
 
 	useEffect(() => {
 		api.get('/user')
-		.then((res) => {
-			console.log("header - /user succes");
-			setIsLog(true);
-		})
-		.catch(err => {
-			console.log("header - /user failure");
-			console.log(err);
-		});
+		.then((res) => {setIsLog(true);})
+		.catch((err) => {console.log(err);});
 	})
 
 	const handleLogout = () => {

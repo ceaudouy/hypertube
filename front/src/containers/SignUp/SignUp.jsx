@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 
 import api from '../../api/api'
-import { COLORS } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 import Input from '../../components/Input/Input'
 import PasswordStrength from '../../components/PasswordStrength/PasswordStrength'
 
@@ -13,6 +13,10 @@ const MainContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		padding-top: 5vh;
+		padding-bottom: 5vh;
+	}
 `
 
 const SignupForm = styled.form`
@@ -22,8 +26,8 @@ const SignupForm = styled.form`
 	align-items: center;
 	margin-top: auto;
 	max-width: 50vw;
-	& * {
-		margin-top: 3vh;
+	& > * {
+		margin-top: 4vh;
 	};
 	--text-color: #afafaf;
 `
@@ -40,6 +44,7 @@ const SubmitButton = styled.button`
 	:hover {
 		transform: scale(1.05);
 	}
+	margin-top: 2vh;
 `
 
 function SignUp() {
@@ -77,10 +82,9 @@ function SignUp() {
 		setStrengh(validations.reduce((acc, cur) => acc + cur));
 	}
 
-
 	const handleSubmit = async (e) => {
+		e.preventDefault();
 		if (input.password === input.confirmation) {
-			e.preventDefault();
 			api.post('/user/register', input)
 			.then(() => {
 				enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
