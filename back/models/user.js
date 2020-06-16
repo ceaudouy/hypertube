@@ -1,69 +1,72 @@
-import Sequelize, { Model, Op } from 'sequelize';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import Sequelize, { Model, Op } from 'sequelize'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-import { db, ErrorHandler } from 'middlewares';
+import { db, ErrorHandler } from 'middlewares'
 
-import Favorite from './favorite';
-import View from './view';
-import Comment from './comment';
+import Favorite from './favorite'
+import View from './view'
+import Comment from './comment'
 
-class User extends Model {};
+class User extends Model {}
 
-User.init({
-  githubId: {
-    type: Sequelize.INTEGER
-	},
-	fortytwoId: {
-		type: Sequelize.INTEGER
-	},
-  firstname: {
-    type: Sequelize.STRING,
-    validate: {
-      is: /^[a-z]+$/i
-    }
+User.init(
+  {
+    githubId: {
+      type: Sequelize.INTEGER,
+    },
+    fortytwoId: {
+      type: Sequelize.INTEGER,
+    },
+    firstname: {
+      type: Sequelize.STRING,
+      validate: {
+        is: /^[a-z]+$/i,
+      },
+    },
+    lastname: {
+      type: Sequelize.STRING,
+      validate: {
+        is: /^[a-z]+$/i,
+      },
+    },
+    login: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: Sequelize.STRING,
+    },
+    token: {
+      type: Sequelize.STRING,
+    },
+    picture: {
+      type: Sequelize.STRING,
+      defaultValue: '/images/one.jpg',
+    },
   },
-  lastname: {
-    type: Sequelize.STRING,
-    validate: {
-      is: /^[a-z]+$/i
-    }
-  },
-  login: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true
-    }
-  },
-  password: {
-    type: Sequelize.STRING,
-  },
-  token: {
-    type: Sequelize.STRING,
-	},
-	pathImage: {
-		type: Sequelize.STRING,
-		defaultValue: '../images/one.jpg',
-	}
-}, {
-  defaultScope: {
-    attributes: { exclude: ['password', 'token'] }
-  },
-  scopes: {
-  complete: {
-    attributes: {}
+  {
+    defaultScope: {
+      attributes: { exclude: ['password', 'token'] },
+    },
+    scopes: {
+      complete: {
+        attributes: {},
+      },
+    },
+    sequelize: db,
+    modelName: 'user',
   }
-  },
-  sequelize: db,
-  modelName: 'user' 
-});
+)
 
 User.hasMany(Favorite)
 User.hasMany(View)
@@ -129,23 +132,17 @@ User.views = async user => {
   return views
 }
 
-User.edit = async (user) => {
-	const editUser = await User.scope('complete').findOne({where: {id: user.id}})
-	if (user.firstname != editUser.firstname)
-		return await User.update({ firstname: user.firstname }, { where: { id: user.id }})
-	if (user.lastname != editUser.lastname)
-		return await User.update({ lastname: user.lastname }, { where: { id: user.id }})
-	if (user.login != editUser.login)
-		return await User.update({ login: user.login }, { where: { id: user.id }})
-	if (user.email != editUser.email)
-		return await User.update({ email: user.email }, { where: { id: user.id }})
-	if (user.pathImage != editUser.pathImage)
-		return await User.update({ pathImage: user.pathImage }, { where: { id: user.id }})
-	if (user.password) {
-		const newPassword = await bcrypt.hash(user.password, 10)
-		if (newPassword != editUser.password)
-			return await User.update({ password: newPassword }, { where: { id: user.id }})
-	}
+User.edit = async (user, infos) => {
+  await User.update(infos, { where: { id: user.id } })
+  return await User.findOne({ where: { id: user.id } })
 }
 
-export default User;
+User.editPicture = async (user, picture) => {
+  await User.update(
+    { picture: `/images/${picture}` },
+    { where: { id: user.id } }
+  )
+  return await User.findOne({ where: { id: user.id } })
+}
+
+export default User

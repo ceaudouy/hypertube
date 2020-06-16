@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { User } from 'models'
-import { passport, auth, ErrorHandler } from 'middlewares'
+import { passport, auth, ErrorHandler, upload } from 'middlewares'
 
 const userRouter = Router()
 
@@ -20,12 +20,16 @@ userRouter.get(
   }
 )
 
-userRouter.get('/fortytwo', passport.authenticate('fortytwo', { session: false }));
+userRouter.get('/fortytwo', passport.authenticate('42', { session: false }))
 
-userRouter.get('/fortytwo/callback', passport.authenticate('fortytwo', { session: false }), (req, res) => {
-	console.log(req.user);
-	res.status(200).json({ token: req.user.token });
-})
+userRouter.get(
+  '/fortytwo/callback',
+  passport.authenticate('42', { session: false }),
+  (req, res) => {
+    console.log(req.user)
+    res.status(200).json({ token: req.user.token })
+  }
+)
 
 userRouter.post('/register', async (req, res, next) => {
   try {
@@ -56,23 +60,30 @@ userRouter.post('/signIn', async (req, res, next) => {
 })
 
 userRouter.post('/signOut', auth, async (req, res, next) => {
-	try {
-		User.signOut(req.user);
-		res.status(200).send();
-	} catch (err) {
-		next(err);
-	}
-});
+  try {
+    User.signOut(req.user)
+    res.status(200).send()
+  } catch (err) {
+    next(err)
+  }
+})
 
-userRouter.post('/update', async (req, res, next) => {
-	try {
-		const { firstname, lastname, login, email, password, pathImage } = req.body;
-		const response = await User.edit({ firstname, lastname, login, email, password, pathImage });
-		delete response.password;
-		res.status(200).json(response);
-	} catch (err) {
-		next(err);
-	}
-});
+userRouter.post('/update', auth, async (req, res, next) => {
+  try {
+    const response = await User.edit(req.user, req.body)
+    res.status(200).json(response)
+  } catch (err) {
+    next(err)
+  }
+})
+
+userRouter.post('/picture', [auth, upload], async (req, res, next) => {
+  try {
+    const response = await User.editPicture(req.user, req.file.filename)
+    res.status(200).send(response)
+  } catch (err) {
+    next(err)
+  }
+})
 
 export default userRouter
