@@ -40,7 +40,7 @@ User.init(
       type: Sequelize.STRING,
       unique: {
         args: true,
-        msg: 'Login already exists',
+        msg: 'Login already exist',
       },
       allowNull: false,
     },
