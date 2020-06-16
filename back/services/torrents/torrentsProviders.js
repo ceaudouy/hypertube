@@ -3,7 +3,7 @@ import cheerio from 'cheerio'
 import ptn from 'parse-torrent-name'
 import { Client } from 'imdb-api'
 
-const cli = new Client({ apiKey: 'c62f0c6d' })
+export const cli = new Client({ apiKey: 'c62f0c6d' })
 
 export const pbSearch = async proxyUrl => {
   let result = []

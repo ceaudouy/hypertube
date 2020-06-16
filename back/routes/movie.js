@@ -2,12 +2,13 @@ import { Router } from 'express'
 
 import { Comment, Favorite, User, View, Movie } from 'models'
 import { auth } from 'middlewares'
+import { stream, fetchInfos } from 'services'
 
 const movieRouter = Router()
 
-movieRouter.get('/all', async (req, res, next) => {
+movieRouter.get('/all', auth, async (req, res, next) => {
   try {
-    const response = await Movie.findAll()
+    const response = await fetchInfos(await Movie.scope('front').findAll())
     res.status(200).json(response)
   } catch (err) {
     next(err)
@@ -70,5 +71,7 @@ movieRouter.post('/view', auth, async (req, res, next) => {
     next(err)
   }
 })
+
+movieRouter.get('/video', stream)
 
 export default movieRouter
