@@ -22,10 +22,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-        working-directory: ./front
       - name: Install dependencies
+        working-directory: ./front
         run: yarn --frozen-lockfile
       - name: build projects
+        working-directory: ./front
         run: yarn build
         env:
           REACT_APP_API_URL: http://matchapi.guillaumerx.fr:3300
