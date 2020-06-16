@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         working-directory: ./front
-        run: yarn --frozen-lockfile
+        run: yarn
       - name: build projects
         working-directory: ./front
         run: yarn build
