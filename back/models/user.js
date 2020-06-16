@@ -1,4 +1,4 @@
-import Sequelize, { Model, Op } from 'sequelize'
+import Sequelize, { Model } from 'sequelize'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -21,30 +21,51 @@ User.init(
     firstname: {
       type: Sequelize.STRING,
       validate: {
-        is: /^[a-z]+$/i,
+        is: {
+          args: /^[a-z]+$/i,
+          msg: 'firstname should only contain letters',
+        },
       },
     },
     lastname: {
       type: Sequelize.STRING,
       validate: {
-        is: /^[a-z]+$/i,
+        is: {
+          args: /^[a-z]+$/i,
+          msg: 'lastname should only contain letters',
+        },
       },
     },
     login: {
       type: Sequelize.STRING,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Login already exists',
+      },
       allowNull: false,
     },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Email already used',
+      },
       validate: {
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'Provided email not valid',
+        },
       },
     },
     password: {
       type: Sequelize.STRING,
+      validate: {
+        is: {
+          args: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+          msg: 'Please provide a strong password',
+        },
+      },
     },
     token: {
       type: Sequelize.STRING,
@@ -90,15 +111,7 @@ User.beforeCreate(async user => {
 })
 
 User.register = async user => {
-  const existingUser = await User.findOne({
-    where: {
-      [Op.or]: [{ email: user.email }, { login: user.login }],
-    },
-  })
-  if (existingUser) throw new ErrorHandler(403, 'User exists')
-
   const newUser = await User.create(user)
-
   return newUser
 }
 
