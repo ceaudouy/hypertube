@@ -173,6 +173,12 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
+					<SLink to="/dropdowntest">
+						<Icon className="fas fa-dice"/>
+						<Typography>Dropdowntest</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/gameoflife">
 						<Icon className="fas fa-dice"/>
 						<Typography>Game Of Life</Typography>

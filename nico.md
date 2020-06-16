@@ -12,3 +12,8 @@
   /register
   /signIn
   /signOut
+
+  Github credential
+  Reset password
+  Picture
+  

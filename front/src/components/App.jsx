@@ -17,6 +17,7 @@ import ViewsMovies from '../containers/ViewsMovies/ViewsMovies'
 import GameOfLife from '../containers/GameOfLife/GameOfLife'
 import Watch from '../containers/Watch/Watch'
 import Profile from '../containers/Profile/Profile'
+import Dropdowntest from '../components/Dropdown/Dropdown'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -83,6 +84,7 @@ function App() {
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/listpage" component={ListPage} />
 						<AuthenticatedRoute exact path="/gameoflife" component={GameOfLife} />
+						<AuthenticatedRoute exact path="/dropdowntest" component={Dropdowntest} />
 						<Route path="*" component={NotFound} />
 					</Switch>
 				</AppContainer>
