@@ -1,12 +1,15 @@
 import React from "react"
 import styled from "styled-components"
-import { COLORS } from "../../config/style"
+import { COLORS, BREAK_POINTS } from "../../config/style"
 
 const PasswordStrenghContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+    & > * {
+		margin-top: 2vh;
+	};
 `
 
 const PasswordStrenghBarContainer = styled.div`
@@ -43,10 +46,16 @@ const PasswordIndicationContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    & > * {
+		margin-top: 1vh;
+	};
 `
 
 const Typography = styled.label`
 	color: ${p => p.active ? 'green' : 'grey'};
+    @media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+        font-size: 0.8rem;
+	}
 `
 
 const PasswordStrength = ({strength, password}) => {
@@ -59,7 +68,7 @@ const PasswordStrength = ({strength, password}) => {
                 <BarFour active={strength > 3}></BarFour>
             </PasswordStrenghBarContainer>
             <PasswordIndicationContainer>
-                <Typography active={password.search(/[0-9]/) > -1}>number { password.search(/[A-Z]/) > -1 ? <>😄</> : <></>}</Typography>
+                <Typography active={password.search(/[0-9]/) > -1}>number { password.search(/[0-9]/) > -1 ? <>😄</> : <></>}</Typography>
                 <Typography active={password.search(/[A-Z]/) > -1}>capital letter { password.search(/[A-Z]/) > -1 ? <>😄</> : <></>}</Typography>
                 <Typography active={password.search(/[^A-Za-z0-9]/) > -1}>special character { password.search(/[^A-Za-z0-9]/) > -1 ? <>😄</> : <></>}</Typography>
                 <Typography active={password.length > 5}>number of characters { password.length > 5 ? <>😄</> : <></>}</Typography>

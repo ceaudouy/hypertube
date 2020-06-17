@@ -46,8 +46,8 @@ function SignIn() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [input, setInput] = useState({
-		email: "",
-		password: ""
+		email: "nicolas@vergne.com",
+		password: "Test123456!"
 	 });
 
 
@@ -66,7 +66,7 @@ function SignIn() {
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`You're connected!`, {variant: 'success'});
 			setTimeout(closeSnackbar(), 1000);
-			setTimeout(history.push('/search'), 1000);
+			setTimeout(history.push('/listpage'), 1000);
 		})
 		.catch((err) => {
 			console.log(err)

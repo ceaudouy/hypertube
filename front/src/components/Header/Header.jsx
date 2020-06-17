@@ -122,14 +122,8 @@ function Header() {
 
 	useEffect(() => {
 		api.get('/user')
-		.then((res) => {
-			console.log("header - /user succes");
-			setIsLog(true);
-		})
-		.catch(err => {
-			console.log("header - /user failure");
-			console.log(err);
-		});
+		.then((res) => {setIsLog(true);})
+		.catch((err) => {console.log(err);});
 	})
 
 	const handleLogout = () => {
@@ -155,13 +149,13 @@ function Header() {
 					</SLink>
 				</Logo>
 				<Element>
-					<SLink to="/">
+					<SLink to="/profile">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Profile</Typography>
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/search">
+					<SLink to="/listpage">
 						<Icon className="fas fa-search"/>
 						<Typography>Search</Typography>
 					</SLink>
@@ -176,6 +170,12 @@ function Header() {
 					<SLink to="/signin">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Sign In</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink to="/dropdowntest">
+						<Icon className="fas fa-dice"/>
+						<Typography>Dropdowntest</Typography>
 					</SLink>
 				</Element>
 				<Element>

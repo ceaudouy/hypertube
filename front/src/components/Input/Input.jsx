@@ -1,16 +1,22 @@
 import React from "react"
 import styled from "styled-components"
-import { COLORS } from "../../config/style"
+import { COLORS, BREAK_POINTS } from "../../config/style"
 
 const InputName = styled.label`
-	color: var(--text-color);
-	font-size: 1.2rem;
-	z-index: -1;
 	position: absolute;
 	left: 0;
-	transform: translateY(-2rem);
+	z-index: -1;
+	color: var(--text-color);
 	transform-origin: 0%;
 	transition: transform 400ms;
+	@media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 1.2rem;
+		transform: translateY(-2rem);
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 0.8rem;
+		transform: translateY(-0.5rem);
+	}
 `
 
 const InputValue = styled.input`
@@ -33,13 +39,20 @@ const InputValue = styled.input`
 	&:invalid {
 		color: ${COLORS.PINK_FLASHY};
 	}
+	@media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 1.2rem;
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 0.8rem;
+	}
 `
 
 const InputContainer = styled.div`
+	--text-color: #afafaf;
 	position: relative;
 	width: 100%;
 	border-bottom: 2px solid var(--text-color);
-  margin: 4rem auto 1rem;
+	margin: 4rem auto 1rem;
 	&::after {
 		content: "";
 		position: relative;
@@ -56,11 +69,15 @@ const InputContainer = styled.div`
 		border-color: transparent; 
 	}
 	&:focus-within ${InputName}, ${InputValue}:not(:placeholder-shown) + ${InputName} {
-		transform: scale(0.8) translateY(-5rem);
+		transform: scale(0.8) translateY(-4rem);
 	}
-
 	&:focus-within::after {
 		transform: scaleX(1);
+	}
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		&:focus-within ${InputName}, ${InputValue}:not(:placeholder-shown) + ${InputName} {
+			transform: scale(0.8) translateY(-2rem);
+		}
 	}
 `
 

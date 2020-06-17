@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
-import styled from 'styled-components';
 import '@fortawesome/fontawesome-free/js/all'
-import { SnackbarProvider } from 'notistack';
-
-import api from './api/api';
-import { BREAK_POINTS } from './config/style';
-
-import Header from './components/Header/Header';
-import Homepage from './containers/Homepage/Homepage';
-import NotFound from './containers/NotFound/NotFound';
-import ListPage from './containers/ListMovies/ListPage';
-import SignIn from './containers/SignIn/SignIn';
-import SignUp from './containers/SignUp/SignUp';
-import FavoritesMovies from './containers/FavoritesMovies/FavoritesMovies';
-import ViewsMovies from './containers/ViewsMovies/ViewsMovies';
-import GameOfLife from './containers/GameOfLife/GameOfLife';
-import Watch from './containers/Watch/Watch';
-
+import App from './components/App.jsx';
 import './index.css';
 
+<<<<<<< HEAD
 const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -82,3 +66,6 @@ function Hyperloop() {
 }
 
 ReactDOM.render(<Hyperloop />, document.getElementById('root'));
+=======
+ReactDOM.render(<App />, document.getElementById('root'));
+>>>>>>> origin/nico
