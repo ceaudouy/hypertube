@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DeleteIcon from '@material-ui/icons/Delete';
 import api from '../../api/api'
 import { COLORS } from '../../config/style';
 import styled from 'styled-components';
@@ -71,7 +70,6 @@ export default function Comment() {
 			api.get('/movie/comment', {params: {movie: id, type}})
 			.then((res) => {
 				setComment(res.data);
-				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err)

@@ -31,10 +31,6 @@ const ContainerCard = styled.div `
 		margin-right: auto;
 	}
 `
-const ContainerHeader = styled.div`
-	margin-bottom: 5px;
-`
-
 const Title = styled.div`
 	font-size: 100%;
 	font-weight: bold;

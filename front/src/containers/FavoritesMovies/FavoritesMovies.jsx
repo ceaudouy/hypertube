@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PutFilm from '../../components/Display/PutFilm';
-import TypeSearch from '../../components/Input/TypeSearch';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style';
@@ -18,14 +17,12 @@ const Text = styled.div`
 
 
 export default function FavoritesMovies() {
-	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [type, setType] = useState('movie');
+	const type = 'movie';
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
 
 	useEffect(() => {
 		setFilm([]);
-		var fav;
 		api.get('/movie/favorites')
 		.then((res) => {
 			let fav = []
@@ -63,14 +60,12 @@ export default function FavoritesMovies() {
 	if (favorites.length === 0) {
 		return (
 			<div>
-				{ TypeSearch(type, setType, setQuery, query) }
 				<Text>You don't have favorite movie!</Text>
 			</div>
 		)
 	} else {
 		return (
 			<div>
-				{ TypeSearch(type, setType, setQuery, query) }
 				<Homepage>
 					{PutFilm(film, favorites, type)}
 				</Homepage>

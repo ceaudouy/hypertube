@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OptionMenu from './Option';
 import ListFilm from './ListFilm';
-import TypeSearch from '../../components/Input/TypeSearch';
 import styled from 'styled-components'
 import { BREAK_POINTS } from '../../config/style';
 import api from '../../api/api'
@@ -33,7 +32,7 @@ const Input = styled.input`
 
 export default function ListPage() {
 	const [query, setQuery] = useState('https://api.themoviedb.org/3/discover/movie?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue') + '&sort_by=popularity.desc&include_adult=false&include_video=false&page=');
-	const [type, setType] = useState('movie');
+	const type = 'movie';
 	const [favorites, setFavorites] = useState(['empty']);
 
 	useEffect(() => {
@@ -61,7 +60,6 @@ export default function ListPage() {
 	return (
 		<HomeContainer>
 			<Input placeholder="search ..." onChange={ e => handleChange(e) } />
-			{ TypeSearch(type, setType, setQuery, query) }
 			<HomePage>
 				{OptionMenu(setQuery, type)}
 				{ListFilm(query, favorites, type)}

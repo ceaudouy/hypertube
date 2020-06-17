@@ -5,16 +5,12 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import Paper from '@material-ui/core/Paper';
-import CardContent from '@material-ui/core/CardContent';
-import SelectEpisode from './SelectEpisode';
 import Comment from './Comment';
 import styled from 'styled-components';
 import { COLORS } from '../../config/style'
-import { Container } from "@material-ui/core";
 import { useParams } from 'react-router-dom';
+import Film from './film';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -73,9 +69,6 @@ const Genre = styled.div`
 	padding: 5px;
 `
 
-const ContainerCasting = styled.div`
-`
-
 const DisplayCasting = styled.div`
 	display: flex;
 	justify-content: center;
@@ -111,8 +104,6 @@ const Media = styled.img`
 `
 
 function PutCasting(props) {
-	const classes = useStyles();
-
 	return (
 		<ContainerInfo>
 				<Text>Casting:</Text>
@@ -139,8 +130,6 @@ function PutCasting(props) {
 }
 
 function InfoMovie(detail, casting) {
-	const classes = useStyles();
-
 	return (
 		<div>
 			<ExpansionPanel className="card">
@@ -236,8 +225,7 @@ export default function Watch() {
 
 	return (
 		<ContainerWatch>
-			{ type === "tv" ? SelectEpisode(detail.seasons) : ''}
-			{/* <div className="film"> */}
+			<Film />
 			{/* </div> */}
 			{ casting === [] ? '' : InfoMovie(detail, casting.slice(0, 8)) }
 			<Comment />

@@ -18,12 +18,12 @@ export default function ButtonFavorite(props) {
 		.catch((err) => {
 			console.log(err)
 		})
-		setColor(color == 'red' ? 'grey' : 'red');
+		setColor(color === 'red' ? 'grey' : 'red');
 	}
 
 	return (
 		<div onClick={ e => handleClick(props.elem.id) }>
-			<FavoriteIcon className={color == 'red' ? "favorite" : ""} />
+			<FavoriteIcon className={color === 'red' ? "favorite" : ""} />
 		</div>
 	)
 }
