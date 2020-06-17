@@ -79,7 +79,7 @@ function App() {
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
 						<AuthenticatedRoute exact path="/profile" component={ Profile } />
-						<AuthenticatedRoute exact path="/watch" component={ Watch } />
+						<AuthenticatedRoute exact path="/watch/:type/:id" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/listpage" component={ListPage} />
