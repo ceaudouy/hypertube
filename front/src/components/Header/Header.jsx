@@ -140,7 +140,37 @@ function Header() {
 	}
 
 	return (
-		<Navigation>
+		isLog === false ? 
+			<Navigation>
+				<Container>
+					<Logo>
+						<SLink to={"/"}>
+							<Typography>Hypertube</Typography>
+							<Icon className="fas fa-grin-hearts fa-lg"/>
+						</SLink>
+					</Logo>
+					<Element>
+						<SLink to="/signup">
+							<Icon className="fas fa-user fa-lg"/>
+							<Typography>Sign Up</Typography>
+						</SLink>
+					</Element>
+					<Element>
+						<SLink to="/signin">
+							<Icon className="fas fa-user fa-lg"/>
+							<Typography>Sign In</Typography>
+						</SLink>
+					</Element>
+					<Element>
+						<SLink to="/losttravolta">
+							<Icon className="fab fa-freebsd"/>
+							<Typography>Lost</Typography>
+						</SLink>
+					</Element>
+				</Container>
+			</Navigation>
+			:
+			<Navigation>
 			<Container>
 				<Logo>
 					<SLink to={"/"}>
@@ -149,27 +179,27 @@ function Header() {
 					</SLink>
 				</Logo>
 				<Element>
+					<SLink to="/listpage">
+						<Icon className="fas fa-film"/>
+						<Typography>List Movies</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/profile">
 						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Profile</Typography>
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/listpage">
-						<Icon className="fas fa-search"/>
-						<Typography>Search</Typography>
+					<SLink to="/favorites">
+						<Icon className="fas fa-heart"/>
+						<Typography>Favorites</Typography>
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/signup">
-						<Icon className="fas fa-user fa-lg"/>
-						<Typography>Sign Up</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/signin">
-						<Icon className="fas fa-user fa-lg"/>
-						<Typography>Sign In</Typography>
+					<SLink to="/views">
+						<Icon className="fas fa-eye"/>
+						<Typography>Views</Typography>
 					</SLink>
 				</Element>
 				<Element>
@@ -190,15 +220,12 @@ function Header() {
 						<Typography>Lost</Typography>
 					</SLink>
 				</Element>
-				{
-					isLog === true && 
-					<Element>
-						<SLink to="/" onClick={handleLogout}>
-							<Icon className="fas fa-sign-out-alt fa-lg"/>
-							<Typography>Logout</Typography>
-						</SLink>
-					</Element>
-				}
+				<Element>
+					<SLink to="/" onClick={handleLogout}>
+						<Icon className="fas fa-sign-out-alt fa-lg"/>
+						<Typography>Logout</Typography>
+					</SLink>
+				</Element>
 			</Container>
 		</Navigation>
 	);
