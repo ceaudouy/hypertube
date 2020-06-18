@@ -6,12 +6,8 @@ class Comment extends Model {}
 
 Comment.init(
   {
-    type: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     movie: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     comment: {
@@ -28,9 +24,9 @@ Comment.add = async (comment, user) => {
   return newComment
 }
 
-Comment.get = async (type, movie) => {
+Comment.get = async movie => {
   const comments = await Comment.findAll({
-    where: { type, movie },
+    where: { movie },
     include: [{ model: User }],
   })
   return comments

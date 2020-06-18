@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { handleError, passport, db } from 'middlewares'
+import { fileCleaner } from 'services'
 import { userRouter, movieRouter } from 'routes'
 
 dotenv.config()
@@ -9,6 +10,8 @@ dotenv.config()
 const app = express()
 
 db.sync()
+
+fileCleaner()
 
 app.use(express.static('public'))
 app.use(express.json())

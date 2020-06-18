@@ -6,10 +6,6 @@ class View extends Model {}
 View.init(
   {
     movie: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    type: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -17,8 +13,8 @@ View.init(
   { sequelize: db, modelName: 'view' }
 )
 
-View.add = async (movie, type, user) => {
-  const view = await View.create({ movie, type })
+View.add = async (movie, user) => {
+  const view = await View.create({ movie })
   await user.addView(view)
   return view
 }

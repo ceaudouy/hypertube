@@ -1,1 +1,2 @@
-export { stream, fetchInfos, cli } from './torrents'
+export { default as stream } from './stream'
+export { default as fileCleaner } from './cron'

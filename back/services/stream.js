@@ -74,6 +74,7 @@ const streamFile = (res, path, start, size, mime) => {
   if (mime === 'video/mp4' || mime === 'video/ogg' || mime === 'video/webm')
     pump(stream, res)
   else pump(convert(stream), res)
+  Movie.addView(path)
   console.log(`Started streaming file`)
 }
 

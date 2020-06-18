@@ -6,10 +6,6 @@ class Favorite extends Model {}
 Favorite.init(
   {
     movie: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    type: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -17,13 +13,13 @@ Favorite.init(
   { sequelize: db, modelName: 'favorite' }
 )
 
-Favorite.add = async (movie, type, user) => {
+Favorite.add = async (movie, user) => {
   let favorite = undefined
 
-  if (await Favorite.findOne({ where: { movie, type, userId: user.id } })) {
-    favorite = await Favorite.destroy({ where: { movie, type } })
+  if (await Favorite.findOne({ where: { movie, userId: user.id } })) {
+    favorite = await Favorite.destroy({ where: { movie } })
   } else {
-    favorite = await Favorite.create({ movie, type })
+    favorite = await Favorite.create({ movie })
     await user.addFavorite(favorite)
   }
 
