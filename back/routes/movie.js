@@ -2,13 +2,22 @@ import { Router } from 'express'
 
 import { Comment, Favorite, User, View, Movie } from 'models'
 import { auth } from 'middlewares'
-import { stream, fetchInfos } from 'services'
+import { stream, cli } from 'services'
 
 const movieRouter = Router()
 
 movieRouter.get('/all', auth, async (req, res, next) => {
   try {
-    const response = await fetchInfos(await Movie.scope('front').findAll())
+    let response = await Movie.scope('front').findAll()
+    for (let i in response) {
+      if (response[i].imdbid) {
+        const infos = await cli.get({ id: response[i].imdbid })
+        Object.keys(infos).map(key => {
+          response[i][key] = infos[key]
+          console.log(response[i])
+        })
+      }
+    }
     res.status(200).json(response)
   } catch (err) {
     next(err)

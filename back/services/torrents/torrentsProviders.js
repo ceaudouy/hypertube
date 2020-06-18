@@ -3,7 +3,7 @@ import cheerio from 'cheerio'
 import ptn from 'parse-torrent-name'
 import { Client } from 'imdb-api'
 
-export const cli = new Client({ apiKey: 'c62f0c6d' })
+export const cli = new Client({ apiKey: '5920bf1b' })
 
 export const pbSearch = async proxyUrl => {
   let result = []
@@ -41,16 +41,15 @@ export const cleanList = result => {
 }
 
 export const fetchInfos = async result => {
-  for (let i in result) {
+  return await result.map(async (movie, i) => {
     try {
-      const infos = await cli.get({ name: result[i].title })
+      const infos = await cli.get({ title: movie.title })
       Object.keys(infos).map(key => {
-        result[i][key] = infos[key]
+        movie[key] = infos[key]
       })
     } catch (err) {
-      console.log(`Could not find infos for ${result[i].title}, removing it`)
+      console.log(`Could not find infos for ${movie.title}, removing it`)
       result.splice(i, 1)
     }
-  }
-  return result
+  })
 }

@@ -27,6 +27,7 @@
     "express-router": "0.0.1",
     "fluent-ffmpeg": "^2.1.2",
     "imdb-api": "^4.0.3",
+    "jackett": "github:danteissaias/jackett",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",

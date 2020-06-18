@@ -1,6 +1,5 @@
 import torrentStream from 'torrent-stream'
 import pump from 'pump'
-import path from 'path'
 import { lookup } from 'mime'
 import ffmpeg from 'fluent-ffmpeg'
 import { createReadStream, access, statSync } from 'fs'

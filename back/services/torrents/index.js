@@ -1,2 +1,2 @@
-export { pbSearch, cleanList, fetchInfos } from './torrentsProviders'
+export { pbSearch, cleanList, fetchInfos, cli } from './torrentsProviders'
 export { default as stream } from './torrentStream'

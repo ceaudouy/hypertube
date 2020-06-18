@@ -1,1 +1,1 @@
-export { stream, fetchInfos } from './torrents'
+export { stream, fetchInfos, cli } from './torrents'

@@ -7,7 +7,6 @@ export const fetchTorrents = async () => {
   result = await fetchInfos(result)
   for (let i in result) {
     if (!result[i].imdbid) {
-      console.log(result[i])
       result.splice(i, 1)
     }
   }
