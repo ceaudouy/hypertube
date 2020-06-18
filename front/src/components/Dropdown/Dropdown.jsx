@@ -1,8 +1,17 @@
 import React, { useState } from "react"
-import styled from "styled-components"
-import { COLORS, BREAK_POINTS } from "../../config/style"
+import { Link } from "react-router-dom"
+import styled, { css } from "styled-components"
+import { CSSTransition } from "react-transition-group"
 
-const SNavCssProperties = styled.nav`
+import { COLORS } from "../../config/style"
+import "./Dropdown.css"
+
+const GlobalContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`
+
+const SNavCssProperties = css`
 	--bg:#242526;
 	--bg-accent: #484a4d;
 	--text-color: #dadce1;
@@ -21,7 +30,9 @@ const SNavCssProperties = styled.nav`
 	}
 `
 
-const Nav = styled(SNavCssProperties)`
+const Nav = styled.nav`
+	${SNavCssProperties};
+	position: relative;
 	height: var(--nav-size);
 	background-color: var(--bg);
 	padding: 0 1rem;
@@ -42,7 +53,11 @@ const NavElemItem = styled.li`
 	justify-content: center;
 `
 
-const IconButton = styled.a`
+const Icon = styled.i`
+	color: ${COLORS.GREY_LIGHT};
+`
+
+const IconCssProperties = css`
 	--button-size: calc(var(--nav-size) * 0.5);
 	width: var(--button-size);
 	height: var(--button-size);
@@ -54,34 +69,168 @@ const IconButton = styled.a`
 	align-items: center;
 	justify-content: center;
 	transition: filter 300ms;
+	&:hover {
+		filter: brightness(1.2);
+	}
+	& > ${Icon} {
+		fill: var(--text-color);
+		width: 20px;
+		height: 20px;
+	}
 `
 
-const Dropdown = () => {
-	return (
-		<NavBar>
-			<NavItem icon=""/>
-		</NavBar>
-	);
-}
+const IconButton = styled.a`
+	${IconCssProperties};
+`
+
+const DropdownMenuGlobalContainer = styled.div`
+	position: absolute;
+	width: 300px;
+	top: 58px;
+	transform: translateX(-45%);
+	background-color: var(--bg);
+	border: var(--border);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+	max-height: 30vh;
+	transition: height var(--speed) ease;
+	overflow: scroll;
+	&::-webkit-scrollbar {
+		width: 0.25rem;
+		height: 0.25rem;
+	}
+	&::-webkit-scrollbar-track {
+		background: #1e1e24;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #1e1e24;
+	}
+	transition: height var(--speed) ease;
+`
+
+const DropdownMenuContainer = styled.div`
+
+`
+
+const DropdownItemLink = styled.a`
+	height: 50px;
+	display: flex;
+	align-items: center;
+	border-radius: var(--border-radius);
+	transition: background var(--speed);
+	text-decoration: none;
+	color: ${COLORS.GREY_LIGHT};
+	padding: 0.5rem;
+	&:hover {
+		background-color: #525357;
+	}
+`
+
+const IconLeft = styled.span`
+	${IconCssProperties};
+`
+
+const IconRight = styled.span`
+	${IconCssProperties};
+	margin-left: auto;
+`
 
 const NavBar = (props) => {
 	return (
 		<Nav>
-			<NavElem>
-				{ props.children }
-			</NavElem>
+			<NavElem>{ props.children }</NavElem>
 		</Nav>
 	)
 }
 
 const NavItem = (props) => {
+	const [open, setOpen] = useState(false);
+
 	return (
 		<NavElemItem>
-			<IconButton href="#">
+			<IconButton href="#" onClick={() => setOpen(!open)}>
 				{ props.icon }
 			</IconButton>
+			{ open && props.menu } 
 		</NavElemItem>
 	)
 }
 
+const DropdownComponent = () => {
+
+	const [activeMenu, setActiveMenu] = useState("menu");
+	const [menuHeight, setMenuHeight] = useState(null);
+
+	function calcHeight(el) {
+		const height = el.offsetHeight;
+		setMenuHeight(height);
+	}
+
+	const DropdownItem = (props) => {
+		return (
+			<DropdownItemLink onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)} >
+				{ props.activateLeft &&  <IconLeft> { props.leftIcon} </IconLeft> }
+				{ props.children }
+				{ props.activateRight &&  <IconRight> { props.rightIcon} </IconRight> }
+			</DropdownItemLink>
+		);
+	}
+
+	return (
+		<DropdownMenuGlobalContainer style={{height: menuHeight}}>
+			<CSSTransition in={activeMenu === "menu"} unmountOnExit timeout={500} classNames="menu-primary" onEnter={calcHeight}>
+				<DropdownMenuContainer>
+					<DropdownItem goToMenu="settings" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+						Menu 1-1 
+					</DropdownItem>
+					<DropdownItem goToMenu="settings" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+						Menu 1-2 
+					</DropdownItem>
+					<DropdownItem> Test </DropdownItem>
+					<DropdownItem> Test </DropdownItem>
+				</DropdownMenuContainer>
+			</CSSTransition>
+
+			<CSSTransition in={activeMenu === "settings"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
+				<DropdownMenuContainer>
+					<DropdownItem goToMenu="menu" activateLeft={true} leftIcon={<Icon className="fas fa-arrow-circle-left"/>} >
+						Menu 2-1 
+					</DropdownItem>
+					<DropdownItem goToMenu="menu" activateLeft={false} activateRight={true} rightIcon={<Icon className="fab fa-freebsd"/>}>
+						Menu 2-2 
+					</DropdownItem>
+				</DropdownMenuContainer>
+			</CSSTransition>
+		</DropdownMenuGlobalContainer>
+	);
+}
+
+function Dropdown() {
+
+	return (
+		<GlobalContainer>
+			<NavBar>
+				<NavItem icon={<Icon className="fas fa-dice"/>} />
+				<NavItem icon={<Icon className="fab fa-freebsd"/>} />
+				<NavItem icon={<Icon className="fas fa-dragon"/>} />
+				<NavItem icon={<Icon className="fas fa-ellipsis-h"/>} menu={<DropdownComponent/>} />
+			</NavBar>
+		</GlobalContainer>
+	);
+}
+
 export default Dropdown;
+
+
+// Doc
+
+// Dropdown main function
+// NavBar contain NavItem 
+// NavItem contain Icon and DropdownComponent (can be toggle open or close)
+// DropdownComponent contains DropdowItem(s) that can alter it's state to switch between levels
+// DropdownItem contain optionnal left/right icons (leave fragment or fill with icons)
+// DropdownItem need activated(Direction) props to render the Icon
+
+// CSSTransition from react-transition-group package help conditional rendering logic 
+// Dropdown.css contain class names and animation instruction for CSSTransition
