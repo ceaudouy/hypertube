@@ -1,24 +1,18 @@
+import axios from 'axios'
 import { Router } from 'express'
 
-import { Comment, Favorite, User, View, Movie } from 'models'
+import { Comment, Favorite, User, View } from 'models'
 import { auth } from 'middlewares'
-import { stream, cli } from 'services'
+import { stream } from 'services'
 
 const movieRouter = Router()
 
-movieRouter.get('/all', auth, async (req, res, next) => {
+movieRouter.get('/popcorn/:page', auth, async (req, res, next) => {
   try {
-    let response = await Movie.scope('front').findAll()
-    for (let i in response) {
-      if (response[i].imdbid) {
-        const infos = await cli.get({ id: response[i].imdbid })
-        Object.keys(infos).map(key => {
-          response[i][key] = infos[key]
-          console.log(response[i])
-        })
-      }
-    }
-    res.status(200).json(response)
+    const { data } = await axios(
+      `https://tv-v2.api-fetch.sh/movies/${req.params.page}`
+    )
+    res.status(200).json(data)
   } catch (err) {
     next(err)
   }
