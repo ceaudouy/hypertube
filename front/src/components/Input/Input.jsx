@@ -81,10 +81,10 @@ const InputContainer = styled.div`
 	}
 `
 
-const Input = ({type, name, handleChange}) => {
+const Input = ({type, name, value, handleChange}) => {
     return (
 		<InputContainer>
-    	    <InputValue type={type} name={name} placeholder=" " onChange={handleChange} />
+    	    <InputValue type={type} name={name} placeholder="" value={value} onChange={handleChange} />
     	    <InputName htmlFor={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</InputName>
     	</InputContainer>
 	)
