@@ -1,10 +1,10 @@
 import torrentStream from 'torrent-stream'
 import pump from 'pump'
-import { lookup } from 'mime'
+import mime from 'mime'
 import ffmpeg from 'fluent-ffmpeg'
 import { createReadStream, access, statSync } from 'fs'
 import { F_OK } from 'constants'
-import { opts, ErrorHandler } from 'middlewares'
+import { opts } from 'middlewares'
 import { Movie } from 'models'
 
 const contentOpts = size => ({
@@ -41,11 +41,10 @@ const download = (res, magnet) => {
   })
   torrent.on('ready', () => {
     torrent.files.forEach(file => {
-      if (lookup(file.name).split('/')[0] === 'video') {
-        console.log(file.name)
+      if (mime.lookup(file.name).split('/')[0] === 'video') {
         selectedFile = file
         file.select()
-        streamTorrent(res, file, 0, file.length - 1, lookup(file.name))
+        streamTorrent(res, file, 0, file.length - 1, mime.lookup(file.name))
       }
     })
   })
@@ -80,14 +79,14 @@ const streamFile = (res, path, start, size, mime) => {
 
 const stream = async (req, res, next) => {
   try {
-    const { movie } = req.query
-    const infos = await Movie.get(movie)
-    if (!infos) throw new ErrorHandler(400, 'Invalide movie id')
-    if (infos.file) {
+    const { hash } = req.query
+    const magnet = `magnet:?xt=urn:btih:${hash}`
+    const infos = await Movie.get(magnet)
+    if (infos != null) {
       access(`public/movies/${infos.file}`, F_OK, err => {
         if (err) {
           console.log(err)
-          download(res, infos.magnet)
+          download(res, magnet)
         } else {
           const stats = statSync(`public/movies/${infos.file}`)
           streamFile(
@@ -95,11 +94,11 @@ const stream = async (req, res, next) => {
             `public/movies/${infos.file}`,
             0,
             stats['size'],
-            lookup(`public/movies/${infos.file}`)
+            mime.lookup(`public/movies/${infos.file}`)
           )
         }
       })
-    } else download(res, infos.magnet)
+    } else download(res, magnet)
   } catch (err) {
     next(err)
   }
