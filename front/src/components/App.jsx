@@ -9,7 +9,7 @@ import { BREAK_POINTS } from '../config/style'
 import Header from './Header/Header'
 import Homepage from '../containers/Homepage/Homepage'
 import NotFound from '../containers/NotFound/NotFound'
-import ListPage from '../containers/ListMovies/ListPage'
+import Search from '../containers/Search/Search'
 import SignIn from '../containers/SignIn/SignIn'
 import SignUp from '../containers/SignUp/SignUp'
 import FavoritesMovies from '../containers/FavoritesMovies/FavoritesMovies'
@@ -79,10 +79,10 @@ function App() {
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
 						<AuthenticatedRoute exact path="/profile" component={ Profile } />
-						<AuthenticatedRoute exact path="/watch/:type/:id" exact component={ Watch } />
+						<AuthenticatedRoute exact path="/watch/:type/:id/:imdb" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
-						<AuthenticatedRoute exact path="/listpage" component={ListPage} />
+						<AuthenticatedRoute exact path="/search" component={Search} />
 						<AuthenticatedRoute exact path="/gameoflife" component={GameOfLife} />
 						<AuthenticatedRoute exact path="/dropdowntest" component={Dropdowntest} />
 						<Route path="*" component={NotFound} />

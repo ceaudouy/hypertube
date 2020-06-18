@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
 import api from '../../api/api'
 import { BREAK_POINTS } from '../../config/style'
 import Loader from '../../components/Loader/Loader'

@@ -169,7 +169,7 @@ function Header() {
 					isLog === true &&
 					<div>
 						<Element>
-							<SLink to="/listpage">
+							<SLink to="/search">
 								<Icon className="fas fa-search"/>
 								<Typography>Search</Typography>
 							</SLink>
