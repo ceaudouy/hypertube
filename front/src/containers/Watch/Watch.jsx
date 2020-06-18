@@ -10,7 +10,8 @@ import Comment from './Comment';
 import styled from 'styled-components';
 import { COLORS } from '../../config/style'
 import { useParams } from 'react-router-dom';
-import Film from './film';
+import Film from './Film';
+import api from '../../api/api'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -103,6 +104,12 @@ const Media = styled.img`
 	width: 80%;
 `
 
+const Title = styled.div`
+	display: flex;
+	justify-content: center;
+	font-size: 5vw;
+`
+
 function PutCasting(props) {
 	return (
 		<ContainerInfo>
@@ -141,18 +148,20 @@ function InfoMovie(detail, casting) {
 				More information
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="info">
+					<Title>{ detail.title }</Title>
 					<Header>
 						<div>
-							{ detail.release_date !== undefined ? detail.release_date : detail.first_air_date }
+							{ detail.year }
 						</div>
+						
 						<div>
-							{ detail.episode_run_time !== undefined ? detail.episode_run_time === undefined ? "error" : detail.episode_run_time[0] : detail.runtime } min
+							{ detail.runtime } min
 						</div>
-						<Rating name="read-only" precision={ 0.5 } value={ detail.vote_average / 2 } size="small" readOnly />
+						<Rating name="read-only" precision={ 0.5 } value={ detail.rating / 2 } size="small" readOnly />
 					</Header>
 					<ContainerInfo>
 						<Text>Overview:</Text>
-						<Text>{detail.overview}</Text>
+						<Text>{ detail.description_full }</Text>
 					</ContainerInfo>
 					<ContainerInfo>
 						<Text>Genres:</Text>
@@ -176,27 +185,27 @@ function InfoMovie(detail, casting) {
 export default function Watch() {
 	const [detail, setDetail] = useState([]);
 	const [casting, setCasting] = useState([]);
-	const { type, id } = useParams();
+	const [hashPopcorn, setHashPopCorn] = useState('')
+	const { type, id, imdb } = useParams();
 
-	var info = 'https://api.themoviedb.org/3/' + type + '/' + id + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
+	var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
 	var cast = 'https://api.themoviedb.org/3/' + type + '/' + id + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
-	
+	var urlPopCorn = '/movie/popcorn/' + imdb;
+
+
 	useEffect(() => {
 		const abortController = new AbortController()
 		const signal = abortController.signal
 
 		fetch(info, {
 			signal: signal,
-			headers: new Headers({
-				'Content-Type': 'application/json',
-			}),
 		}).then((response) => {
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
 			return response.json();
 		}).then((parsedData) => {
-			setDetail(parsedData);
+			setDetail(parsedData.data.movie);
 		}).catch(error => {
 			console.log("Error for movie information !")
 		});
@@ -217,16 +226,26 @@ export default function Watch() {
 			console.log("Error for the casting !")
 		})
 
+		api.get(urlPopCorn)
+		.then((res) => {
+			setHashPopCorn(res.data.torrents.en);
+		}).catch((err) => {
+			console.log(err);
+		})
+
 
 		return function cleanup() {
 			abortController.abort()
 		}
-	}, [info, cast])
+	}, [info, cast, urlPopCorn])
 
+
+
+
+	
 	return (
 		<ContainerWatch>
-			<Film />
-			{/* </div> */}
+			{ hashPopcorn === '' ? '' : <Film yts ={detail.torrents} popCorn={hashPopcorn} /> }
 			{ casting === [] ? '' : InfoMovie(detail, casting.slice(0, 8)) }
 			<Comment />
 		</ContainerWatch>

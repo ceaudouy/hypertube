@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import api from '../../api/api'
 
 export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	const [loading, setLoading] = useState(true);
@@ -14,21 +16,19 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	useEffect(() => {
 		setLoading(true);
 		setError(false);
-		const url = query + pageNumber.toString();
+		
+		const url = '' + query + pageNumber.toString();
 		fetch(url, {
-			headers: new Headers({
-				'Content-Type': 'application/json',
-			}),
 		}).then((response) => {
 			if (response.ok) {
 				return response.json();
 			}
 		}).then((parsedData) => {
-			if (parsedData.results !== undefined)
+			if (parsedData.data.movie_count !== 0)
 				setFilm(prevFilm => {
-					return [...new Set([...prevFilm, ...parsedData.results.map(elem => elem)])]
+					return [...new Set([...prevFilm, ...parsedData.data.movies.map(elem => elem)])]
 				});
-			setHasMore(pageNumber < parsedData.total_pages);
+			setHasMore(pageNumber < parsedData.data.movie_count);
 			setLoading(false);
 		}).catch (e => {
 			setLoading(false);

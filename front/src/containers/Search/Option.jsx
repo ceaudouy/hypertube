@@ -104,7 +104,8 @@ export default function OptionMenu(setQuery, type) {
 				queryOrder = '&sort_by=vote_average.' + trie;
 			}
 		}
-		setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://yts.mx/api/v2/list_movies.json?page_number?genre=Comedy&page_number=')
+		// setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
 	}
 
 	return (

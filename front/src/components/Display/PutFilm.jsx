@@ -81,33 +81,34 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 	return (
 		<ConstainerDisplay>
 			{ film.map((elem, index) => {
+				console.log(elem)
 				if (elem === null) {
 					return ('');
 				}
 				var overview = '';
-				if (elem.overview === '' || elem.overview === undefined || elem.overview === null) {
+				if (elem.synopsis === '' || elem.synopsis === undefined || elem.synopsis === null) {
 					overview = 'No overview !';
 				} else {
-					overview = elem.overview.substr(0, 100);
+					overview = elem.synopsis.substr(0, 100);
 					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + '';
 				}
-				if (elem.poster_path === null) {
+				if (elem.medium_cover_image === null) {
 					return ('');
 				} else {
 					return (
 						<ContainerCard ref={lastFilmElementRef} key={ index }>
-								<Title>{ elem.title !== undefined ? elem.title : elem.original_name }</Title>
-								<Date>{ elem.release_date }</Date>
-							<img className="media" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
+								<Title>{ elem.title }</Title>
+								<Date>{ elem.year }</Date>
+							<img className="media" src={elem.medium_cover_image} alt="" />
 							<Overview>
 								{ overview }
 							</Overview>
 							<Footer>
 								<ButtonFavorite elem={elem} favorites={favorites} type={type} />
-								<SLink to={ `/watch/${type}/${elem.id}` }>
+								<SLink to={ `/watch/${type}/${elem.id}/${elem.imdb_code}` }>
 									<Icon className="far fa-play-circle" />
 								</SLink>
-								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
+								<Rating name="read-only" precision={0.5} value={ elem.rating / 2} size="small" readOnly />
 							</Footer>
 						</ContainerCard>
 					)
