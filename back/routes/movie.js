@@ -49,8 +49,8 @@ movieRouter.get('/favorites', auth, async (req, res, next) => {
 movieRouter.post('/favorites', auth, async (req, res, next) => {
   try {
     const { movie } = req.body
-    const response = Favorite.add(movie, req.user)
-    res.status(200).json(response)
+    await Favorite.add(movie, req.user)
+    res.status(200).send()
   } catch (err) {
     next(err)
   }
@@ -68,8 +68,8 @@ movieRouter.get('/views', auth, async (req, res, next) => {
 movieRouter.post('/view', auth, async (req, res, next) => {
   try {
     const { movie } = req.body
-    const view = await View.add(movie, req.user)
-    res.status(200).json(view)
+    await View.add(movie, req.user)
+    res.status(200).send()
   } catch (err) {
     next(err)
   }

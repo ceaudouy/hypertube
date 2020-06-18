@@ -7,6 +7,7 @@ import { db, ErrorHandler } from 'middlewares'
 import Favorite from './favorite'
 import View from './view'
 import Comment from './comment'
+import Reset from './reset'
 
 class User extends Model {}
 
@@ -92,12 +93,27 @@ User.init(
 User.hasMany(Favorite)
 User.hasMany(View)
 User.hasMany(Comment)
+User.hasOne(Reset)
 
 Favorite.belongsTo(User)
 View.belongsTo(User)
 Comment.belongsTo(User)
+Reset.belongsTo(User)
 
 User.beforeCreate(async user => {
+  if (user.password) {
+    return await bcrypt
+      .hash(user.password, 10)
+      .then(hash => {
+        user.password = hash
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+})
+
+User.beforeUpdate(async user => {
   if (user.password) {
     return await bcrypt
       .hash(user.password, 10)
@@ -127,23 +143,16 @@ User.signIn = async user => {
       await User.update({ token: token }, { where: { id: signingUser.id } })
       return token
     } else return signingUser.token
-  }
+  } else throw new ErrorHandler(403, 'Invalide Email or Password')
 }
 
 User.signOut = async user => {
   User.update({ token: null }, { where: { id: user.id } })
 }
 
-User.favorites = async user => {
-  const favorites = await user.getFavorites()
+User.favorites = async user => await user.getFavorites()
 
-  return favorites
-}
-
-User.views = async user => {
-  const views = await user.getViews()
-  return views
-}
+User.views = async user => await user.getViews()
 
 User.edit = async (user, infos) => {
   await User.update(infos, { where: { id: user.id } })

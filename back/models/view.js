@@ -16,7 +16,6 @@ View.init(
 View.add = async (movie, user) => {
   const view = await View.create({ movie })
   await user.addView(view)
-  return view
 }
 
 export default View

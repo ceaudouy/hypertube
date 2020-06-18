@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
-import { User } from 'models'
+import { User, Reset } from 'models'
+import { mailer, resetMail } from 'services'
 import { passport, auth, ErrorHandler, upload } from 'middlewares'
 
 const userRouter = Router()
@@ -72,6 +73,29 @@ userRouter.post('/update', auth, async (req, res, next) => {
   try {
     const response = await User.edit(req.user, req.body)
     res.status(200).json(response)
+  } catch (err) {
+    next(err)
+  }
+})
+
+userRouter.post('/request', async (req, res, next) => {
+  try {
+    const { email } = req.body
+    const mail = await mailer()
+    const reset = await Reset.request(email)
+    if (reset) mail.sendMail(resetMail(reset, req.get('origin')))
+    res.status(200).send()
+  } catch (err) {
+    next(err)
+  }
+})
+
+userRouter.post('/reset/:token', async (req, res, next) => {
+  try {
+    const { token } = req.params
+    const { password } = req.body
+    await Reset.verify(token, password)
+    res.status(200).send()
   } catch (err) {
     next(err)
   }
