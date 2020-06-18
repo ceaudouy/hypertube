@@ -140,37 +140,7 @@ function Header() {
 	}
 
 	return (
-		isLog === false ? 
-			<Navigation>
-				<Container>
-					<Logo>
-						<SLink to={"/"}>
-							<Typography>Hypertube</Typography>
-							<Icon className="fas fa-grin-hearts fa-lg"/>
-						</SLink>
-					</Logo>
-					<Element>
-						<SLink to="/signup">
-							<Icon className="fas fa-user fa-lg"/>
-							<Typography>Sign Up</Typography>
-						</SLink>
-					</Element>
-					<Element>
-						<SLink to="/signin">
-							<Icon className="fas fa-user fa-lg"/>
-							<Typography>Sign In</Typography>
-						</SLink>
-					</Element>
-					<Element>
-						<SLink to="/losttravolta">
-							<Icon className="fab fa-freebsd"/>
-							<Typography>Lost</Typography>
-						</SLink>
-					</Element>
-				</Container>
-			</Navigation>
-			:
-			<Navigation>
+		<Navigation>
 			<Container>
 				<Logo>
 					<SLink to={"/"}>
@@ -178,54 +148,76 @@ function Header() {
 						<Icon className="fas fa-grin-hearts fa-lg"/>
 					</SLink>
 				</Logo>
-				<Element>
-					<SLink to="/listpage">
-						<Icon className="fas fa-film"/>
-						<Typography>List Movies</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/profile">
-						<Icon className="fas fa-user fa-lg"/>
-						<Typography>Profile</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/favorites">
-						<Icon className="fas fa-heart"/>
-						<Typography>Favorites</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/views">
-						<Icon className="fas fa-eye"/>
-						<Typography>Views</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/dropdowntest">
-						<Icon className="fas fa-dice"/>
-						<Typography>Dropdowntest</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/gameoflife">
-						<Icon className="fas fa-dice"/>
-						<Typography>Game Of Life</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/losttravolta">
-						<Icon className="fab fa-freebsd"/>
-						<Typography>Lost</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/" onClick={handleLogout}>
-						<Icon className="fas fa-sign-out-alt fa-lg"/>
-						<Typography>Logout</Typography>
-					</SLink>
-				</Element>
+				{
+					isLog === false &&
+					<div>
+						<Element>
+							<SLink to="/signup">
+								<Icon className="fas fa-user fa-lg"/>
+								<Typography>Sign Up</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/signin">
+								<Icon className="fas fa-user fa-lg"/>
+								<Typography>Sign In</Typography>
+							</SLink>
+						</Element>
+					</div>
+				}
+				{
+					isLog === true &&
+					<div>
+						<Element>
+							<SLink to="/listpage">
+								<Icon className="fas fa-search"/>
+								<Typography>Search</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/profile">
+								<Icon className="fas fa-user fa-lg"/>
+								<Typography>Profile</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/favorites">
+								<Icon className="fas fa-heart"/>
+								<Typography>Favorites</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/view">
+								<Icon className="fas fa-eye"/>
+								<Typography>Views</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/dropdowntest">
+								<Icon className="fas fa-dice"/>
+								<Typography>Dropdowntest</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/gameoflife">
+								<Icon className="fas fa-dice"/>
+								<Typography>Game Of Life</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/losttravolta">
+								<Icon className="fab fa-freebsd"/>
+								<Typography>Lost</Typography>
+							</SLink>
+						</Element>
+						<Element>
+							<SLink to="/" onClick={handleLogout}>
+								<Icon className="fas fa-sign-out-alt fa-lg"/>
+								<Typography>Logout</Typography>
+							</SLink>
+						</Element>
+					</div>
+				}
 			</Container>
 		</Navigation>
 	);

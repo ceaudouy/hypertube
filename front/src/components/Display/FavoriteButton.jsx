@@ -3,10 +3,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import api from '../../api/api'
 
 export default function ButtonFavorite(props) {
-
-	// console.log(props.favorites[0].movie);
 	const [color, setColor] = useState(props.favorites.includes(props.elem.id) === true ? 'red' : 'grey');
-
 
 	const handleClick = id => {
 		const obj = {type: props.type, movie: id};
