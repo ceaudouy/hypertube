@@ -149,8 +149,8 @@ function Header() {
 					</SLink>
 				</Logo>
 				{
-					isLog === false &&
-					<div>
+					!isLog &&
+					<>
 						<Element>
 							<SLink to="/signup">
 								<Icon className="fas fa-user fa-lg"/>
@@ -163,11 +163,11 @@ function Header() {
 								<Typography>Sign In</Typography>
 							</SLink>
 						</Element>
-					</div>
+					</>
 				}
 				{
-					isLog === true &&
-					<div>
+					isLog &&
+					<>
 						<Element>
 							<SLink to="/search">
 								<Icon className="fas fa-search"/>
@@ -216,7 +216,7 @@ function Header() {
 								<Typography>Logout</Typography>
 							</SLink>
 						</Element>
-					</div>
+					</>
 				}
 			</Container>
 		</Navigation>
