@@ -7,10 +7,10 @@ import { stream } from 'services'
 
 const movieRouter = Router()
 
-movieRouter.get('/popcorn/:page', auth, async (req, res, next) => {
+movieRouter.get('/popcorn/:id', auth, async (req, res, next) => {
   try {
     const { data } = await axios(
-      `https://tv-v2.api-fetch.sh/movies/${req.params.page}`
+      `https://tv-v2.api-fetch.sh/movie/${req.params.id}`
     )
     res.status(200).json(data)
   } catch (err) {

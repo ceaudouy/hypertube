@@ -72,7 +72,7 @@ User.init(
     },
     picture: {
       type: Sequelize.STRING,
-      defaultValue: '/images/one.jpg',
+      defaultValue: 'images/one.jpg',
     },
   },
   {
@@ -152,7 +152,7 @@ User.edit = async (user, infos) => {
 
 User.editPicture = async (user, picture) => {
   await User.update(
-    { picture: `/images/${picture}` },
+    { picture: `images/${picture}` },
     { where: { id: user.id } }
   )
   return await User.findOne({ where: { id: user.id } })
