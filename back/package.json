@@ -4,7 +4,7 @@
   "scripts": {
     "build": "babel . --out-dir dist",
     "start": "nodemon --exec babel-node server.js",
-    "fetch": "babel-node services/test.js",
+    "fetch": "babel-node services/torrents/torrentSearch.js",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "lint": "eslint --ignore-path .gitignore .",
     "format": "npm run prettier -- --write",
@@ -25,7 +25,9 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-router": "0.0.1",
+    "fluent-ffmpeg": "^2.1.2",
     "imdb-api": "^4.0.3",
+    "jackett": "github:danteissaias/jackett",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
@@ -36,9 +38,11 @@
     "passport-42": "^1.2.6",
     "passport-github": "^1.1.0",
     "passport-jwt": "^4.0.0",
+    "pump": "^3.0.0",
     "puppeteer": "^3.3.0",
     "sequelize": "^5.21.9",
-    "thepiratebay": "^1.4.7"
+    "thepiratebay": "^1.4.7",
+    "torrent-stream": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

@@ -29,8 +29,30 @@ Movie.init(
       type: Sequelize.STRING(1250),
       allowNull: false,
     },
+    file: {
+      type: Sequelize.STRING,
+    },
+    imdbid: {
+      type: Sequelize.STRING,
+    },
   },
-  { sequelize: db, modelName: 'movie' }
+  {
+    scopes: {
+      front: {
+        attributes: { exclude: ['magnet', 'file'] },
+      },
+    },
+    sequelize: db,
+    modelName: 'movie',
+  }
 )
+
+Movie.get = async id => {
+  return Movie.findOne({ where: { id } })
+}
+
+Movie.addFile = async (magnet, file) => {
+  await Movie.update({ file }, { where: { magnet } })
+}
 
 export default Movie
