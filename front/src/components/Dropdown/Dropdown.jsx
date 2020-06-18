@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
 import styled, { css } from "styled-components"
 import { CSSTransition } from "react-transition-group"
 

@@ -24,7 +24,7 @@ function BallPool() {
     }
 
     var go = function() {
-    var sc, g, g1, i, j, p, x, y, z, w, a, cur,
+    var sc, g, g1, i, p, x, y, z, w, a, cur,
         d = new Date() / 1000,
         rnd = shift(),
         rnd1 = d,
@@ -53,9 +53,9 @@ function BallPool() {
 
         p = rnd();
         x = (p & 0xff) / 128 - 1;
-        y = (p >>> 8 & 0xff) / 128 - 1;
-        z = (p >>> 16 & 0xff) / 128 - 1;
-        w = (p >>> 24 & 0xff) / 256;
+        y = (p >>> (8 & 0xff)) / 128 - 1;
+        z = (p >>> (16 & 0xff)) / 128 - 1;
+        w = (p >>> (24 & 0xff)) / 256;
 
         z += d * 0.5;
         z = (z + 1) % 2 - 1;
