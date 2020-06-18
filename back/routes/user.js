@@ -36,15 +36,14 @@ userRouter.post('/register', async (req, res, next) => {
   try {
     const { firstname, lastname, email, login, password } = req.body
     if (!password) throw new ErrorHandler(400, 'Missing required fields')
-    const response = await User.register({
+    await User.register({
       firstname,
       lastname,
       email,
       login,
       password,
     })
-    delete response.password
-    res.status(200).json(response)
+    res.status(200).send()
   } catch (err) {
     next(err)
   }

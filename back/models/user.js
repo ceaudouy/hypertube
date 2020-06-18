@@ -127,8 +127,7 @@ User.beforeUpdate(async user => {
 })
 
 User.register = async user => {
-  const newUser = await User.create(user)
-  return newUser
+  await User.create(user)
 }
 
 User.signIn = async user => {
