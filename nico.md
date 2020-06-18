@@ -16,6 +16,3 @@
   Github credential
   Reset password
   Picture
-  
-
-  11.32
