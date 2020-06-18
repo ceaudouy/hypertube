@@ -8,10 +8,6 @@ const StyledCanvas  = styled.canvas`
 `
 
 function GameOfLife() {
-	let text = "no token";
-	if (localStorage.length !== 0)
-		text = localStorage.token;
-
 	useEffect(() => {
 		helper();
 	})
