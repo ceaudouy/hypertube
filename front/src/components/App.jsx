@@ -64,7 +64,6 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 // 	)
 // }
 
-
 function App() {
 	if (localStorage.getItem('token'))
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;

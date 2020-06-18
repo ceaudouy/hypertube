@@ -66,7 +66,7 @@ const InputContainer = styled.div`
 		top: 2px;
 	}
 	&:focus-within {
-		border-color: transparent; 
+		border-color: transparent;
 	}
 	&:focus-within ${InputName}, ${InputValue}:not(:placeholder-shown) + ${InputName} {
 		transform: scale(0.8) translateY(-4rem);
