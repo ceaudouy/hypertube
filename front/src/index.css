@@ -13,7 +13,6 @@ body::-webkit-scrollbar-thumb {
   background: rgba(122, 111, 121, 0.863);
 }
 
-
 body {
   margin: 0;
   background-color: #141418;
@@ -23,12 +22,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,4 +36,10 @@ code {
 @font-face {
   font-family: 'Outbreak';
   src: local('Outbreak'), url(./config/fonts/Outbreak.otf) format('truetype');
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
