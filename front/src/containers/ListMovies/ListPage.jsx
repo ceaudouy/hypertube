@@ -43,7 +43,6 @@ export default function ListPage() {
 				fav[i] = res.data[i].movie;
 			} 
 			setFavorites(fav);
-			console.log(fav)
 		})
 		.catch((err) => {
 			console.log(err)
