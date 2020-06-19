@@ -5,7 +5,7 @@ import Select from 'react-select';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style'
-import { optionsGenre, optionsDate, optionsStars, optionsOrder } from './allOption';
+import { optionsGenre, optionsOrder, sortBy } from './allOption';
 
 const OptionContainer = styled.div `
 	display: flex;
@@ -54,25 +54,18 @@ const Text = styled.div`
 	margin-bottom: 2px;
 `
 
-export default function OptionMenu(setQuery, type) {
+export default function OptionMenu(setQuery) {
 	const [genre, setGenre] = React.useState('');
-	const [date, setDate] = React.useState('');
-	const [date2, setDate2] = React.useState('');
-	const [vote, setVote] = React.useState('');
+	const [sort, setSort] = React.useState('');
 	const [order, setOrder] = React.useState('');
 
 	// setValue //
 	const genreChange = event => {
-		setGenre(event.value);
+		setGenre(event.label);
 	};
 
-	const dateChange = event => {
-		setDate(event.value);
-		setDate2(parseInt(event.value) + 9);
-	};
-
-	const voteChange = event => {
-		setVote(event.value);
+	const sortChange = event => {
+		setSort(event.label);
 	};
 
 	const orderChange = event => {
@@ -81,31 +74,17 @@ export default function OptionMenu(setQuery, type) {
 
 	// Set query for the research //
 	const submit = () => {
-		// setPageNumber(1);
 		var queryGenre = '';
-		var queryDate = '';
-		var queryVote = '';
 		var queryOrder = '';
-		if (vote !== '') {
-			queryVote = '&vote_average.gte=' + (vote * 2) + '&vote_average.lte=' + (vote * 2 + 1) ;
-		} if (genre !== '') {
-			queryGenre = '&&with_genres=' + genre
-		} if (date !== '') {
-			queryDate = '&&primary_release_date.gte=' + date + '-01-01&primary_release_date.lte=' + date2 + '-12-31';
+		var querySort = ''
+		if (genre !== '') {
+			queryGenre = '&genre=' + genre
+		} if (sort !== '') {
+			querySort = '&sort_by='+ sort;
 		} if (order !== '') {
-			if (order === 3 || order === 4) {
-				let trie = order === 3 ? 'desc' : 'asc';
-				queryOrder = '&sort_by=popularity.' + trie;
-			} else if (order === 5 || order === 6) {
-				let trie = order === 5 ? 'desc' : 'asc';
-				queryOrder = '&sort_by=release_date.' + trie;
-			} else if (order === 7 || order === 8) {
-				let trie = order === 7 ? 'desc' : 'asc';
-				queryOrder = '&sort_by=vote_average.' + trie;
-			}
+			queryOrder = '&order_by=' + order;
 		}
-		setQuery('https://yts.mx/api/v2/list_movies.json?page_number?genre=Comedy&page_number=')
-		// setQuery('https://api.themoviedb.org/3/discover/' + type + '?api_key=c618784bdd2787da4972dd45f397869b&language='+ localStorage.getItem('langue') + queryOrder + '&include_adult=false&include_video=false' + queryGenre + queryDate + queryVote + '&&page=');
+		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page_number=')
 	}
 
 	return (
@@ -115,12 +94,8 @@ export default function OptionMenu(setQuery, type) {
 				<Select  onChange={ genreChange } options={ optionsGenre } />
 			</OneOption>
 			<OneOption>
-				<Text>Date :</Text>
-				<Select onChange={ dateChange } options={ optionsDate } />
-			</OneOption>
-			<OneOption>
-				<Text>Stars :</Text>
-				<Select onChange={ voteChange } options={ optionsStars } />
+				<Text>Sort by :</Text>
+				<Select onChange={ sortChange } options={ sortBy } />
 			</OneOption>
 			<OneOption>
 				<Text>Order by:</Text>

@@ -32,7 +32,6 @@ const Input = styled.input`
 
 export default function ListPage() {
 	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number');
-	const type = 'movie';
 	const [favorites, setFavorites] = useState(['empty']);
 
 	useEffect(() => {
@@ -47,7 +46,7 @@ export default function ListPage() {
 		.catch((err) => {
 			console.log(err)
 		})
-	}, [type])
+	}, [])
 
 	const handleChange = e => {
 		if (e.target.value === '') {
@@ -61,8 +60,8 @@ export default function ListPage() {
 		<HomeContainer>
 			<Input placeholder="search ..." onChange={ e => handleChange(e) } />
 			<HomePage>
-				{OptionMenu(setQuery, type)}
-				{ListFilm(query, favorites, type)}
+				{OptionMenu(setQuery)}
+				{ListFilm(query, favorites)}
 			</HomePage>
 		</HomeContainer>
 	)

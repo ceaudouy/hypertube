@@ -76,12 +76,10 @@ const Icon = styled.i`
   	margin: 0 1.5rem;
 `
 
-export default function PutFilm(film, favorites, type, lastFilmElementRef) {
-	
+export default function PutFilm(film, favorites, lastFilmElementRef) {
 	return (
 		<ConstainerDisplay>
 			{ film.map((elem, index) => {
-				console.log(elem)
 				if (elem === null) {
 					return ('');
 				}
@@ -104,8 +102,8 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 								{ overview }
 							</Overview>
 							<Footer>
-								<ButtonFavorite elem={elem} favorites={favorites} type={type} />
-								<SLink to={ `/watch/${type}/${elem.id}/${elem.imdb_code}` }>
+								<ButtonFavorite elem={elem} favorites={favorites} />
+								<SLink to={ `/watch/${elem.id}/${elem.imdb_code}` }>
 									<Icon className="far fa-play-circle" />
 								</SLink>
 								<Rating name="read-only" precision={0.5} value={ elem.rating / 2} size="small" readOnly />

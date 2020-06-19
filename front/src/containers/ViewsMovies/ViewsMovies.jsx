@@ -15,68 +15,67 @@ const Text = styled.div`
 `
 
 export default function ViewsMovies() {
-	const type = 'movie';
 	const [favorites, setFavorites] = useState([]);
 	const [views, setViews] = useState([]);
 	const [film, setFilm] = useState([]);
 
 	useEffect(() => {
 		setFilm([]);
-		var res;
-		var token = localStorage.getItem('token');
-		fetch(`http://localhost:3300/list/getViews`, {
-			method: 'POST',
-			credentials: 'include',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				'Authorization': token
-			}),
-			body: JSON.stringify({
-				type: type,
-			})
-		}).then((response) => {
-			return response.json();
-		}).then((parsedData) => {
-			res = parsedData.views;
-			setViews(parsedData.views);
-			var tab = [];
-			res.forEach(element => {
-				const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
-				fetch(url, {
-					headers: new Headers({
-						'Content-Type': 'application/json',
-					}),
-				}).then((response) => {
-					if (response.ok) {
-						return response.json();
-					}
-				}).then((parsedData) => {
-					if (parsedData !== undefined) {
-						tab[0] = parsedData;
-						setFilm(prevFilm => {
-							return [...new Set([...prevFilm, ...tab])]
-						});
-					}
-				});
-			})
-		});
+		// recup film depuis le bac + film via yts + fav;
 
-		fetch(`http://localhost:3300/list/getFavorites`, {
-			method: 'POST',
-			credentials: 'include',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				'Authorization': token
-			}),
-			body: JSON.stringify({
-				type: type,
-			})
-		}).then((response) => {
-			return response.json();
-		}).then((parsedData) => {
-			setFavorites(parsedData.favorites);
-		});
-	}, [type]);
+		// fetch(`http://localhost:3300/list/getViews`, {
+		// 	method: 'POST',
+		// 	credentials: 'include',
+		// 	headers: new Headers({
+		// 		'Content-Type': 'application/json',
+		// 		'Authorization': token
+		// 	}),
+		// 	body: JSON.stringify({
+		// 		type: type,
+		// 	})
+		// }).then((response) => {
+		// 	return response.json();
+		// }).then((parsedData) => {
+		// 	res = parsedData.views;
+		// 	setViews(parsedData.views);
+		// 	var tab = [];
+		// 	res.forEach(element => {
+		// 		const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
+		// 		fetch(url, {
+		// 			headers: new Headers({
+		// 				'Content-Type': 'application/json',
+		// 			}),
+		// 		}).then((response) => {
+		// 			if (response.ok) {
+		// 				return response.json();
+		// 			}
+		// 		}).then((parsedData) => {
+		// 			if (parsedData !== undefined) {
+		// 				tab[0] = parsedData;
+		// 				setFilm(prevFilm => {
+		// 					return [...new Set([...prevFilm, ...tab])]
+		// 				});
+		// 			}
+		// 		});
+		// 	})
+		// });
+
+	// 	fetch(`http://localhost:3300/list/getFavorites`, {
+	// 		method: 'POST',
+	// 		credentials: 'include',
+	// 		headers: new Headers({
+	// 			'Content-Type': 'application/json',
+	// 			'Authorization': token
+	// 		}),
+	// 		body: JSON.stringify({
+	// 			type: type,
+	// 		})
+	// 	}).then((response) => {
+	// 		return response.json();
+	// 	}).then((parsedData) => {
+	// 		setFavorites(parsedData.favorites);
+	// 	});
+	}, []);
 
 	if (views.length === 0) {
 		return (
@@ -88,7 +87,7 @@ export default function ViewsMovies() {
 		return (
 			<div>
 				<Homepage>
-					{PutFilm(film, favorites, type)}
+					{PutFilm(film, favorites)}
 				</Homepage>
 			</div>
 		)

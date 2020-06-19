@@ -29,12 +29,13 @@ const Video = styled.video`
 `
 
 export default function Film(props) {
-    const [hash, setHash] = useState('');
-    const urlLow = props.popCorn['720p'].url.match(/magnet:\?xt=urn:btih:([a-z\d]{40})\&/im)[1];
-    const urlHigh = props.popCorn['1080p'].url.match(/magnet:\?xt=urn:btih:([a-z\d]{40})\&/im)[1];
+	const [hash, setHash] = useState('');
+	if (props.popCorn !== undefined) {
+		var urlLow = props.popCorn['720p'].url.match(/magnet:\?xt=urn:btih:([a-z\d]{40})\&/im)[1];
+		var urlHigh = props.popCorn['1080p'].url.match(/magnet:\?xt=urn:btih:([a-z\d]{40})\&/im)[1];
+	}
 
     const HandleClick = e => {
-        console.log(e)
        setHash(e)
     }
 
@@ -42,22 +43,22 @@ export default function Film(props) {
     return (
         <ContainerSource>
             <Source>
-                { props.yts[0] &&
+                { props.yts && props.yts[0] &&
                     <Box onClick={ e => HandleClick(props.yts[0].hash)}>
                         YTS 720p
                     </Box>
                 }
-                { props.yts[1] &&
+                { props.yts && props.yts[1] &&
                     <Box onClick={ e => HandleClick(props.yts[1].hash)}>
                         YTS 1080p
                     </Box>
                 }
-                { props.popCorn['720p'] &&
+                { props.popCorn && props.popCorn['720p'] &&
                     <Box onClick={ e => HandleClick(urlLow)}>
                        PopCorn 1080p
                     </Box>
                 }
-                { props.popCorn['1080p'] &&
+                { props.popCorn && props.popCorn['1080p'] &&
                     <Box onClick={ e => HandleClick(urlHigh)}>
                        PopCorn 1080p
                     </Box>

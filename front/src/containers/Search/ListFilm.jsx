@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const ContainerDisplay = styled.div`
 `
 
-export default function ListFilm(query, favorites, type) {
+export default function ListFilm(query, favorites) {
 	const [ pageNumber, setPageNumber ] = useState(1);
 
 	const {
@@ -32,7 +32,7 @@ export default function ListFilm(query, favorites, type) {
 		// if (favorites[0] !== "empty") {
 		return (
 				<ContainerDisplay>
-					{ PutFilm(film, favorites, type, lastFilmElementRef) }
+					{ PutFilm(film, favorites, lastFilmElementRef) }
 					<div className="loading">{loading && 'Loading...'}</div>
 					<div>{error && 'Error'}</div>
 				</ContainerDisplay>

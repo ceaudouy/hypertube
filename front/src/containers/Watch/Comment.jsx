@@ -57,7 +57,7 @@ const CommentSection = styled.div`
 export default function Comment() {
 	const [input, setInput] = useState('');
 	const [comment, setComment] = useState([]);
-	const { type, id } = useParams();
+	const { imdb } = useParams();
 	
 	const handleChange = (e) =>{
 		const item = e.currentTarget.value;
@@ -66,8 +66,8 @@ export default function Comment() {
 
 	
 	useEffect(() => {
-		if (id && type) {
-			api.get('/movie/comment', {params: {movie: id, type}})
+		if (imdb) {
+			api.get('/movie/comment', {params: {movie: imdb}})
 			.then((res) => {
 				setComment(res.data);
 			})
@@ -75,14 +75,12 @@ export default function Comment() {
 				console.log(err)
 			})
 	}
-	},[id, type, setComment]);
+	},[imdb, setComment]);
 
 	const handleClick = (e) => {
 		e.preventDefault();
 		if (input && input !== "") {
-			const obj = {movie: id, type: type, comment: input}
-
-			api.post('/movie/comment', obj)
+			api.post('/movie/comment', {movie: imdb, comment: input})
 			.then((res) => {
 				console.log(res);
 			})
@@ -96,7 +94,7 @@ export default function Comment() {
 		<ContainerComment>
 			<form onSubmit={handleClick}>
 				<CommentText>
-					<textarea onChange={handleChange} name="comment" value={ input }type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
+					<textarea onChange={handleChange} name="comment" value={ input } type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
 					<Button type="submit" value="test">
        					Send comment
       				</Button>

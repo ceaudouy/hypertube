@@ -13,22 +13,6 @@ import { useParams } from 'react-router-dom';
 import Film from './Film';
 import api from '../../api/api'
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		maxWidth: 250,
-		margin: theme.spacing(1),
-		width: '100%',
-	  }, 
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		fontWeight: theme.typography.fontWeightRegular,
-	  },
-	  control: {
-		padding: theme.spacing(2),
-		margin: theme.spacing(1),
-	  },
-}));
-
 const ContainerWatch = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -186,10 +170,10 @@ export default function Watch() {
 	const [detail, setDetail] = useState([]);
 	const [casting, setCasting] = useState([]);
 	const [hashPopcorn, setHashPopCorn] = useState('')
-	const { type, id, imdb } = useParams();
+	const { id, imdb } = useParams();
 
 	var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
-	var cast = 'https://api.themoviedb.org/3/' + type + '/' + id + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
+	var cast = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=c618784bdd2787da4972dd45f397869b';
 	var urlPopCorn = '/movie/popcorn/' + imdb;
 
 
@@ -239,10 +223,6 @@ export default function Watch() {
 		}
 	}, [info, cast, urlPopCorn])
 
-
-
-
-	
 	return (
 		<ContainerWatch>
 			{ hashPopcorn === '' ? '' : <Film yts ={detail.torrents} popCorn={hashPopcorn} /> }
