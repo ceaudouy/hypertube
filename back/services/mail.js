@@ -1,4 +1,4 @@
-import { createTransport, createTestAccount } from 'nodemailer'
+import { createTransport } from 'nodemailer'
 import { ErrorHandler } from 'middlewares'
 
 export const resetMail = (reset, url) => ({
@@ -9,28 +9,22 @@ export const resetMail = (reset, url) => ({
   html: `<b>Reset your password :</b> <a href="${url}/password/${reset.token}">${url}/password/${reset.token}</a>`,
 })
 
-const mailer = async () => {
-  const account = await createTestAccount()
+const mailer = createTransport({
+  host: 'ssl0.ovh.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.MAIL_USR,
+    pass: process.env.MAIL_PWD,
+  },
+})
 
-  const mailService = createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false,
-    auth: {
-      user: account.user,
-      pass: account.pass,
-    },
-  })
-
-  mailService.verify(error => {
-    if (error) {
-      throw new ErrorHandler(500, 'Mail service failed')
-    } else {
-      return true
-    }
-  })
-
-  return mailService
-}
+mailer.verify(error => {
+  if (error) {
+    throw new ErrorHandler(500, 'Mail service failed')
+  } else {
+    return true
+  }
+})
 
 export default mailer

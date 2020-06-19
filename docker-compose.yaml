@@ -17,6 +17,8 @@ services:
       DB_PWD: "42"
       DB_HOST: mysql
       DB_NAME: "hypertube"
+      MAIL_USR: "contact@toutouparminou.com"
+      MAIL_PWD: "Hypertube2020"
       JWT_SECRET: "hypertube"
       GITHUB_ID: "f5aee4b642c3f31d7a83"
       GITHUB_SECRET: "ab93a2aaeb83aaca6f122d60d426c00378c1fba0"

@@ -80,9 +80,8 @@ userRouter.post('/update', auth, async (req, res, next) => {
 userRouter.post('/request', async (req, res, next) => {
   try {
     const { email } = req.body
-    const mail = await mailer()
     const reset = await Reset.request(email)
-    if (reset) mail.sendMail(resetMail(reset, req.get('origin')))
+    if (reset) mailer.sendMail(resetMail(reset, req.get('origin')))
     res.status(200).send()
   } catch (err) {
     next(err)
