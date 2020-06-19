@@ -2,8 +2,8 @@ import axios from 'axios'
 import { Router } from 'express'
 
 import { Comment, Favorite, User, View } from 'models'
-import { auth } from 'middlewares'
-import { stream } from 'services'
+import { auth, ErrorHandler } from 'middlewares'
+import { stream, subtitles } from 'services'
 
 const movieRouter = Router()
 
@@ -76,5 +76,16 @@ movieRouter.post('/view', auth, async (req, res, next) => {
 })
 
 movieRouter.get('/video', stream)
+
+movieRouter.get('/subs', async (req, res, next) => {
+  try {
+    const { imdbid, lang } = req.query
+    const subs = await subtitles(imdbid, lang)
+    if (!subs) throw new ErrorHandler(400, 'Subtitles not found')
+    res.status(200).json(subs)
+  } catch (err) {
+    next(err)
+  }
+})
 
 export default movieRouter
