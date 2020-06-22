@@ -151,16 +151,19 @@ const DropItem = (props) => {
 
 	return (
 		<DropElemItem>
-			<IconButton href="#" onClick={() => setOpen(!open)}>
+			<IconButton href="#" onClick={() => {
+				props.click && props.click()
+				setOpen(!open)
+			}}>
 				{ props.icon }
 			</IconButton>
-			{ open && props.menu } 
+			{ props.menu && open && props.menu } 
 		</DropElemItem>
 	)
 }
 
 const DropdownComponent = () => {
-	const contextMenu = useContext(MenuContext);
+	const [contextMenu, setContextMenu] = useContext(MenuContext);
 
 	const [activeMenu, setActiveMenu] = useState("menu");
 	const [menuHeight, setMenuHeight] = useState(null);
@@ -170,26 +173,27 @@ const DropdownComponent = () => {
 		setMenuHeight(height);
 	}
 
-	const DropdownItem = (props) => {
+	const DropdownItem = ({value, children, activateLeft, activateRight, rightIcon, leftIcon, goToMenu, menu}) => {
 
 		const update = (menu) => {
 			console.log("update");
+			setActiveMenu(menu);
 			if (menu === "genre")
-				contextMenu.setGenre(props.value.label);
+				contextMenu.setGenre(value);
 			else if (menu === "date")
-				contextMenu.setDate(props.value.label);
+				contextMenu.setDate(value);
 			else if (menu === "stars")
-				contextMenu.setStars(props.value.label);
+				contextMenu.setStars(value);
 			else if (menu === "order")
-				contextMenu.setOrder(props.value.label);
+				contextMenu.setOrder(value);
 			console.log(contextMenu.genre);
 		}
 
 		return (
-			<DropdownItemLink onClick={() => props.goToMenu && setActiveMenu(props.goToMenu) && update(props.menu)}>
-				{ props.activateLeft &&  <IconLeft> { props.leftIcon} </IconLeft> }
-				{ props.children }
-				{ props.activateRight &&  <IconRight> { props.rightIcon} </IconRight> }
+			<DropdownItemLink onClick={() => goToMenu && update(goToMenu)}>
+				{ activateLeft &&  <IconLeft> { leftIcon} </IconLeft> }
+				{ children }
+				{ activateRight &&  <IconRight> { rightIcon} </IconRight> }
 			</DropdownItemLink>
 		);
 	}
@@ -199,18 +203,10 @@ const DropdownComponent = () => {
 
 			<CSSTransition in={activeMenu === "menu"} unmountOnExit timeout={500} classNames="menu-primary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
-					<DropdownItem goToMenu="genre">
-						Genre 
-					</DropdownItem>
-					<DropdownItem goToMenu="date">
-						Date
-					</DropdownItem>
-					<DropdownItem goToMenu="stars">
-						Stars
-					</DropdownItem>
-					<DropdownItem goToMenu="order">
-						Order
-					</DropdownItem>
+					<DropdownItem goToMenu="genre">Genre</DropdownItem>
+					<DropdownItem goToMenu="date">Date</DropdownItem>
+					<DropdownItem goToMenu="stars">Stars</DropdownItem>
+					<DropdownItem goToMenu="order">Order</DropdownItem>
 				</DropdownMenuContainer>
 			</CSSTransition>
 
@@ -275,7 +271,7 @@ const DropdownComponent = () => {
 }
 
 function Dropdown() {
-	const contextMenu = useContext(MenuContext);
+	const [contextMenu, setContextMenu] = useContext(MenuContext);
 	
 	useEffect(() => {
 		contextMenu.setGenre("lala");
@@ -291,7 +287,7 @@ function Dropdown() {
 		<GlobalContainer>
 			<DropBar>
 				<DropItem icon={<Icon className="fas fa-ellipsis-h"/>} menu={<DropdownComponent/>}/>
-				<DropItem icon={<Icon className="far fa-check-circle"/>} onClick={() => handleSubmit()} />
+				<DropItem icon={<Icon className="far fa-check-circle"/>} click={handleSubmit} />
 			</DropBar>
 		</GlobalContainer>
 	);

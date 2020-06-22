@@ -55,18 +55,22 @@ export default function Search() {
 	const type = 'movie';
 	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number');
 	const [favorites, setFavorites] = useState(['empty']);
-
 	const [genre, setGenre] = React.useState('');
+	
+	
 	// const [date, setDate] = React.useState('');
 	// const [date2, setDate2] = React.useState('');
 	// const [vote, setVote] = React.useState('');
 	// const [order, setOrder] = React.useState('');
 	
-	const contextMenu = {
+	const [contextMenu, setContextMenu] = useState({
 		genre: genre, 
 		setGenre: setGenre,
-	}
+	});
 
+	//menuCtx
+
+	
 	useEffect(() => {
 		api.get('/movie/favorites')
 		.then((res) => {
@@ -90,7 +94,7 @@ export default function Search() {
 	}
 
 	return (
-		<MenuContext.Provider value={contextMenu}>
+		<MenuContext.Provider value={[contextMenu, setContextMenu]}>
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
