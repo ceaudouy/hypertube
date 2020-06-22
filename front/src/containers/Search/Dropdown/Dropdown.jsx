@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import styled, { css } from "styled-components"
 import { CSSTransition } from "react-transition-group"
-import { useImmer } from 'use-immer';
 
 import { MenuContext } from "../../../context/MenuContext"
 import { COLORS, BREAK_POINTS } from "../../../config/style"
@@ -170,9 +169,9 @@ const DropdownComponent = () => {
 	const [menuHeight, setMenuHeight] = useState(null);
 
 
-	useEffect(() => {
-		console.log(menuData)
-	})
+	// useEffect(() => {
+	// 	console.log(menuData)
+	// })
 
 	function calcHeight(el) {
 		const height = el.offsetHeight;
@@ -182,21 +181,17 @@ const DropdownComponent = () => {
 	const DropdownItem = ({label, children, activateLeft, activateRight, rightIcon, leftIcon, goToMenu, actMenu}) => {
 
 		const update = (menu, label) => {
-			console.log("value = ", label);
 			if (actMenu === 'genre') {
 				if (!menuData.genre.find( el => el === label))
-				setMenuData(draft => {
-					draft.genre.push(label)
-				})
+					setMenuData(draft => {draft.genre.push(label)})
+			} else if (actMenu === 'sort') {
+				if (!menuData.sort.find( el => el === label))
+					setMenuData(draft => {draft.sort.push(label)})
+			} else if (actMenu === 'order') {
+				if (!menuData.order.find( el => el === label))
+				setMenuData(draft => {draft.order.push(label)})
 			}
-		
-			// else if (menu === "sort")
-				// menuCtx.setSort(() => value);
-			// else if (menu === "order")
-				// menuCtx.setOrder(() => value);
-				console.log("menuData.genre = ", menuData.genre);
-				setActiveMenu(menu)
-			// console.log("menuCtx.genre = ", menuCtx.genre);
+			setActiveMenu(menu)
 		}
 
 		return (
@@ -238,7 +233,7 @@ const DropdownComponent = () => {
 					{
 						sortBy.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" label={text.label} key={`sort.${index}`}>
+								<DropdownItem goToMenu="menu" actMenu="sort" label={text.label} key={`sort.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -252,7 +247,7 @@ const DropdownComponent = () => {
 					{
 						optionsOrder.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" key={`order.${index}`}>
+								<DropdownItem goToMenu="menu" actMenu="order" label={text.label} key={`order.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -266,14 +261,6 @@ const DropdownComponent = () => {
 }
 
 function Dropdown() {
-	const [menuData, setMenuData] = useContext(MenuContext);
-	
-	// useEffect(() => {
-	// 	menuCtx.setGenre("lala");
-	//   }, [menuCtx.setGenre])
-
-	// console.log("genre = ", menuCtx.genre);
-	
 	const handleSubmit = () => {
 		console.log("hey bitch")
 	}
