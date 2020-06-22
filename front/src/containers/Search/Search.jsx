@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
-import OptionMenu from './OptionMenu'
-import ListFilm from './ListFilm'
+import React, { useState, useEffect, useContext} from 'react'
+import { useImmer } from 'use-immer';
 import styled from 'styled-components'
-import { BREAK_POINTS } from '../../config/style'
+
 import api from '../../api/api'
-import { COLORS } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 import { MenuContext } from "../../context/MenuContext"
+import ListFilm from './ListFilm'
+import OptionMenu from './OptionMenu'
 import Dropdown from './Dropdown/Dropdown'
 
 const HomeContainer = styled.div`
@@ -55,19 +56,14 @@ const Input = styled.input`
 export default function ListPage() {
 	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?sort_by=download_count&page=');
 	const [favorites, setFavorites] = useState(['empty']);
+	const [menuData, setMenuData] = useContext(MenuContext)
 
-	const [genre, setGenre] = React.useState('');
-	const [sort, setSort] = React.useState('');
-	const [order, setOrder] = React.useState('');
-	
-	const [menuCtx, setMenuCtx] = useState({
-		genre: genre, 
-		sort: sort,
-		order: order,
-		setGenre: setGenre,
-		setSort: setSort,
-		setOrder: setOrder
-	});
+	const updateGenre = (newGenre) => {
+		setMenuData(draft => {
+			draft.genre = newGenre;
+		})
+	}
+
 
 	useEffect(() => {
 		api.get('/movie/favorites')
@@ -92,18 +88,34 @@ export default function ListPage() {
 	}
 
 	return (
-		<MenuContext.Provider value={[menuCtx, setMenuCtx]}>
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
-					<Dropdown setQuery={setQuery} />
+					<Dropdown setQuery={setQuery} updateGenre={() => updateGenre()} />
 				</Selection>
-				<Filter>{genre}</Filter>
+				<Filter>{menuData.genre}</Filter>
 				<HomePage>
 					{/* <OptionMenu setQuery={setQuery} type={type} /> */}
 					<ListFilm query={query} favorites={favorites} />
 				</HomePage>
 			</HomeContainer>
-		</MenuContext.Provider>
 	)
 }
+
+	// const [genre, setGenre] = useImmer("");
+	// const [sort, updateSort] = useImmer("");
+	// const [order, updateOrder] = useImmer("");
+
+	// const updateGenre = (newGenre) => {(draft => {
+	// 		draft.genre = newGenre;
+	// 	})
+	// }
+
+	// const [menuData, updateMenuData] = useImmer({
+	// 	genre: "", 
+	// 	sort: "",
+	// 	order: "",
+	// 	updateGenre: updateGenre,
+
+	// });
+	

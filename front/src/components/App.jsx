@@ -18,6 +18,8 @@ import GameOfLife from '../containers/GameOfLife/GameOfLife'
 import Watch from '../containers/Watch/Watch'
 import Profile from '../containers/Profile/Profile'
 
+import { MenuContextProvider } from '../context/MenuContext'
+
 const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -69,6 +71,7 @@ function App() {
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+			<MenuContextProvider>
 			<BrowserRouter>
 				<Header />
 				<AppContainer id="AppContainer">
@@ -89,6 +92,7 @@ function App() {
 					</Switch>
 				</AppContainer>
 			</BrowserRouter>
+			</MenuContextProvider>
 		</SnackbarProvider>
 	);
 }

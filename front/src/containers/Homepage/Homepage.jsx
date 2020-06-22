@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import api from '../../api/api'
-import Loader from '../../components/Loader/Loader'
-
 import BallPool from './BallPool'
 
 const MainContainer = styled.div`
@@ -38,34 +36,25 @@ const Card = styled.div`
 
 function Homepage() {
 	const [user, setUser] = useState(undefined);
-	// const [fetch, setFetch] = useState(false);
 
 	useEffect(() => {
 		BallPool();
-		api.get('/user')
-		.then((res) => {
-			console.log(res);
-			console.log("homepage - /user succes");
-			setUser(res.data);
-			// setFetch(true);
-		})
-		.catch(err => {
-			console.log("homepage - /user failure");
-			console.log(err);
-		});
+		if (localStorage.getItem("token") !== null) {
+			api.get('/user')
+			.then((res) => {setUser(res.data)})
+			.catch((err) => {console.log(err)})
+		}
 	}, [])
 		
 	return (
-		// fetch === true ? 
-		<MainContainer id="MainContainer - home.js">
-			<StyledCanvas id="canv"></StyledCanvas>
+		<MainContainer>
+			<StyledCanvas id="canv"/>
 			<Card>
 				<Typography>
 					{ user !== undefined && user.firstname }
 				</Typography>
 			</Card>
 		</MainContainer>
-		// : <Loader/>
 	);
 }
 
