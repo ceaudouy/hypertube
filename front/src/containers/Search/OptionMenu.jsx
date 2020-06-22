@@ -54,7 +54,7 @@ const Text = styled.div`
 	margin-bottom: 2px;
 `
 
-export default function OptionMenu(setQuery, type) {
+export default function OptionMenu({setQuery, type}) {
 	const [genre, setGenre] = React.useState('');
 	const [date, setDate] = React.useState('');
 	const [date2, setDate2] = React.useState('');
