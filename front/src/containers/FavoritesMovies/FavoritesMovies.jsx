@@ -4,6 +4,7 @@ import '../../css/listFilm.css';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style';
 import api from '../../api/api'
+import Axios from 'axios';
 
 const Homepage = styled.div`
 	display: flex;
@@ -22,33 +23,28 @@ export default function FavoritesMovies() {
 
 	useEffect(() => {
 		setFilm([]);
+		var tab = [];
 		api.get('/movie/favorites')
 		.then((res) => {
+			console.log(res.data);
 			setFavorites(res.data);
-//call yts pour recup tous les films !!!
 
-		// 	fav.forEach(element => {
-		// 		const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue')
-		// 		fetch(url, {
-		// 			headers: new Headers({
-		// 				'Content-Type': 'application/json',
-		// 			}),
-		// 		}).then((response) => {
-		// 			if (response.ok) {
-		// 				return response.json();
-		// 			}
-		// 		}).then((parsedData) => {
-		// 			if (parsedData !== undefined) {
-		// 				tab[0] = parsedData;
-		// 				setFilm(prevFilm => {
-		// 					return [...new Set([...prevFilm, ...tab])]
-		// 				});
-		// 			}
-		// 		});
-		// 	})
-		// })
-		// .catch((err) => {
-		// 	console.log(err)
+			res.data.forEach(element => {
+				
+				var id = element.movie;
+				var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
+
+				Axios(info)
+				.then(res => {
+					tab[0] = res.data.data.movie
+					setFilm(prevFilm => {
+						return [...new Set([...prevFilm, ...tab])]
+					});
+				})
+				.catch( err => {
+					console.log(err);
+				})
+			})
 		})
 	}, []);
 
@@ -62,7 +58,7 @@ export default function FavoritesMovies() {
 		return (
 			<div>
 				<Homepage>
-					{PutFilm(film, favorites)}
+					{ PutFilm(film, favorites) }
 				</Homepage>
 			</div>
 		)

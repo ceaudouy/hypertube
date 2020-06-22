@@ -31,7 +31,7 @@ const Input = styled.input`
 `
 
 export default function ListPage() {
-	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number');
+	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number=');
 	const [favorites, setFavorites] = useState(['empty']);
 
 	useEffect(() => {
@@ -50,9 +50,9 @@ export default function ListPage() {
 
 	const handleChange = e => {
 		if (e.target.value === '') {
-			setQuery('https://yts.mx/api/v2/list_movies.json?page_number')
+			setQuery('https://yts.mx/api/v2/list_movies.json?page_number=')
 		} else {
-			setQuery('https://yts.mx/api/v2/list_movies.json?query_term=' + e.target.value + '&page_number')
+			setQuery('https://yts.mx/api/v2/list_movies.json?query_term=' + e.target.value + '&page_number=')
 		}
 	}
 
