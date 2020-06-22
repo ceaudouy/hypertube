@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { BREAK_POINTS } from '../../config/style'
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
-import { DropdownContext } from "../../context/DropdownContext"
+import { MenuContext } from "../../context/MenuContext"
 import Dropdown from './Dropdown/Dropdown'
 
 const HomeContainer = styled.div`
@@ -59,9 +59,9 @@ export default function Search() {
 	// const [vote, setVote] = React.useState('');
 	// const [order, setOrder] = React.useState('');
 	
-	const contextMain = {
+	const contextMenu = {
 		genre: genre, 
-		setGenre: setGenre
+		setGenre: setGenre,
 	}
 
 	useEffect(() => {
@@ -87,7 +87,7 @@ export default function Search() {
 	}
 
 	return (
-		<DropdownContext.Provider value={contextMain}>
+		<MenuContext.Provider value={contextMenu}>
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
@@ -101,6 +101,6 @@ export default function Search() {
 					<ListFilm query={query} favorites={favorites} type={type} />
 				</HomePage>
 			</HomeContainer>
-		</DropdownContext.Provider>
+		</MenuContext.Provider>
 	)
 }
