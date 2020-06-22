@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group"
 
 import { MenuContext } from "../../../context/MenuContext"
 import { COLORS, BREAK_POINTS } from "../../../config/style"
-import { optionsGenre, optionsDate, optionsStars, optionsOrder } from '../allOption';
+import { optionsGenre, sortBy, optionsOrder } from '../allOption';
 import "./Dropdown.css"
 
 const GlobalContainer = styled.div`
@@ -204,8 +204,7 @@ const DropdownComponent = () => {
 			<CSSTransition in={activeMenu === "menu"} unmountOnExit timeout={500} classNames="menu-primary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
 					<DropdownItem goToMenu="genre">Genre</DropdownItem>
-					<DropdownItem goToMenu="date">Date</DropdownItem>
-					<DropdownItem goToMenu="stars">Stars</DropdownItem>
+					<DropdownItem goToMenu="sort">Sort by</DropdownItem>
 					<DropdownItem goToMenu="order">Order</DropdownItem>
 				</DropdownMenuContainer>
 			</CSSTransition>
@@ -224,12 +223,12 @@ const DropdownComponent = () => {
 				</DropdownMenuContainer>
 			</CSSTransition>
 
-			<CSSTransition in={activeMenu === "date"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
+			<CSSTransition in={activeMenu === "sort"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
 					{
-						optionsDate.map((text, index) => {
+						sortBy.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" key={`date.${index}`}>
+								<DropdownItem goToMenu="menu" value={text.label} key={`genre.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -238,19 +237,6 @@ const DropdownComponent = () => {
 				</DropdownMenuContainer>
 			</CSSTransition>
 
-			<CSSTransition in={activeMenu === "stars"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
-				<DropdownMenuContainer>
-					{
-						optionsStars.map((text, index) => {
-							return (
-								<DropdownItem goToMenu="menu" key={`stars.${index}`}>
-									{text.label}
-								</DropdownItem>
-							);
-						})
-					}
-				</DropdownMenuContainer>
-			</CSSTransition>
 
 			<CSSTransition in={activeMenu === "order"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
@@ -265,6 +251,34 @@ const DropdownComponent = () => {
 					}
 				</DropdownMenuContainer>
 			</CSSTransition>
+
+			{/* <CSSTransition in={activeMenu === "date"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
+				<DropdownMenuContainer>
+					{
+						optionsDate.map((text, index) => {
+							return (
+								<DropdownItem goToMenu="menu" key={`date.${index}`}>
+									{text.label}
+								</DropdownItem>
+							);
+						})
+					}
+				</DropdownMenuContainer>
+			</CSSTransition> */}
+
+			{/* <CSSTransition in={activeMenu === "stars"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
+				<DropdownMenuContainer>
+					{
+						optionsStars.map((text, index) => {
+							return (
+								<DropdownItem goToMenu="menu" key={`stars.${index}`}>
+									{text.label}
+								</DropdownItem>
+							);
+						})
+					}
+				</DropdownMenuContainer>
+			</CSSTransition> */}
 
 		</DropdownMenuGlobalContainer>
 	);

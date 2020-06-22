@@ -193,7 +193,7 @@ function Header() {
 							</SLink>
 						</Element>
 						<Element>
-							<SLink to="/view">
+							<SLink to="/views">
 								<Icon className="fas fa-eye"/>
 								<Typography>Views</Typography>
 							</SLink>

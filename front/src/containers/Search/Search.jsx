@@ -96,12 +96,12 @@ export default function ListPage() {
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
-					<Dropdown setQuery={setQuery} type={type} />
+					<Dropdown setQuery={setQuery} />
 				</Selection>
 				<Filter>{genre}</Filter>
 				<HomePage>
 					{/* <OptionMenu setQuery={setQuery} type={type} /> */}
-					<ListFilm query={query} favorites={favorites} type={type} />
+					<ListFilm query={query} favorites={favorites} />
 				</HomePage>
 			</HomeContainer>
 		</MenuContext.Provider>
