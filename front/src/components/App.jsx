@@ -17,7 +17,6 @@ import ViewsMovies from '../containers/ViewsMovies/ViewsMovies'
 import GameOfLife from '../containers/GameOfLife/GameOfLife'
 import Watch from '../containers/Watch/Watch'
 import Profile from '../containers/Profile/Profile'
-import Dropdowntest from '../components/Dropdown/Dropdown'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -83,7 +82,8 @@ function App() {
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/search" component={Search} />
 						<AuthenticatedRoute exact path="/gameoflife" component={GameOfLife} />
-						<AuthenticatedRoute exact path="/dropdowntest" component={Dropdowntest} />
+						<Route path='/porn' component={() => {window.location.href = 'https://pornhub.com'}}/>
+						<Route path='/real' component={() => {window.location.href = 'https://netflix.com'}}/>
 						<Route path="*" component={NotFound} />
 					</Switch>
 				</AppContainer>

@@ -80,6 +80,7 @@ export default function PutFilm(film, favorites, lastFilmElementRef) {
 	return (
 		<ConstainerDisplay>
 			{ film.map((elem, index) => {
+				// console.log(elem)
 				if (elem === null) {
 					return ('');
 				}
