@@ -3,6 +3,7 @@ import '../../css/listFilm.css';
 import PutFilm from '../../components/Display/PutFilm';
 import styled from 'styled-components'
 import { COLORS } from '../../config/style';
+import api from '../../api/api';
 
 const Homepage = styled.div`
 	display: flex;
@@ -21,60 +22,34 @@ export default function ViewsMovies() {
 
 	useEffect(() => {
 		setFilm([]);
+
+		api.get('/movie/views')
+		.then(res => {
+			// console.log("elem")
+			// res.data.forEach(element => {
+			// 	const url = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + element.movie
+			// 	fetch(url)
+			// 	.then((response) => {
+			// 		console.log(response)
+			// 		if (response.ok){
+			// 			return response.json();
+			// 		}
+			// 	})
+				// .then((parsedData) => {
+					// console.log(parsedData)
+					// if (parsedData !== undefined) {
+						// tab[0] = parsedData;
+						// setFilm(prevFilm => {
+							// return [...new Set([...prevFilm, ...tab])]
+						// });
+					// }
+					// });
+				// })
+		}).catch( err => {
+			console.log(err);
+		})
+		
 		// recup film depuis le bac + film via yts + fav;
-
-		// fetch(`http://localhost:3300/list/getViews`, {
-		// 	method: 'POST',
-		// 	credentials: 'include',
-		// 	headers: new Headers({
-		// 		'Content-Type': 'application/json',
-		// 		'Authorization': token
-		// 	}),
-		// 	body: JSON.stringify({
-		// 		type: type,
-		// 	})
-		// }).then((response) => {
-		// 	return response.json();
-		// }).then((parsedData) => {
-		// 	res = parsedData.views;
-		// 	setViews(parsedData.views);
-		// 	var tab = [];
-		// 	res.forEach(element => {
-		// 		const url = 'https://api.themoviedb.org/3/' + type + '/' + element + '?api_key=c618784bdd2787da4972dd45f397869b&language=' + localStorage.getItem('langue');
-		// 		fetch(url, {
-		// 			headers: new Headers({
-		// 				'Content-Type': 'application/json',
-		// 			}),
-		// 		}).then((response) => {
-		// 			if (response.ok) {
-		// 				return response.json();
-		// 			}
-		// 		}).then((parsedData) => {
-		// 			if (parsedData !== undefined) {
-		// 				tab[0] = parsedData;
-		// 				setFilm(prevFilm => {
-		// 					return [...new Set([...prevFilm, ...tab])]
-		// 				});
-		// 			}
-		// 		});
-		// 	})
-		// });
-
-	// 	fetch(`http://localhost:3300/list/getFavorites`, {
-	// 		method: 'POST',
-	// 		credentials: 'include',
-	// 		headers: new Headers({
-	// 			'Content-Type': 'application/json',
-	// 			'Authorization': token
-	// 		}),
-	// 		body: JSON.stringify({
-	// 			type: type,
-	// 		})
-	// 	}).then((response) => {
-	// 		return response.json();
-	// 	}).then((parsedData) => {
-	// 		setFavorites(parsedData.favorites);
-	// 	});
 	}, []);
 
 	if (views.length === 0) {

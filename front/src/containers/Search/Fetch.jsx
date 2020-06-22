@@ -16,14 +16,12 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 		setError(false);
 		
 		const url = '' + query + pageNumber.toString();
-		console.log(url);
 		fetch(url, {
 		}).then((response) => {
 			if (response.ok) {
 				return response.json();
 			}
 		}).then((parsedData) => {
-			console.log(parsedData);
 			if (parsedData.data.movie_count !== 0)
 				setFilm(prevFilm => {
 					return [...new Set([...prevFilm, ...parsedData.data.movies.map(elem => elem)])]
