@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import styled, { css } from "styled-components"
 import { CSSTransition } from "react-transition-group"
 
-import { DropdownContext } from "../../../context/DropdownContext"
+import { MenuContext } from "../../../context/MenuContext"
 import { COLORS } from "../../../config/style"
 import { optionsGenre, optionsDate, optionsStars, optionsOrder } from '../allOption';
 import "./Dropdown.css"
@@ -156,7 +156,7 @@ const DropItem = (props) => {
 }
 
 const DropdownComponent = () => {
-	const contextMain = useContext(DropdownContext);
+	const contextMenu = useContext(MenuContext);
 
 	const [activeMenu, setActiveMenu] = useState("menu");
 	const [menuHeight, setMenuHeight] = useState(null);
@@ -167,8 +167,22 @@ const DropdownComponent = () => {
 	}
 
 	const DropdownItem = (props) => {
+
+		const update = (menu) => {
+			console.log("update");
+			if (menu === "genre")
+				contextMenu.setGenre(props.value.label);
+			else if (menu === "date")
+				contextMenu.setDate(props.value.label);
+			else if (menu === "stars")
+				contextMenu.setStars(props.value.label);
+			else if (menu === "order")
+				contextMenu.setOrder(props.value.label);
+			console.log(contextMenu.genre);
+		}
+
 		return (
-			<DropdownItemLink onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)} >
+			<DropdownItemLink onClick={() => props.goToMenu && setActiveMenu(props.goToMenu) && update(props.menu)}>
 				{ props.activateLeft &&  <IconLeft> { props.leftIcon} </IconLeft> }
 				{ props.children }
 				{ props.activateRight &&  <IconRight> { props.rightIcon} </IconRight> }
@@ -181,16 +195,16 @@ const DropdownComponent = () => {
 
 			<CSSTransition in={activeMenu === "menu"} unmountOnExit timeout={500} classNames="menu-primary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
-					<DropdownItem goToMenu="genre" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+					<DropdownItem goToMenu="genre">
 						Genre 
 					</DropdownItem>
-					<DropdownItem goToMenu="date" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+					<DropdownItem goToMenu="date">
 						Date
 					</DropdownItem>
-					<DropdownItem goToMenu="stars" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+					<DropdownItem goToMenu="stars">
 						Stars
 					</DropdownItem>
-					<DropdownItem goToMenu="order" activateLeft={true} leftIcon={<Icon className="fab fa-freebsd"/>} >
+					<DropdownItem goToMenu="order">
 						Order
 					</DropdownItem>
 				</DropdownMenuContainer>
@@ -201,7 +215,7 @@ const DropdownComponent = () => {
 					{
 						optionsGenre.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" key={`genre.${index}`} onClick={() => contextMain.setGenre(text.label)}>
+								<DropdownItem goToMenu="menu" value={text.label} key={`genre.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -257,8 +271,13 @@ const DropdownComponent = () => {
 }
 
 function Dropdown() {
-	const contextMain = useContext(DropdownContext);
-	console.log("genre = ", contextMain.genre);
+	const contextMenu = useContext(MenuContext);
+	
+	useEffect(() => {
+		contextMenu.setGenre("lala");
+	  }, [contextMenu.setGenre])
+
+	console.log("genre = ", contextMenu.genre);
 	
 	const handleSubmit = () => {
 		console.log("hey bitch")
