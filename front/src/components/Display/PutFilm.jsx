@@ -81,7 +81,7 @@ export default function PutFilm(film, favorites, type, lastFilmElementRef) {
 	return (
 		<ConstainerDisplay>
 			{ film.map((elem, index) => {
-				console.log(elem)
+				// console.log(elem)
 				if (elem === null) {
 					return ('');
 				}

@@ -163,6 +163,12 @@ function Header() {
 								<Typography>Sign In</Typography>
 							</SLink>
 						</Element>
+						<Element>
+							<SLink to="/losttravolta">
+								<Icon className="fab fa-freebsd"/>
+								<Typography>Lost</Typography>
+							</SLink>
+						</Element>
 					</>
 				}
 				{
