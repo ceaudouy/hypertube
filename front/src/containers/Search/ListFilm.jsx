@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const ContainerDisplay = styled.div`
 `
 
-export default function ListFilm(query, favorites) {
+export default function ListFilm({query, favorites}) {
 	const [ pageNumber, setPageNumber ] = useState(1);
 
 	const {

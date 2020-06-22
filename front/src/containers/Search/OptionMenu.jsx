@@ -54,7 +54,7 @@ const Text = styled.div`
 	margin-bottom: 2px;
 `
 
-export default function OptionMenu(setQuery) {
+export default function OptionMenu({setQuery, type}) {
 	const [genre, setGenre] = React.useState('');
 	const [sort, setSort] = React.useState('');
 	const [order, setOrder] = React.useState('');
