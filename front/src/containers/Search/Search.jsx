@@ -56,7 +56,6 @@ export default function ListPage() {
 	const [favorites, setFavorites] = useState(['empty']);
 	const [genre, setGenre] = React.useState('');
 	
-	
 	// const [date, setDate] = React.useState('');
 	// const [date2, setDate2] = React.useState('');
 	// const [vote, setVote] = React.useState('');

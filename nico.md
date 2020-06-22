@@ -15,4 +15,7 @@
 
   Github credential
   Reset password
-  Picture
+  Profile utilisateur changer
+  Sous titre
+  Langue
+  Search  
