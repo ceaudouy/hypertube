@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 import styled, { css } from "styled-components"
 import { CSSTransition } from "react-transition-group"
+import { useImmer } from 'use-immer';
 
 import { MenuContext } from "../../../context/MenuContext"
 import { COLORS, BREAK_POINTS } from "../../../config/style"
@@ -163,32 +164,43 @@ const DropItem = (props) => {
 }
 
 const DropdownComponent = () => {
-	const [menuCtx, setMenuCtx] = useContext(MenuContext);
+	const [menuData, setMenuData] = useContext(MenuContext);
 
 	const [activeMenu, setActiveMenu] = useState("menu");
 	const [menuHeight, setMenuHeight] = useState(null);
+
+
+	useEffect(() => {
+		console.log(menuData)
+	})
 
 	function calcHeight(el) {
 		const height = el.offsetHeight;
 		setMenuHeight(height);
 	}
 
-	const DropdownItem = ({value, children, activateLeft, activateRight, rightIcon, leftIcon, goToMenu, menu}) => {
+	const DropdownItem = ({label, children, activateLeft, activateRight, rightIcon, leftIcon, goToMenu, actMenu}) => {
 
-		const update = (menu) => {
-			console.log("update");
-			setActiveMenu(menu);
-			if (menu === "genre")
-				menuCtx.setGenre(value);
-			else if (menu === "sort")
-				menuCtx.setSort(value);
-			else if (menu === "order")
-				menuCtx.setOrder(value);
-			console.log(menuCtx.genre);
+		const update = (menu, label) => {
+			console.log("value = ", label);
+			if (actMenu === 'genre') {
+				if (!menuData.genre.find( el => el === label))
+				setMenuData(draft => {
+					draft.genre.push(label)
+				})
+			}
+		
+			// else if (menu === "sort")
+				// menuCtx.setSort(() => value);
+			// else if (menu === "order")
+				// menuCtx.setOrder(() => value);
+				console.log("menuData.genre = ", menuData.genre);
+				setActiveMenu(menu)
+			// console.log("menuCtx.genre = ", menuCtx.genre);
 		}
 
 		return (
-			<DropdownItemLink onClick={() => goToMenu && update(goToMenu)}>
+			<DropdownItemLink onClick={() => goToMenu && update(goToMenu, label)}>
 				{ activateLeft &&  <IconLeft> { leftIcon} </IconLeft> }
 				{ children }
 				{ activateRight &&  <IconRight> { rightIcon} </IconRight> }
@@ -212,7 +224,7 @@ const DropdownComponent = () => {
 					{
 						optionsGenre.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" value={text.label} key={`genre.${index}`}>
+								<DropdownItem goToMenu="menu" actMenu="genre" label={text.label} key={`genre.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -226,7 +238,7 @@ const DropdownComponent = () => {
 					{
 						sortBy.map((text, index) => {
 							return (
-								<DropdownItem goToMenu="menu" value={text.label} key={`genre.${index}`}>
+								<DropdownItem goToMenu="menu" label={text.label} key={`sort.${index}`}>
 									{text.label}
 								</DropdownItem>
 							);
@@ -234,7 +246,6 @@ const DropdownComponent = () => {
 					}
 				</DropdownMenuContainer>
 			</CSSTransition>
-
 
 			<CSSTransition in={activeMenu === "order"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
 				<DropdownMenuContainer>
@@ -250,40 +261,12 @@ const DropdownComponent = () => {
 				</DropdownMenuContainer>
 			</CSSTransition>
 
-			{/* <CSSTransition in={activeMenu === "date"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
-				<DropdownMenuContainer>
-					{
-						optionsDate.map((text, index) => {
-							return (
-								<DropdownItem goToMenu="menu" key={`date.${index}`}>
-									{text.label}
-								</DropdownItem>
-							);
-						})
-					}
-				</DropdownMenuContainer>
-			</CSSTransition> */}
-
-			{/* <CSSTransition in={activeMenu === "stars"} unmountOnExit timeout={500} classNames="menu-secondary" onEnter={calcHeight}>
-				<DropdownMenuContainer>
-					{
-						optionsStars.map((text, index) => {
-							return (
-								<DropdownItem goToMenu="menu" key={`stars.${index}`}>
-									{text.label}
-								</DropdownItem>
-							);
-						})
-					}
-				</DropdownMenuContainer>
-			</CSSTransition> */}
-
 		</DropdownMenuGlobalContainer>
 	);
 }
 
 function Dropdown() {
-	const [menuCtx, setMenuCtx] = useContext(MenuContext);
+	const [menuData, setMenuData] = useContext(MenuContext);
 	
 	// useEffect(() => {
 	// 	menuCtx.setGenre("lala");

@@ -121,9 +121,11 @@ function Header() {
 	const [isLog, setIsLog] = useState(false);
 
 	useEffect(() => {
-		api.get('/user')
-		.then((res) => {setIsLog(true);})
-		.catch((err) => {console.log(err);});
+		if (localStorage.getItem('token')) {
+			api.get('/user')
+			.then((res) => {setIsLog(true);})
+			.catch((err) => {console.log(err);});
+		}
 	})
 
 	const handleLogout = () => {

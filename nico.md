@@ -15,8 +15,8 @@
 
   Github credential
   Reset password
-  Profile utilisateur changer
+  Profile other user
   Sous titre
   Langue
-  Search  
+  Search
   Loader in list film
