@@ -10,11 +10,19 @@ const MainContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+`
+
+const MainSubContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
     @media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-top: 10vh;
 		width: 80%;
 	}
 	@media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
-		width: 80%;
+		width: 90%;
 	}
 `
 
@@ -26,6 +34,9 @@ const AccountPicture = styled.div`
 `
 
 const ProfileImage = styled.img`
+	&:hover {
+		filter: brightness(1.2);
+	}
 	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		max-height: 50vh;
 		max-width: 50vw;
@@ -37,29 +48,7 @@ const ProfileImage = styled.img`
 `
 
 const StyledInput = styled.input`
-	/* display: inline-block;
-	width: 100%;
-	margin: 8px 0;
-	padding: 12px 20px;
-	border: 1px solid;
-	border-radius: 4px;
-	box-sizing: border-box;
-	background-color: ${COLORS.PURPLE_LIGHT};
-	&::-webkit-file-upload-button {
-		visibility: hidden;
-	} */
-
 	display: none;
-
-	/* margin: 0;
-	padding: 2rem 1.5rem;
-	font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-	color: #5a5a5a;
-	&:before, &:after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	} */
 `
 
 const AccountInfo = styled.div`
@@ -153,18 +142,20 @@ function Profile() {
 	return (
 		fetch === true ?
 		<MainContainer>
-			<AccountPicture>
-				<ProfileImage src={`${process.env.REACT_APP_API_URL}${user.picture}`} alt={user.login} key={user.firstname} onClick={(e) => {inputFile.click();}} />
-				<StyledInput type="file" accept="image/*" name="file" label="pic" onChange={addPictureFile} ref={input => inputFile = input}/>
-				<SubmitButton type="button" onClick={uploadPicture}>{user.picture === "image/one.jpg" ? "Upload Picture" : "Change Picture"}</SubmitButton>
-			</AccountPicture>
-			<AccountInfo>
-				<Input type='email' name='email' handleChange={handleMail} value={ user ? user.email : "" }/>
-				<Input type='text' name='firstname' handleChange={handleFirstname} value={ user ? user.firstname : "" }/>
-				<Input type='text' name='lastname' handleChange={handleLastname} value={ user ? user.lastname : "" }/>
-				<Input type='text' name='login' handleChange={handleLogin} value={ user ? user.login : "" }/>
-				<SubmitButton type="submit" onClick={handleSubmit}>Update</SubmitButton>
-			</AccountInfo>
+			<MainSubContainer>
+				<AccountPicture>
+					<ProfileImage src={`${process.env.REACT_APP_API_URL}${user.picture}`} alt={user.login} key={user.firstname} onClick={(e) => {inputFile.click();}} />
+					<StyledInput type="file" accept="image/*" name="file" label="pic" onChange={addPictureFile} ref={input => inputFile = input}/>
+					<SubmitButton type="button" onClick={uploadPicture}>{user.picture === "image/one.jpg" ? "Upload Picture" : "Change Picture"}</SubmitButton>
+				</AccountPicture>
+				<AccountInfo>
+					<Input type='email' name='email' handleChange={handleMail} value={ user ? user.email : "" }/>
+					<Input type='text' name='firstname' handleChange={handleFirstname} value={ user ? user.firstname : "" }/>
+					<Input type='text' name='lastname' handleChange={handleLastname} value={ user ? user.lastname : "" }/>
+					<Input type='text' name='login' handleChange={handleLogin} value={ user ? user.login : "" }/>
+					<SubmitButton type="submit" onClick={handleSubmit}>Update</SubmitButton>
+				</AccountInfo>
+			</MainSubContainer>
 		</MainContainer>
 		: <Loader/>
 	);
