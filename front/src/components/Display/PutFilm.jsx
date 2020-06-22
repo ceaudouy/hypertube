@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 
 const ConstainerDisplay = styled.div`
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: stretch;
-	margin: 10px;
 `
 
 

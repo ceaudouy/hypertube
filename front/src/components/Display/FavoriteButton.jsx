@@ -6,10 +6,10 @@ export default function ButtonFavorite(props) {
 	const [color, setColor] = useState(props.favorites.includes(props.elem.id.toString()) === true ? 'red' : 'grey');
 
 	const handleClick = id => {
-		console.log(id)
+		// console.log(id)
 		api.post('/movie/favorites', {movie: id})
 		.then((res) => {
-			console.log(res)
+			// console.log(res)
 		})
 		.catch((err) => {
 			console.log(err)
