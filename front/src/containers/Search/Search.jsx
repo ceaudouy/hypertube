@@ -42,10 +42,13 @@ const HomePage = styled.div `
 `
 
 const Input = styled.input`
-	/* margin-top: 2vh; */
 	height: 2vh;
 	width: 20vw;
 	border-radius: 5px;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		height: 3vh;
+		width: 40vw;
+	}
 `
 
 export default function Search() {
@@ -91,13 +94,11 @@ export default function Search() {
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
-					<Dropdown>
-
-					</Dropdown>
+					<Dropdown setQuery={setQuery} type={type} />
 				</Selection>
 				<Filter>{genre}</Filter>
 				<HomePage>
-					<OptionMenu setQuery={setQuery} type={type} />
+					{/* <OptionMenu setQuery={setQuery} type={type} /> */}
 					<ListFilm query={query} favorites={favorites} type={type} />
 				</HomePage>
 			</HomeContainer>
