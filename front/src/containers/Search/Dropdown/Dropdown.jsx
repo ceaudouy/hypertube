@@ -163,7 +163,7 @@ const DropItem = (props) => {
 }
 
 const DropdownComponent = () => {
-	const [contextMenu, setContextMenu] = useContext(MenuContext);
+	const [menuCtx, setMenuCtx] = useContext(MenuContext);
 
 	const [activeMenu, setActiveMenu] = useState("menu");
 	const [menuHeight, setMenuHeight] = useState(null);
@@ -179,14 +179,12 @@ const DropdownComponent = () => {
 			console.log("update");
 			setActiveMenu(menu);
 			if (menu === "genre")
-				contextMenu.setGenre(value);
-			else if (menu === "date")
-				contextMenu.setDate(value);
-			else if (menu === "stars")
-				contextMenu.setStars(value);
+				menuCtx.setGenre(value);
+			else if (menu === "sort")
+				menuCtx.setSort(value);
 			else if (menu === "order")
-				contextMenu.setOrder(value);
-			console.log(contextMenu.genre);
+				menuCtx.setOrder(value);
+			console.log(menuCtx.genre);
 		}
 
 		return (
@@ -285,13 +283,13 @@ const DropdownComponent = () => {
 }
 
 function Dropdown() {
-	const [contextMenu, setContextMenu] = useContext(MenuContext);
+	const [menuCtx, setMenuCtx] = useContext(MenuContext);
 	
-	useEffect(() => {
-		contextMenu.setGenre("lala");
-	  }, [contextMenu.setGenre])
+	// useEffect(() => {
+	// 	menuCtx.setGenre("lala");
+	//   }, [menuCtx.setGenre])
 
-	console.log("genre = ", contextMenu.genre);
+	// console.log("genre = ", menuCtx.genre);
 	
 	const handleSubmit = () => {
 		console.log("hey bitch")

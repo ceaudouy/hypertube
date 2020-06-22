@@ -11,6 +11,7 @@ import Dropdown from './Dropdown/Dropdown'
 const HomeContainer = styled.div`
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	flex-direction: column;
 `
 
@@ -54,21 +55,20 @@ const Input = styled.input`
 export default function ListPage() {
 	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number=');
 	const [favorites, setFavorites] = useState(['empty']);
+
 	const [genre, setGenre] = React.useState('');
+	const [sort, setSort] = React.useState('');
+	const [order, setOrder] = React.useState('');
 	
-	// const [date, setDate] = React.useState('');
-	// const [date2, setDate2] = React.useState('');
-	// const [vote, setVote] = React.useState('');
-	// const [order, setOrder] = React.useState('');
-	
-	const [contextMenu, setContextMenu] = useState({
+	const [menuCtx, setMenuCtx] = useState({
 		genre: genre, 
+		sort: sort,
+		order: order,
 		setGenre: setGenre,
+		setSort: setSort,
+		setOrder: setOrder
 	});
 
-	//menuCtx
-
-	
 	useEffect(() => {
 		api.get('/movie/favorites')
 		.then((res) => {
@@ -92,7 +92,7 @@ export default function ListPage() {
 	}
 
 	return (
-		<MenuContext.Provider value={[contextMenu, setContextMenu]}>
+		<MenuContext.Provider value={[menuCtx, setMenuCtx]}>
 			<HomeContainer>
 				<Selection>
 					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
