@@ -3,13 +3,14 @@ import styled, { css } from "styled-components"
 import { CSSTransition } from "react-transition-group"
 
 import { MenuContext } from "../../../context/MenuContext"
-import { COLORS } from "../../../config/style"
+import { COLORS, BREAK_POINTS } from "../../../config/style"
 import { optionsGenre, optionsDate, optionsStars, optionsOrder } from '../allOption';
 import "./Dropdown.css"
 
 const GlobalContainer = styled.div`
 	display: flex;
 	justify-content: center;
+	align-items: center;
 `
 
 const SDropCssProperties = css`
@@ -84,13 +85,17 @@ const IconButton = styled.a`
 const DropdownMenuGlobalContainer = styled.div`
 	position: absolute;
 	width: 300px;
+	max-height: 40vh;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		width: 50vw;
+		max-height: 70vh;
+		transform: translateX(-25%);
+	}
 	top: 58px;
-	transform: translateX(-45%);
 	background-color: var(--bg);
 	border: var(--border);
 	border-radius: var(--border-radius);
 	padding: 1rem;
-	max-height: 30vh;
 	transition: height var(--speed) ease;
 	overflow: scroll;
 	&::-webkit-scrollbar {
@@ -102,13 +107,12 @@ const DropdownMenuGlobalContainer = styled.div`
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: #1e1e24;
+		background: ${COLORS.GREY_LIGHT};
 	}
 	transition: height var(--speed) ease;
 `
 
 const DropdownMenuContainer = styled.div`
-
 `
 
 const DropdownItemLink = styled.a`

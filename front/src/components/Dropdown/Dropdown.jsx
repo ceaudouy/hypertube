@@ -85,13 +85,21 @@ const IconButton = styled.a`
 const DropdownMenuGlobalContainer = styled.div`
 	position: absolute;
 	width: 300px;
-	top: 58px;
+	max-height: 30vh;
+	position: absolute;
+	width: 300px;
+	max-height: 30vh;
 	transform: translateX(-45%);
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		width: 50vw;
+		max-height: 70vh;
+		transform: translateX(-25%);
+	}
+	padding: 1rem;
+	top: 58px;
 	background-color: var(--bg);
 	border: var(--border);
 	border-radius: var(--border-radius);
-	padding: 1rem;
-	max-height: 30vh;
 	transition: height var(--speed) ease;
 	overflow: scroll;
 	&::-webkit-scrollbar {
