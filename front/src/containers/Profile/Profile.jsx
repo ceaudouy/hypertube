@@ -144,7 +144,7 @@ function Profile() {
 		<MainContainer>
 			<MainSubContainer>
 				<AccountPicture>
-					<ProfileImage src={`${process.env.REACT_APP_API_URL}${user.picture}`} alt={user.login} key={user.firstname} onClick={(e) => {inputFile.click();}} />
+					<ProfileImage src={`${process.env.REACT_APP_API_URL}/${user.picture}`} alt={user.login} key={user.firstname} onClick={(e) => {inputFile.click();}} />
 					<StyledInput type="file" accept="image/*" name="file" label="pic" onChange={addPictureFile} ref={input => inputFile = input}/>
 					<SubmitButton type="button" onClick={uploadPicture}>{user.picture === "image/one.jpg" ? "Upload Picture" : "Change Picture"}</SubmitButton>
 				</AccountPicture>
