@@ -5,7 +5,6 @@ import api from '../../api/api'
 import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
 import { MenuContext } from "../../context/MenuContext"
 import ListFilm from './ListFilm'
-import OptionMenu from './OptionMenu'
 import Dropdown from './Dropdown/Dropdown'
 
 const HomeContainer = styled.div`
@@ -27,7 +26,7 @@ const Filter = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-direction: row;
+	flex-direction: column;
 	color: ${COLORS.WHITE};
 	/* background-color: ${COLORS.PINK}; */
 `
@@ -94,20 +93,9 @@ export default function ListPage() {
 	const [favorites, setFavorites] = useState(['empty']);
 	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?sort_by=download_count&page=');
 
-
-	const deleteGenre = (genre) => {
-		console.log("here")
-		// console.log(typeof(menuData.genre[1]))
-		// console.log("genre", genre)
-		// console.log("menuData.genre", menuData.genre)
-		// console.log("menuData.genre[1]", menuData.genre[1])
-		setMenuData((draft) => {
-			// console.log("draft", draft);
-			return (draft.genre.filter(elem => elem !== genre))
-		}) // WHAT THE FUCK ...
-		// console.log("=====================")
-		// console.log("menuData.genre", menuData.genre)
-	}
+	const deleteGenre = (genre) => {setMenuData((draft) => {draft = draft.genre.splice(draft.genre.indexOf(genre))});}
+	const deleteSort = (sort) => {setMenuData((draft) => {draft = draft.sort.splice(draft.sort.indexOf(sort))});}
+	const deleteOrder = (order) => {setMenuData((draft) => {draft = draft.order.splice(draft.order.indexOf(order))});}
 
 	useEffect(() => {
 		api.get('/movie/favorites')
@@ -152,7 +140,6 @@ export default function ListPage() {
 				<Dropdown setQuery={setQuery} handleSubmit={handleSubmit} />
 			</Selection>
 			<Filter>
-				{console.log(menuData.genre)}
 				{!!menuData.genre && !!menuData.genre.length && 
 					<ChipsContainer>
 						{
@@ -167,29 +154,38 @@ export default function ListPage() {
 						}
 					</ChipsContainer> 
 				}
+				{!!menuData.sort && !!menuData.sort.length && 
+					<ChipsContainer>
+						{
+							menuData.sort.length && menuData.sort.map((sort, index) =>
+								<Chip onClick={() => deleteSort(sort)} key={`sort.${index}`}>
+									<ChipIcon>
+										<i className="fab fa-slack-hash"></i>
+									</ChipIcon>
+									<span>{sort}</span>
+								</Chip>
+							)
+						}
+					</ChipsContainer> 
+				}
+				{!!menuData.order && !!menuData.order.length && 
+					<ChipsContainer>
+						{
+							menuData.order.length && menuData.order.map((order, index) =>
+								<Chip onClick={() => deleteOrder(order)} key={`order.${index}`}>
+									<ChipIcon>
+										<i className="fab fa-slack-hash"></i>
+									</ChipIcon>
+									<span>{order}</span>
+								</Chip>
+							)
+						}
+					</ChipsContainer> 
+				}
 			</Filter>
 			<HomePage>
-				{/* <OptionMenu setQuery={setQuery} type={type} /> */}
 				<ListFilm query={query} favorites={favorites} />
 			</HomePage>
 		</HomeContainer>
 	)
 }
-
-	// const [genre, setGenre] = useImmer("");
-	// const [sort, updateSort] = useImmer("");
-	// const [order, updateOrder] = useImmer("");
-
-	// const updateGenre = (newGenre) => {(draft => {
-	// 		draft.genre = newGenre;
-	// 	})
-	// }
-
-	// const [menuData, updateMenuData] = useImmer({
-	// 	genre: "", 
-	// 	sort: "",
-	// 	order: "",
-	// 	updateGenre: updateGenre,
-
-	// });
-	

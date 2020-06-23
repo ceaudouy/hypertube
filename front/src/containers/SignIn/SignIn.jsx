@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import { useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
+import { Link } from "react-router-dom"
 
 import api from '../../api/api'
 import Input from '../../components/Input/Input'
-import { COLORS } from '../../config/style'
+import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -42,12 +43,35 @@ const SubmitButton = styled.button`
 	}
 `
 
+const ResetContainer = styled.div`
+	position: absolute;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		bottom: ${SPACING.XL};
+	}
+	@media (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		bottom: ${SPACING.BASE};
+	}
+`
+
+
+const Typography = styled.label`
+	color: white;
+	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 0.8rem;
+	}
+	@media (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		font-size: 1rem;
+	}
+`
+
 function SignIn() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [input, setInput] = useState({
-		email: "",
-		password: ""
+		// email: "",
+		// password: ""
+		email: "nicolas@vergne.com",
+		password: "Test123456!"
 	 });
 
 	// const handleGithubConnexion = () => {
@@ -77,10 +101,15 @@ function SignIn() {
 	return (
 		<MainContainer>
 			<SignupForm noValidate>
-				<Input type='email' name='email' handleChange={handleMail}/>
+				<Input type='email' name='email' placeholder=" " handleChange={handleMail}/>
 				<Input type='password' name='password' handleChange={handlePassword}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
 			</SignupForm>
+			<ResetContainer>
+				<Link to={"/reset"}>
+					<Typography>Reset password</Typography>
+				</Link>
+			</ResetContainer>
 		</MainContainer>
 	)
 }
