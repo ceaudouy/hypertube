@@ -146,20 +146,6 @@ export default function ListPage() {
 		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page_number=')
 	}
 
-	const handleSubmit = () => {
-		var queryGenre = '';
-		var queryOrder = '';
-		var querySort = ''
-		if (menuData.genre !== '') {
-			queryGenre = '&genre=' + menuData.genre
-		} if (menuData.sort !== '') {
-			querySort = '&sort_by='+ menuData.sort;
-		} if (menuData.order !== '') {
-			queryOrder = '&order_by=' + menuData.order;
-		}
-		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page_number=')
-	}
-
 	return (
 		<HomeContainer>
 			<Selection>
