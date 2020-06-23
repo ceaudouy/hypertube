@@ -154,7 +154,7 @@ export default function ListPage() {
 			</Selection>
 			<Filter>
 				{console.log(menuData.genre)}
-				{!!menuData.genre.length && 
+				{!!menuData.genre && !!menuData.genre.length && 
 					<ChipsContainer>
 						{
 							menuData.genre.length && menuData.genre.map((genre, index) =>
