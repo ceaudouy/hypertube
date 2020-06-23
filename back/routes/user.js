@@ -6,8 +6,22 @@ import { auth, ErrorHandler, upload, github, fortytwo } from 'middlewares'
 
 const userRouter = Router()
 
-userRouter.get('/', auth, (req, res) => {
-  res.status(200).json(req.user)
+userRouter.get('/', auth, (req, res, next) => {
+  try {
+    res.status(200).json(req.user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+userRouter.get('/:id', auth, async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const response = await User.getOne(id)
+    res.status(200).json(response)
+  } catch (err) {
+    next(err)
+  }
 })
 
 userRouter.get('/github', github)

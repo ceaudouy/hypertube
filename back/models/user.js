@@ -166,4 +166,6 @@ User.editPicture = async (user, picture) => {
   return await User.findOne({ where: { id: user.id } })
 }
 
+User.getOne = async id => await User.findOne({ where: { id } })
+
 export default User
