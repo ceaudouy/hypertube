@@ -5,6 +5,7 @@ const MenuContext = createContext();
 
 const MenuContextProvider = ({ children }) => {
 	const [menuDate, setMenuData] = useImmer({
+		// genre: ["Action", "Adventure", "Animation"],
 		genre: [],
 		sort: [],
 		order: [],
