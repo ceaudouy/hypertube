@@ -17,6 +17,8 @@ import ViewsMovies from '../containers/ViewsMovies/ViewsMovies'
 import GameOfLife from '../containers/GameOfLife/GameOfLife'
 import Watch from '../containers/Watch/Watch'
 import Profile from '../containers/Profile/Profile'
+import Reset from '../containers/Reset/Reset'
+import Password from '../containers/Password/Password'
 
 import { MenuContextProvider } from '../context/MenuContext'
 
@@ -79,6 +81,8 @@ function App() {
 						<Route exact path="/" component={ Homepage } />
 						<Route exact path="/signup" component={ SignUp } />
 						<Route exact path="/signin" component={ SignIn } />
+						<Route exact path="/reset" component={ Reset } />
+						<Route exact path="/password/:token" component={ Password } />
 						<AuthenticatedRoute exact path="/profile" component={ Profile } />
 						<AuthenticatedRoute exact path="/watch/:id/:imdb" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" component={ ViewsMovies } />
