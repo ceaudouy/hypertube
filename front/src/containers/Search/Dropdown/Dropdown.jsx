@@ -169,7 +169,6 @@ const DropdownComponent = () => {
 	const [activeMenu, setActiveMenu] = useState("menu");
 	const [menuHeight, setMenuHeight] = useState(null);
 
-
 	// useEffect(() => {
 	// 	console.log(menuData)
 	// })
@@ -264,10 +263,6 @@ const DropdownComponent = () => {
 }
 
 function Dropdown({handleSubmit}) {
-	
-	// const handleSubmit = () => {
-	// 	console.log("hey bitch")
-	// }
 
 	return (
 		<GlobalContainer>

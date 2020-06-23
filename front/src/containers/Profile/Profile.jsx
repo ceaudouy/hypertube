@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import Select from 'react-select';
+
 import api from '../../api/api'
 import { COLORS, BREAK_POINTS } from '../../config/style'
 import Loader from '../../components/Loader/Loader'
@@ -80,10 +82,21 @@ const SubmitButton = styled.button`
 	}
 `
 
+const SelectContainer = styled.div`
+	margin-top: 2vh;
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		width: 80%;
+	}
+	@media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		width: 20%;
+	}
+`
+
 function Profile() {
 	const [user, setUser] = useState(false);
 	const [selectedFile, setSelectedFile] = useState();
 	const [fetch, setFetch] = useState(false);
+	const [language, setLanguage] = useState("en");
 
 	useEffect(() => {
 		api.get('/user/')
@@ -123,8 +136,8 @@ function Profile() {
 			.catch((err) => {console.log(err);})
 		}
 	}
-        
-    const handleMail = (e) => {setUser({...user, email: e.target.value})}
+
+    const handleEmail = (e) => {setUser({...user, email: e.target.value})}
     const handleFirstname = (e) => {setUser({...user, firstname: e.target.value})}
     const handleLastname = (e) => {setUser({...user, lastname: e.target.value})}
     const handleLogin = (e) => {setUser({...user, login: e.target.value})}
@@ -148,13 +161,17 @@ function Profile() {
 					<StyledInput type="file" accept="image/*" name="file" label="pic" onChange={addPictureFile} ref={input => inputFile = input}/>
 					<SubmitButton type="button" onClick={uploadPicture}>{user.picture === "image/one.jpg" ? "Upload Picture" : "Change Picture"}</SubmitButton>
 				</AccountPicture>
+				<SelectContainer>
+					<Select onChange={(event) => setLanguage(event.label)} options={[{label: 'fr' }, {label: 'en' }]} placeholder="choose language"/>
+				</SelectContainer>
 				<AccountInfo>
-					<Input type='email' name='email' handleChange={handleMail} value={ user ? user.email : "" }/>
+					<Input type='email' name='email' handleChange={handleEmail} value={ user ? user.email : "" }/>
 					<Input type='text' name='firstname' handleChange={handleFirstname} value={ user ? user.firstname : "" }/>
 					<Input type='text' name='lastname' handleChange={handleLastname} value={ user ? user.lastname : "" }/>
 					<Input type='text' name='login' handleChange={handleLogin} value={ user ? user.login : "" }/>
 					<SubmitButton type="submit" onClick={handleSubmit}>Update</SubmitButton>
 				</AccountInfo>
+
 			</MainSubContainer>
 		</MainContainer>
 		: <Loader/>

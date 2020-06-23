@@ -55,7 +55,7 @@ function SignUp() {
 	   firstname: 'Nicolas',
 	   lastname: 'Vergne',
 	   login: 'nivergne',
-	   email: 'nicolas@vergne.com',
+	   email: 'nicolas@yopmail.com',
 	   password: 'Test123456!',
 	   confirmation: 'Test123456!'
 	});
