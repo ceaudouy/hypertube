@@ -4,6 +4,7 @@ import { COLORS } from '../../config/style';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { BREAK_POINTS } from '../../config/style';
+import { Link } from 'react-router-dom'
 
 const ContainerComment = styled.div`
 	width: 100%;
@@ -53,10 +54,18 @@ const CommentSection = styled.div`
 	width: 80%;
 	background: #adb5bd;
 `
+const SLink = styled(Link)`
+	text-decoration: none;
+`
+
+const Img = styled.img`
+	width: 15px;
+`
 
 export default function Comment() {
 	const [input, setInput] = useState('');
 	const [comment, setComment] = useState([]);
+	const [reload, setReload] = useState(1);
 	const { imdb } = useParams();
 	
 	const handleChange = (e) =>{
@@ -66,48 +75,48 @@ export default function Comment() {
 
 	
 	useEffect(() => {
+		console.log("useeffect")
 		if (imdb) {
 			api.get('/movie/comment', {params: {movie: imdb}})
 			.then((res) => {
 				setComment(res.data);
+				setInput('');
 			})
 			.catch((err) => {
 				console.log(err)
 			})
-	}
-	},[imdb, setComment]);
-
+		}
+	},[reload, imdb]);
+	
 	const handleClick = (e) => {
-		e.preventDefault();
 		if (input && input !== "") {
 			api.post('/movie/comment', {movie: imdb, comment: input})
 			.then((res) => {
-				console.log(res);
+				setReload(reload + 1); 
 			})
 			.catch((err) => {
 				console.log(err)
 			})
 		}
 	}
-
+	
 	return (
 		<ContainerComment>
-			<form onSubmit={handleClick}>
 				<CommentText>
-					<textarea onChange={handleChange} name="comment" value={ input } type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
-					<Button type="submit" value="test">
+					<textarea onChange={ handleChange } name="comment" value={ input } type="text" placeholder="Laisser un commentaire ..." className="input-comment" />
+					<Button type="submit" onClick={ e => handleClick(e) } >
        					Send comment
       				</Button>
 				</CommentText>
-			</form>
 			<CommentSection>
 				{comment.map((elem, index) => {
 					return (
 						<div key={ index }>
 							<Display>
-								<div>
-									{elem.user.login}:
-								</div>
+								<Img src= {`${process.env.REACT_APP_API_URL}${elem.user.picture}` } />
+								<SLink to={ `/user/${elem.user.id}` }>
+									{elem.user.login} :
+								</SLink>
 								<Center>
 									{elem.comment}
 								</Center>

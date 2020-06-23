@@ -46,8 +46,8 @@ function SignIn() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [input, setInput] = useState({
-		email: "nicolas@vergne.com",
-		password: "Test123456!"
+		email: "",
+		password: ""
 	 });
 
 

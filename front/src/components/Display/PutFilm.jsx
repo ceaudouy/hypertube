@@ -98,7 +98,7 @@ export default function PutFilm(film, favorites, lastFilmElementRef) {
 						<ContainerCard ref={lastFilmElementRef} key={ index }>
 								<Title>{ elem.title }</Title>
 								<Date>{ elem.year }</Date>
-							<img className="media" src={elem.medium_cover_image} alt="" />
+							<img className="media" src={elem.medium_cover_image !== undefined ? elem.medium_cover_image : ''} alt="" />
 							<Overview>
 								{ overview }
 							</Overview>

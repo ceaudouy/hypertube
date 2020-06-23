@@ -86,7 +86,7 @@ function InfoMovie(detail) {
 							{detail.genres === undefined ? '' : detail.genres.map((elem, index) => {
 								return (
 									<Text key={ index } >
-										{ elem.name }
+										{ elem }
 									</Text>
 								)
 							})}
@@ -138,13 +138,13 @@ export default function Watch() {
 		}
 	}, [info, urlPopCorn])
 
-
-	console.log(detail)
 	return (
-		<ContainerWatch>
-			{ hashPopcorn === '' ? '' : <Film yts ={detail.torrents} popCorn={hashPopcorn} movie={ imdb } /> }
-			{ InfoMovie(detail) }
-			<Comment />
-		</ContainerWatch>
+		<div height="100vh">
+			<ContainerWatch>
+				{ hashPopcorn === '' ? '' : <Film yts ={detail.torrents} popCorn={hashPopcorn} movie={ imdb } id={ id } /> }
+				{ InfoMovie(detail) }
+				<Comment />
+			</ContainerWatch>
+		</div>
 	)
 }

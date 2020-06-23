@@ -26,8 +26,11 @@ export default function FavoritesMovies() {
 		var tab = [];
 		api.get('/movie/favorites')
 		.then((res) => {
-			console.log(res.data);
-			setFavorites(res.data);
+			let fav = []
+			for (let i = 0; res.data[i] !== undefined; i++) {
+				fav[i] = res.data[i].movie;
+			}
+			setFavorites(fav);
 
 			res.data.forEach(element => {
 				
