@@ -132,10 +132,11 @@ function Header() {
 		if (localStorage.getItem('token') !== undefined) {
 			api.post('/user/signOut')
 			.then(() => {
-				console.log("handlelogout");
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
+				window.location.reload(false);
 				history.push("/");
+				setIsLog(false);
 			})
 			.catch((err) => console.log(`${err.response.data.message}`));
 		}
@@ -198,12 +199,6 @@ function Header() {
 							<SLink to="/views">
 								<Icon className="fas fa-eye"/>
 								<Typography>Views</Typography>
-							</SLink>
-						</Element>
-						<Element>
-							<SLink to="/dropdowntest">
-								<Icon className="fas fa-dice"/>
-								<Typography>Dropdowntest</Typography>
 							</SLink>
 						</Element>
 						<Element>
