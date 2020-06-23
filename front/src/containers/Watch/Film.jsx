@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 import api from '../../api/api';
-
+import ReactPlayer from 'react-player'
 
 const ContainerSource = styled.div`
     display: flex;
@@ -55,17 +55,17 @@ export default function Film(props) {
 
     const HandleClick = e => {
 		setHash(e)
-		api.post('/movie/view', { movie: props.id })
+		api.post('movie/view', { movie: props.id })
 		.catch(err => { 
 			console.log(err);
 		})
 
-		api.get('/movie/subs?imdbid=' + props.movie + '&lang=fr')
+		api.get(`movie/subs?imdbid=${props.movie}&lang=fr`)
 		.then( res => {
 			setSubtitleFR(res.data.url);
 		})
 
-		api.get('/movie/subs?imdbid=' + props.movie + '&lang=en')
+		api.get(`movie/subs?imdbid=${props.movie}&lang=en`)
 		.then( res => {
 			setSubtitleEN(res.data.url);
 		})
@@ -96,14 +96,21 @@ export default function Film(props) {
                 }
             </Source>
             <Display>
-                    <Video controls autoPlay controlsList="nodownload">
-						{
-							hash !== '' &&
-                        	<source src={'http://matchapi.guillaumerx.fr:3300/movie/video?hash=' + hash} />
-						}
-						<track kind="subtitles" label="Francais" src={'http://matchapi.guillaumerx.fr:3300' + subtitleFR} lang="fr" />
-						<track kind="subtitles" label="English" src={'http://matchapi.guillaumerx.fr:3300' + subtitleEN} lang="en" />
-					</Video>
+				<ReactPlayer 
+					playing
+					controls
+					url={ hash && [`${process.env.REACT_APP_API_URL}movie/video?hash=${hash}`]}
+				 	config={{ file: {
+						 attributes: {
+							 crossOrigin: 'true',
+							 controlsList: 'nodownload'
+						},
+						tracks: [
+							{kind: "subtitles", src: `${process.env.REACT_APP_API_URL}${subtitleFR}`, srcLang: "fr"},
+							{kind: "subtitles", src: `${process.env.REACT_APP_API_URL}${subtitleEN}`, srcLang: "en"}
+						]}
+					}}
+				 />
             </Display>
         </ContainerSource>
     )

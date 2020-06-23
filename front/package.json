@@ -24,6 +24,7 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "styled-components": "^5.0.1",
+    "use-immer": "^0.4.0",
     "yts-api-pt": "^2.0.0"
   },
   "scripts": {

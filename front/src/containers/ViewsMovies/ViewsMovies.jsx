@@ -20,13 +20,14 @@ const Text = styled.div`
 export default function ViewsMovies() {
 	const [favorites, setFavorites] = useState([]);
 	const [film, setFilm] = useState([]);
-
-
-
+	 
 	useEffect(() => {
+		const abortController = new AbortController()
+		const signal = abortController.signal
+
 		setFilm([]);
 		var tab = [];
-		api.get('/movie/views')
+		api.get('/movie/views', { signal: signal })
 		.then((res) => {
 			res.data.forEach(element => {
 				var id = element.movie;
@@ -34,7 +35,6 @@ export default function ViewsMovies() {
 
 				Axios(info)
 				.then(res => {
-					console.log(res.data.data.movie);
 					tab[0] = res.data.data.movie
 					setFilm(prevFilm => {
 						return [...new Set([...prevFilm, ...tab])]
@@ -59,7 +59,7 @@ export default function ViewsMovies() {
 		})
 	}, []);
 
-	if (film.length === 0) {
+	if (favorites.length === 0) {
 		return (
 			<div>
 				<Text>You don't have viewed movie!</Text>

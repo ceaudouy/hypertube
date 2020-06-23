@@ -75,7 +75,6 @@ export default function Comment() {
 
 	
 	useEffect(() => {
-		console.log("useeffect")
 		if (imdb) {
 			api.get('/movie/comment', {params: {movie: imdb}})
 			.then((res) => {
@@ -113,7 +112,7 @@ export default function Comment() {
 					return (
 						<div key={ index }>
 							<Display>
-								<Img src= {`${process.env.REACT_APP_API_URL}${elem.user.picture}` } />
+								<Img src= {`${process.env.REACT_APP_API_URL}/${elem.user.picture}` } />
 								<SLink to={ `/user/${elem.user.id}` }>
 									{elem.user.login} :
 								</SLink>

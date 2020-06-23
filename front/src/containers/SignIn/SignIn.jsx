@@ -50,7 +50,6 @@ function SignIn() {
 		password: ""
 	 });
 
-
 	// const handleGithubConnexion = () => {
 		
 	// }

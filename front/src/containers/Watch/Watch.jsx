@@ -109,12 +109,7 @@ export default function Watch() {
 
 
 	useEffect(() => {
-		const abortController = new AbortController()
-		const signal = abortController.signal
-
-		fetch(info, {
-			signal: signal,
-		}).then((response) => {
+		fetch(info).then((response) => {
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
@@ -130,13 +125,7 @@ export default function Watch() {
 			setHashPopCorn(res.data.torrents.en);
 		}).catch((err) => {
 			console.log(err);
-		})
-
-
-		return function cleanup() {
-			abortController.abort()
-		}
-	}, [info, urlPopCorn])
+		})	}, [info, urlPopCorn])
 
 	return (
 		<div height="100vh">

@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 import api from '../../api/api'
 import { COLORS, BREAK_POINTS } from '../../config/style'
+import { EN, FR } from '../../config/language'
 
 const Typography = styled.span`
 	display: none;
@@ -117,6 +118,11 @@ const Icon = styled.i`
 `
 
 function Header() {
+	if (localStorage.getItem('langue') === null) {
+		var langue =  EN; 
+	} else {
+		var langue = localStorage.getItem('langue') === "FR" ? FR : EN;
+	}
 	const history = useHistory();
 	const [isLog, setIsLog] = useState(false);
 
@@ -156,19 +162,19 @@ function Header() {
 						<Element>
 							<SLink to="/signup">
 								<Icon className="fas fa-user fa-lg"/>
-								<Typography>Sign Up</Typography>
+								<Typography>{ langue.SIGNUP }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/signin">
 								<Icon className="fas fa-user fa-lg"/>
-								<Typography>Sign In</Typography>
+								<Typography>{ langue.SIGNIN }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/losttravolta">
 								<Icon className="fab fa-freebsd"/>
-								<Typography>Lost</Typography>
+								<Typography>{ langue.LOST }</Typography>
 							</SLink>
 						</Element>
 					</>
@@ -179,25 +185,25 @@ function Header() {
 						<Element>
 							<SLink to="/search">
 								<Icon className="fas fa-search"/>
-								<Typography>Search</Typography>
+								<Typography>{ langue.SEARCH }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/profile">
 								<Icon className="fas fa-user fa-lg"/>
-								<Typography>Profile</Typography>
+								<Typography>{ langue.PROFILE }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/favorites">
 								<Icon className="fas fa-heart"/>
-								<Typography>Favorites</Typography>
+								<Typography>{ langue.FAVORITES }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/views">
 								<Icon className="fas fa-eye"/>
-								<Typography>Views</Typography>
+								<Typography>{ langue.VIEWS }</Typography>
 							</SLink>
 						</Element>
 						<Element>
@@ -209,19 +215,19 @@ function Header() {
 						<Element>
 							<SLink to="/gameoflife">
 								<Icon className="fas fa-dice"/>
-								<Typography>Game Of Life</Typography>
+								<Typography>{ langue.GOL }</Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/losttravolta">
 								<Icon className="fab fa-freebsd"/>
-								<Typography>Lost</Typography>
+								<Typography>{ langue.LOST} </Typography>
 							</SLink>
 						</Element>
 						<Element>
 							<SLink to="/" onClick={handleLogout}>
 								<Icon className="fas fa-sign-out-alt fa-lg"/>
-								<Typography>Logout</Typography>
+								<Typography>{ langue.LOGOUT }</Typography>
 							</SLink>
 						</Element>
 					</>
