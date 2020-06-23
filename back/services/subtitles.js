@@ -23,7 +23,7 @@ const subtitles = async (id, lang) => {
       responseType: 'stream',
     })
     await data.pipe(srt2vtt()).pipe(createWriteStream(`public/subs/${file}`))
-    return { url: `public/subs/${file}` }
+    return { url: `subs/${file}` }
   }
 }
 
