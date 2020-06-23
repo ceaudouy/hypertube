@@ -3,7 +3,7 @@ import { useImmer } from 'use-immer';
 import styled from 'styled-components'
 
 import api from '../../api/api'
-import { COLORS, BREAK_POINTS } from '../../config/style'
+import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
 import { MenuContext } from "../../context/MenuContext"
 import ListFilm from './ListFilm'
 import OptionMenu from './OptionMenu'
@@ -53,17 +53,62 @@ const Input = styled.input`
 	}
 `
 
-export default function ListPage() {
-	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number=');
-	const [favorites, setFavorites] = useState(['empty']);
-	const [menuData, setMenuData] = useContext(MenuContext)
+const Chip = styled.div`
+	display: flex;
+	align-items: center;
+	background-color: ${COLORS.PURPLE};
+	color: white;
+	padding: ${SPACING.XXS} ${SPACING.XXS};
+	border-radius: 32px;
+	margin: ${SPACING.XXS};
+	font-weight: 600;
+`
 
-	const updateGenre = (newGenre) => {
-		setMenuData(draft => {
-			draft.genre = newGenre;
-		})
+const ChipsContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: ${SPACING.BASE} ${SPACING.BASE};
+	/* background-color: ${COLORS.PURPLE}; */
+	border-radius: 4px;
+	& > ${Chip}:first-child {
+		margin-left: 0;
 	}
+`
 
+const ChipIcon = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+	background-color: ${COLORS.PINK_FLASHY};
+	opacity: .7;
+	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
+	margin-right: ${SPACING.XS};
+`
+
+export default function ListPage() {
+	const [menuData, setMenuData] = useContext(MenuContext);
+	const [favorites, setFavorites] = useState(['empty']);
+	const [query, setQuery] = useState('https://yts.mx/api/v2/list_movies.json?page_number=');
+
+
+	const deleteGenre = (genre) => {
+		console.log("here")
+		// console.log(typeof(menuData.genre[1]))
+		// console.log("genre", genre)
+		// console.log("menuData.genre", menuData.genre)
+		// console.log("menuData.genre[1]", menuData.genre[1])
+		setMenuData((draft) => {
+			// console.log("draft", draft);
+			return (draft.genre.filter(elem => elem !== genre))
+		}) // WHAT THE FUCK ...
+		// console.log("=====================")
+		// console.log("menuData.genre", menuData.genre)
+	}
 
 	useEffect(() => {
 		api.get('/movie/favorites')
@@ -87,18 +132,48 @@ export default function ListPage() {
 		}
 	}
 
+	const handleSubmit = () => {
+		var queryGenre = '';
+		var queryOrder = '';
+		var querySort = ''
+		if (menuData.genre !== '') {
+			queryGenre = '&genre=' + menuData.genre
+		} if (menuData.sort !== '') {
+			querySort = '&sort_by='+ menuData.sort;
+		} if (menuData.order !== '') {
+			queryOrder = '&order_by=' + menuData.order;
+		}
+		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page_number=')
+	}
+
 	return (
-			<HomeContainer>
-				<Selection>
-					<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
-					<Dropdown setQuery={setQuery} updateGenre={() => updateGenre()} />
-				</Selection>
-				<Filter>{menuData.genre}</Filter>
-				<HomePage>
-					{/* <OptionMenu setQuery={setQuery} type={type} /> */}
-					<ListFilm query={query} favorites={favorites} />
-				</HomePage>
-			</HomeContainer>
+		<HomeContainer>
+			<Selection>
+				<Input placeholder="  search ..." onChange={ e => handleChange(e) } />
+				<Dropdown setQuery={setQuery} handleSubmit={handleSubmit} />
+			</Selection>
+			<Filter>
+				{console.log(menuData.genre)}
+				{!!menuData.genre.length && 
+					<ChipsContainer>
+						{
+							menuData.genre.length && menuData.genre.map((genre, index) =>
+								<Chip onClick={() => deleteGenre(genre)} key={`genre.${index}`}>
+									<ChipIcon>
+										<i className="fab fa-slack-hash"></i>
+									</ChipIcon>
+									<span>{genre}</span>
+								</Chip>
+							)
+						}
+					</ChipsContainer> 
+				}
+			</Filter>
+			<HomePage>
+				{/* <OptionMenu setQuery={setQuery} type={type} /> */}
+				<ListFilm query={query} favorites={favorites} />
+			</HomePage>
+		</HomeContainer>
 	)
 }
 

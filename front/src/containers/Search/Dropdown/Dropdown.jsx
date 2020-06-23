@@ -86,6 +86,7 @@ const DropdownMenuGlobalContainer = styled.div`
 	position: absolute;
 	width: 300px;
 	max-height: 40vh;
+	z-index: 50;
 	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		width: 50vw;
 		max-height: 70vh;
@@ -260,10 +261,11 @@ const DropdownComponent = () => {
 	);
 }
 
-function Dropdown() {
-	const handleSubmit = () => {
-		console.log("hey bitch")
-	}
+function Dropdown({handleSubmit}) {
+	
+	// const handleSubmit = () => {
+	// 	console.log("hey bitch")
+	// }
 
 	return (
 		<GlobalContainer>
