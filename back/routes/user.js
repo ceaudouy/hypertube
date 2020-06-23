@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import { User, Reset } from 'models'
 import { mailer, resetMail } from 'services'
-import { passport, auth, ErrorHandler, upload } from 'middlewares'
+import { auth, ErrorHandler, upload, github, fortytwo } from 'middlewares'
 
 const userRouter = Router()
 
@@ -10,27 +10,9 @@ userRouter.get('/', auth, (req, res) => {
   res.status(200).json(req.user)
 })
 
-userRouter.get('/github', passport.authenticate('github', { session: false }))
+userRouter.get('/github', github)
 
-userRouter.get(
-  '/github/callback',
-  passport.authenticate('github', { session: false }),
-  (req, res) => {
-    console.log(req.user)
-    res.status(200).json({ token: req.user.token })
-  }
-)
-
-userRouter.get('/fortytwo', passport.authenticate('42', { session: false }))
-
-userRouter.get(
-  '/fortytwo/callback',
-  passport.authenticate('42', { session: false }),
-  (req, res) => {
-    console.log(req.user)
-    res.status(200).json({ token: req.user.token })
-  }
-)
+userRouter.get('/fortytwo', fortytwo)
 
 userRouter.post('/register', async (req, res, next) => {
   try {
