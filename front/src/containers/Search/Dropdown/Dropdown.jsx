@@ -182,15 +182,17 @@ const DropdownComponent = () => {
 	const DropdownItem = ({label, children, activateLeft, activateRight, rightIcon, leftIcon, goToMenu, actMenu}) => {
 
 		const update = (menu, label) => {
-			if (actMenu === 'genre') {
-				if (!menuData.genre.find( el => el === label))
+			if (menuData) {
+				if (actMenu === 'genre') {
+					if (!menuData.genre.find(el => el === label))
 					setMenuData(draft => {draft.genre.push(label)})
-			} else if (actMenu === 'sort') {
-				if (!menuData.sort.find( el => el === label))
+				} else if (actMenu === 'sort') {
+					if (!menuData.sort.find( el => el === label))
 					setMenuData(draft => {draft.sort.push(label)})
-			} else if (actMenu === 'order') {
-				if (!menuData.order.find( el => el === label))
-				setMenuData(draft => {draft.order.push(label)})
+				} else if (actMenu === 'order') {
+					if (!menuData.order.find( el => el === label))
+					setMenuData(draft => {draft.order.push(label)})
+				}
 			}
 			setActiveMenu(menu)
 		}
