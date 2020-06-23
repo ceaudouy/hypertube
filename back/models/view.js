@@ -14,8 +14,11 @@ View.init(
 )
 
 View.add = async (movie, user) => {
-  const view = await View.create({ movie })
-  await user.addView(view)
+  const views = await user.getViews()
+  if (!views.find(el => el.movie === movie)) {
+    const view = await View.create({ movie })
+    await user.addView(view)
+  }
 }
 
 export default View
