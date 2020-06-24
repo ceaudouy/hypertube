@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PutFilm from '../../components/Display/PutFilm';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
-import { COLORS } from '../../config/style';
+import { COLORS, BREAK_POINTS } from '../../config/style';
 import api from '../../api/api'
 import Axios from 'axios';
 
@@ -10,6 +10,7 @@ const Homepage = styled.div`
 	display: flex;
 	justify-content: space-around;
 `
+
 const Text = styled.div`
 	display: flex;
 	justify-content: center;
@@ -53,17 +54,15 @@ export default function FavoritesMovies() {
 
 	if (favorites.length === 0) {
 		return (
-			<div>
+			<Homepage>
 				<Text>You don't have favorite movie!</Text>
-			</div>
+			</Homepage>
 		)
 	} else {
 		return (
-			<div>
-				<Homepage>
-					{ PutFilm(film, favorites) }
-				</Homepage>
-			</div>
+			<Homepage>
+				{ PutFilm(film, favorites) }
+			</Homepage>
 		)
 	}
 }

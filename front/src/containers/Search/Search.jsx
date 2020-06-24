@@ -68,7 +68,6 @@ const ChipsContainer = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	margin: ${SPACING.BASE} ${SPACING.BASE};
-	/* background-color: ${COLORS.PURPLE}; */
 	border-radius: 4px;
 	& > ${Chip}:first-child {
 		margin-left: 0;
