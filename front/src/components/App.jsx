@@ -79,7 +79,6 @@ function App() {
 						<AuthenticatedRoute exact path="/search" component={ Search } />
 						<AuthenticatedRoute exact path="/user/:id" component={ User } />
 						<AuthenticatedRoute exact path="/gameoflife" component={ GameOfLife } />
-						<Route path='/porn' component={() => {window.location.href = 'https://pornhub.com'}}/>
 						<Route path='/real' component={() => {window.location.href = 'https://netflix.com'}}/>
 						<Route path="*" component={NotFound} />
 					</Switch>
