@@ -26,7 +26,6 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 				return ;
 			}
 			if (parsedData.data.movie_count !== 0)
-			console.log(parsedData)
 			setFilm(prevFilm => {
 				return [...new Set([...prevFilm, ...parsedData.data.movies.map(elem => elem)])]
 			});
