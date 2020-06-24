@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group"
 
 import { MenuContext } from "../../../context/MenuContext"
 import { COLORS, BREAK_POINTS } from "../../../config/style"
-import { optionsGenre, sortBy, optionsOrder } from '../allOption';
+import { optionsGenre, sortBy, optionsOrder } from './allOption';
 import "./Dropdown.css"
 
 const GlobalContainer = styled.div`

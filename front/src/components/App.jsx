@@ -17,6 +17,7 @@ import ViewsMovies from '../containers/ViewsMovies/ViewsMovies'
 import GameOfLife from '../containers/GameOfLife/GameOfLife'
 import Watch from '../containers/Watch/Watch'
 import Profile from '../containers/Profile/Profile'
+import User from '../containers/User/User'
 import Reset from '../containers/Reset/Reset'
 import Password from '../containers/Password/Password'
 
@@ -87,9 +88,9 @@ function App() {
 						<AuthenticatedRoute exact path="/watch/:id/:imdb" exact component={ Watch } />
 						<AuthenticatedRoute exact path="/views" component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
-						<AuthenticatedRoute exact path="/search" component={Search} />
-						<AuthenticatedRoute exact path="/gameoflife" component={GameOfLife} />
-						<AuthenticatedRoute exact path="/user/:id" component={GameOfLife} />
+						<AuthenticatedRoute exact path="/search" component={ Search } />
+						<AuthenticatedRoute exact path="/user/:id" component={ User } />
+						<AuthenticatedRoute exact path="/gameoflife" component={ GameOfLife } />
 						<Route path='/porn' component={() => {window.location.href = 'https://pornhub.com'}}/>
 						<Route path='/real' component={() => {window.location.href = 'https://netflix.com'}}/>
 						<Route path="*" component={NotFound} />
