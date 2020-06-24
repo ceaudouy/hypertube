@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import api from '../../api/api'
 import Input from '../../components/Input/Input'
 import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
+import axios from 'axios';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -53,6 +54,21 @@ const ResetContainer = styled.div`
 	}
 `
 
+const AuthContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2vh;
+`
+
+const Icon = styled.i`
+	color: ${COLORS.GREY_LOVE};
+	width: 2rem;
+	font-size: 2rem;
+	min-width: 2rem;
+	margin: 0 1.5rem;
+`
 
 const Typography = styled.label`
 	color: white;
@@ -74,10 +90,6 @@ function SignIn() {
 		password: "Test123456!"
 	 });
 
-	// const handleGithubConnexion = () => {
-		
-	// }
-
 	const handleMail = (e) => setInput({...input, email: e.target.value});
 	const handlePassword = (e) => setInput({...input, password: e.target.value});
 
@@ -98,18 +110,15 @@ function SignIn() {
 		})
 	}
 
+	const handleGithub = () => {
+		console.log("click");
+		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
+	}
 
-	fetch('https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github', {
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		  },
-	}).then((response) => {
-		console.log(response)
-		if (response.ok) {
-			return response.json();
-		}
-	})
+	const handle42 = () => {
+		console.log("click");
+		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
+	}
 
 	return (
 		<MainContainer>
@@ -123,6 +132,14 @@ function SignIn() {
 					<Typography>Reset password</Typography>
 				</Link>
 			</ResetContainer>
+			<AuthContainer>
+				<div onClick={() => handleGithub()}>
+					<Icon className="fab fa-github-alt"/>
+				</div>
+				<div onClick={() => handle42()}>
+					<Icon className="fas fa-hippo"/>
+				</div>
+			</AuthContainer>
 		</MainContainer>
 	)
 }

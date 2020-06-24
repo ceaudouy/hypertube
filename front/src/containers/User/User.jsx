@@ -49,7 +49,7 @@ function User() {
 	const [fetch, setFetch] = useState(false);
 
 	useEffect(() => {
-		api.get(`/user/${id}`)
+		api.get(`/user/search/${id}`)
 		.then((res) => {
 			console.log("res", res.data);
 			setFetch(true);
