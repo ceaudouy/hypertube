@@ -85,7 +85,6 @@ export const github = async (req, res, next) => {
       },
     })
     if (!data) throw new ErrorHandler(400, 'Unknown user')
-    console.log(data)
     let user = await User.scope('complete').findOrCreate({
       where: { githubId: data.id },
       defaults: {
