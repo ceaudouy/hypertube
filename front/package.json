@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.45",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
     "babel-preset-es2015-node5": "^1.2.0",
     "node-sass": "^4.13.1",
+    "notistack": "^0.9.17",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
@@ -19,7 +22,9 @@
     "react-scripts": "^3.4.1",
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "use-immer": "^0.4.0",
+    "yts-api-pt": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
