@@ -48,6 +48,7 @@ export const fortytwo = async (req, res, next) => {
         email: data.email,
       },
     })
+    console.log(user)
     if (!user.token) {
       console.log(user.id)
       await User.update(
@@ -59,7 +60,6 @@ export const fortytwo = async (req, res, next) => {
       user = await User.scope('complete').findOne({
         where: { fortytwoId: data.id },
       })
-      console.log(user)
     }
     res.redirect(`http://localhost:3000/signin/${user.token}`)
   } catch (err) {
