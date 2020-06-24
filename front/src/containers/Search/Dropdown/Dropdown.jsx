@@ -183,14 +183,14 @@ const DropdownComponent = () => {
 		const update = (menu, label) => {
 			if (menuData) {
 				if (actMenu === 'genre') {
-					if (!menuData.genre.find(el => el === label))
-					setMenuData(draft => {draft.genre.push(label)})
+					if (!menuData.genre.find(el => el === label) && menuData.genre.length < 1)
+						setMenuData(draft => {draft.genre.push(label)})
 				} else if (actMenu === 'sort') {
-					if (!menuData.sort.find( el => el === label))
-					setMenuData(draft => {draft.sort.push(label)})
+					if (!menuData.sort.find( el => el === label) && menuData.sort.length < 1)
+						setMenuData(draft => {draft.sort.push(label)})
 				} else if (actMenu === 'order') {
-					if (!menuData.order.find( el => el === label))
-					setMenuData(draft => {draft.order.push(label)})
+					if (!menuData.order.find( el => el === label) && menuData.order.length < 1)
+						setMenuData(draft => {draft.order.push(label)})
 				}
 			}
 			setActiveMenu(menu)

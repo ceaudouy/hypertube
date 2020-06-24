@@ -7,7 +7,6 @@ import { Link } from "react-router-dom"
 import api from '../../api/api'
 import Input from '../../components/Input/Input'
 import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
-import axios from 'axios';
 
 const MainContainer = styled.div`
 	display: flex;

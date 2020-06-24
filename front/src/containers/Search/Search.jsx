@@ -26,8 +26,9 @@ const Filter = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column;
+	flex-direction: row;
 	color: ${COLORS.WHITE};
+	padding: ${SPACING.XS} ${SPACING.XS} ${SPACING.XS} ${SPACING.XS};
 	/* background-color: ${COLORS.PINK}; */
 `
 
@@ -67,7 +68,6 @@ const ChipsContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	margin: ${SPACING.BASE} ${SPACING.BASE};
 	border-radius: 4px;
 	& > ${Chip}:first-child {
 		margin-left: 0;

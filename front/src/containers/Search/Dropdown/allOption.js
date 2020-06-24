@@ -37,6 +37,6 @@ export const sortBy = [
 ]
 
 export const optionsOrder = [
-    {value: 'asc', label: 'asc ↑'},
-    {value: 'desc', label: 'desc ↓'},
+    {value: 'asc', label: 'asc'},
+    {value: 'desc', label: 'desc'},
 ]
