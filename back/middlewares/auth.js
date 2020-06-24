@@ -50,9 +50,12 @@ export const fortytwo = async (req, res, next) => {
     })
     if (!user.token) {
       console.log(user.id)
-      await user.update({
-        token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
-      })
+      await User.update(
+        {
+          token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
+        },
+        { where: { fortytwoId: data.id } }
+      )
       user = await User.scope('complete').findOne({
         where: { fortytwoId: data.id },
       })
@@ -92,9 +95,12 @@ export const github = async (req, res, next) => {
     })
     if (!user.token) {
       console.log(user.id)
-      await user.update({
-        token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
-      })
+      await User.update(
+        {
+          token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
+        },
+        { where: { fortytwoId: data.id } }
+      )
       user = await User.scope('complete').findOne({
         where: { fortytwoId: data.id },
       })
