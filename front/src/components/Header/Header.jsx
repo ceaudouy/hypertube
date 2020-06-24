@@ -121,7 +121,7 @@ function Header() {
 	if (localStorage.getItem('langue') === null) {
 		var langue =  EN; 
 	} else {
-		var langue = localStorage.getItem('langue') === "FR" ? FR : EN;
+		var langue = localStorage.getItem('langue') === "fr" ? FR : EN;
 	}
 	const history = useHistory();
 	const [isLog, setIsLog] = useState(false);

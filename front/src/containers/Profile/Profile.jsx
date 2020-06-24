@@ -144,10 +144,12 @@ function Profile() {
 
     const handleSubmit = (e) => {
 		e.preventDefault();
+		localStorage.setItem('langue', language)
 		api.post('/user/update', user)
 		.catch((err) => {
 			console.log(err);
 		});
+		window.location.reload(false);
 	}
 	
 	let inputFile = '';
@@ -171,7 +173,6 @@ function Profile() {
 					<Input type='text' name='login' handleChange={handleLogin} value={ user ? user.login : "" }/>
 					<SubmitButton type="submit" onClick={handleSubmit}>Update</SubmitButton>
 				</AccountInfo>
-
 			</MainSubContainer>
 		</MainContainer>
 		: <Loader/>
