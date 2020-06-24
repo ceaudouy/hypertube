@@ -14,7 +14,7 @@ userRouter.get('/', auth, (req, res, next) => {
   }
 })
 
-userRouter.get('/:id', auth, async (req, res, next) => {
+userRouter.get('/search/:id', auth, async (req, res, next) => {
   try {
     const { id } = req.params
     const response = await User.getOne(id)
