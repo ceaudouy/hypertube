@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import { useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
-import { Link } from "react-router-dom"
 
 import api from '../../api/api'
 import Input from '../../components/Input/Input'
@@ -35,17 +34,6 @@ const SubmitButton = styled.button`
 		transform: scale(1.05);
 	}
 `
-
-const Typography = styled.label`
-	color: white;
-	@media (max-width: ${BREAK_POINTS.SCREEN_XS}) {
-		font-size: 0.8rem;
-	}
-	@media (min-width: ${BREAK_POINTS.SCREEN_XS}) {
-		font-size: 1rem;
-	}
-`
-
 
 function Reset() {
 	const history = useHistory();

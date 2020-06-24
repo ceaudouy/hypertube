@@ -81,7 +81,7 @@ const InputContainer = styled.div`
 	}
 `
 
-const Input = ({type, name, value, handleChange}) => {
+const Input = ({type, name, value = '', handleChange}) => {
     return (
 		<InputContainer>
     	    <InputValue type={type} name={name} placeholder="" value={value} onChange={handleChange} />

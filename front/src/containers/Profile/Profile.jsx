@@ -168,8 +168,8 @@ function Profile() {
 				</SelectContainer>
 				<AccountInfo>
 					<Input type='email' name='email' handleChange={handleEmail} value={ user ? user.email : "" }/>
-					<Input type='text' name='firstname' handleChange={handleFirstname} value={ user ? user.firstname : "" }/>
-					<Input type='text' name='lastname' handleChange={handleLastname} value={ user ? user.lastname : "" }/>
+					<Input type='text' name='firstname' handleChange={handleFirstname} value={ user && user.firstname ? user.firstname : "" }/>
+					<Input type='text' name='lastname' handleChange={handleLastname} value={ user && user.lastname ? user.lastname : "" }/>
 					<Input type='text' name='login' handleChange={handleLogin} value={ user ? user.login : "" }/>
 					<SubmitButton type="submit" onClick={handleSubmit}>Update</SubmitButton>
 				</AccountInfo>

@@ -118,10 +118,11 @@ const Icon = styled.i`
 `
 
 function Header() {
+	var langue
 	if (localStorage.getItem('langue') === null) {
-		var langue =  EN; 
+		langue =  EN; 
 	} else {
-		var langue = localStorage.getItem('langue') === "fr" ? FR : EN;
+		langue = localStorage.getItem('langue') === "fr" ? FR : EN;
 	}
 	const history = useHistory();
 	const [isLog, setIsLog] = useState(false);

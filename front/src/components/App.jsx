@@ -55,19 +55,6 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 	)
 }
 
-// const AuthenticatedRoute = ({ component: Component, ...rest}) => {
-// 	return (
-// 		<Route 
-// 			{...rest}
-// 			render = { props => {
-// 				api.get('/user')
-// 				.then(() => {console.log("succes"); return (<Component {...props} />)})
-// 				.catch(() => {console.log("error"); return (<Redirect to={{pathname: '/signin', state: {from: props.location }}} />)})
-// 			}}
-// 		/>
-// 	)
-// }
-
 function App() {
 	if (localStorage.getItem('token'))
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;

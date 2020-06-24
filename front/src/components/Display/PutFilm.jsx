@@ -78,10 +78,12 @@ const Icon = styled.i`
 `
 
 export default function PutFilm(film, favorites, lastFilmElementRef) {
+	if (film === undefined) {
+		return ('')
+	}
 	return (
 		<ConstainerDisplay>
-			{ film.map((elem, index) => {
-				// console.log(elem)
+			{ film && film.map((elem, index) => {
 				if (elem === null) {
 					return ('');
 				}
@@ -92,14 +94,14 @@ export default function PutFilm(film, favorites, lastFilmElementRef) {
 					overview = elem.synopsis.substr(0, 100);
 					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + '';
 				}
-				if (elem.medium_cover_image === null) {
+				if (elem.small_cover_image === null) {
 					return ('');
 				} else {
 					return (
 						<ContainerCard ref={lastFilmElementRef} key={ index }>
 								<Title>{ elem.title }</Title>
 								<Date>{ elem.year }</Date>
-							<img className="media" src={elem.medium_cover_image !== undefined ? elem.medium_cover_image : ''} alt="" />
+							<img className="media" src={ elem.large_cover_image } alt="" />
 							<Overview>
 								{ overview }
 							</Overview>

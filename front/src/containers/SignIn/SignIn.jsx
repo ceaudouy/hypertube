@@ -7,7 +7,6 @@ import { Link } from "react-router-dom"
 import api from '../../api/api'
 import Input from '../../components/Input/Input'
 import { COLORS, BREAK_POINTS, SPACING } from '../../config/style'
-import axios from 'axios';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -125,28 +124,15 @@ function SignIn() {
 		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
 	}
 
-<<<<<<< HEAD
 	const handleGithub = () => {
 		console.log("click");
-		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
+		window.document.href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github";
 	}
 
 	const handle42 = () => {
 		console.log("click");
 		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
 	}
-=======
-	// fetch('https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github', {
-	// 	headers: {
-	// 		'Access-Control-Allow-Origin': '*',
-	// 	  },
-	// }).then((response) => {
-	// 	console.log(response)
-	// 	if (response.ok) {
-	// 		return response.json();
-	// 	}
-	// })
->>>>>>> oauth
 
 	return (
 		<MainContainer>
@@ -164,12 +150,12 @@ function SignIn() {
 				</Link>
 			</ResetContainer>
 			<AuthContainer>
-				<div onClick={() => handleGithub()}>
+				<a onClick={() => handleGithub()}>
 					<Icon className="fab fa-github-alt"/>
-				</div>
-				<div onClick={() => handle42()}>
+				</a>
+				<a onClick={() => handle42()}>
 					<Icon className="fas fa-hippo"/>
-				</div>
+				</a>
 			</AuthContainer>
 		</MainContainer>
 	)

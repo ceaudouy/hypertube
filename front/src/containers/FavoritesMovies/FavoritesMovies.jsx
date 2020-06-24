@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PutFilm from '../../components/Display/PutFilm';
 import '../../css/listFilm.css';
 import styled from 'styled-components'
-import { COLORS, BREAK_POINTS } from '../../config/style';
+import { COLORS } from '../../config/style';
 import api from '../../api/api'
 import Axios from 'axios';
 

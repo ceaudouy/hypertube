@@ -57,13 +57,13 @@ function User() {
 		.catch((err) => {
 			console.log(err);
 		})
-	}, [setUser])
+	}, [id])
 
 	return (
 		fetch ?
 			<MainContainer>
 				<UserCard>
-					<img src={`${process.env.REACT_APP_API_URL}/${user.picture}`} />
+					<img alt="" src={`${process.env.REACT_APP_API_URL}/${user.picture}`} />
 					<Typography>login: {user.login}</Typography>
 					<Typography>firstname: {user.firstname}</Typography>
 					<Typography>lastname: {user.lastname}</Typography>
