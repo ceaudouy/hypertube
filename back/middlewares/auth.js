@@ -49,6 +49,7 @@ export const fortytwo = async (req, res, next) => {
       },
     })
     if (!user.token) {
+      console.log(user)
       await User.update(
         {
           token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
