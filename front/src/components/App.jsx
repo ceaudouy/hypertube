@@ -73,7 +73,7 @@ function App() {
 						<Route exact path="/reset" component={ Reset } />
 						<Route exact path="/password/:token" component={ Password } />
 						<AuthenticatedRoute exact path="/profile" component={ Profile } />
-						<AuthenticatedRoute exact path="/watch/:id" exact component={ Watch } />
+						<AuthenticatedRoute exact path="/watch/:id/:imdb" component={ Watch } />
 						<AuthenticatedRoute exact path="/views" component={ ViewsMovies } />
 						<AuthenticatedRoute exact path="/favorites" component={ FavoritesMovies } />
 						<AuthenticatedRoute exact path="/search" component={ Search } />

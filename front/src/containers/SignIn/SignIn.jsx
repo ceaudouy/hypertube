@@ -96,7 +96,7 @@ function SignIn() {
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			history.push('/search');
 		}
-	 }, [])
+	 }, [token, history])
 
 	const handleMail = (e) => setInput({...input, email: e.target.value});
 	const handlePassword = (e) => setInput({...input, password: e.target.value});

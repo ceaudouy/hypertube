@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import api from '../../api/api'
 import BallPool from './BallPool'
 
 const MainContainer = styled.div`
@@ -19,15 +18,9 @@ const StyledCanvas  = styled.canvas`
 `
 
 function Homepage() {
-	const [user, setUser] = useState(undefined);
 
 	useEffect(() => {
 		BallPool();
-		if (localStorage.getItem("token") !== null) {
-			api.get('/user')
-			.then((res) => {setUser(res.data)})
-			.catch((err) => {console.log(err)})
-		}
 	}, [])
 		
 	return (

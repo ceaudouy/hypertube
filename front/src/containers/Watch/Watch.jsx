@@ -103,7 +103,6 @@ export default function Watch() {
 	const [detail, setDetail] = useState([]);
 	const [hashPopcorn, setHashPopCorn] = useState('')
 	const { id, imdb } = useParams();
-
 	var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
 	var urlPopCorn = '/movie/popcorn/' + imdb;
 
