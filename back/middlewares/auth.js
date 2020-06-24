@@ -93,8 +93,8 @@ export const github = async (req, res, next) => {
         email: data.email,
       },
     })
+    console.log(user)
     if (!user.token) {
-      console.log(user.id)
       await User.update(
         {
           token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
