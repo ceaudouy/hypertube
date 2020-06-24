@@ -31,7 +31,7 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "toor"
+      MYSQL_ROOT_PASSWORD: "Hypertube2020"
       MYSQL_DATABASE: "hypertube"
       MYSQL_USER: "hypertube"
       MYSQL_PASSWORD: "42"
