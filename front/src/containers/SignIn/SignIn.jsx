@@ -89,9 +89,6 @@ function SignIn() {
 		password: "Test123456!"
 	 });
 	 const { token } = useParams();
-	// const handleGithubConnexion = () => {
-		
-	// }
 
 	 useEffect(() => {
 		if (token) {
@@ -120,19 +117,6 @@ function SignIn() {
 			setTimeout(closeSnackbar(), 1000);
 		})
 	}
-	const handleClick = () => {
-		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
-	}
-
-	const handleGithub = () => {
-		console.log("click");
-		window.document.href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github";
-	}
-
-	const handle42 = () => {
-		console.log("click");
-		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
-	}
 
 	return (
 		<MainContainer>
@@ -141,8 +125,6 @@ function SignIn() {
 				<Input type='password' name='password' handleChange={handlePassword}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
 			</SignupForm>
-			<a href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code">42</a>
-			<a href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github">GitHub</a>
 
 			<ResetContainer>
 				<Link to={"/reset"}>
@@ -150,10 +132,10 @@ function SignIn() {
 				</Link>
 			</ResetContainer>
 			<AuthContainer>
-				<a onClick={() => handleGithub()}>
+				<a href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code">
 					<Icon className="fab fa-github-alt"/>
 				</a>
-				<a onClick={() => handle42()}>
+				<a href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github">
 					<Icon className="fas fa-hippo"/>
 				</a>
 			</AuthContainer>
