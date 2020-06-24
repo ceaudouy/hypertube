@@ -49,11 +49,10 @@ export const fortytwo = async (req, res, next) => {
       },
     })
     console.log(user)
-    if (!user.token) {
-      console.log(user.id)
+    if (!user[0].token) {
       await User.update(
         {
-          token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
+          token: jwt.sign({ id: user[0].id }, process.env.JWT_SECRET),
         },
         { where: { fortytwoId: data.id } }
       )
@@ -93,11 +92,10 @@ export const github = async (req, res, next) => {
         email: data.email,
       },
     })
-    console.log(user)
-    if (!user.token) {
+    if (!user[0].token) {
       await User.update(
         {
-          token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
+          token: jwt.sign({ id: user[0].id }, process.env.JWT_SECRET),
         },
         { where: { fortytwoId: data.id } }
       )
