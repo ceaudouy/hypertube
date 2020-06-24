@@ -97,10 +97,10 @@ export const github = async (req, res, next) => {
         {
           token: jwt.sign({ id: user[0].id }, process.env.JWT_SECRET),
         },
-        { where: { fortytwoId: data.id } }
+        { where: { githubId: data.id } }
       )
       user = await User.scope('complete').findOne({
-        where: { fortytwoId: data.id },
+        where: { githubId: data.id },
       })
     }
     res.redirect(`http://localhost:3000/signin/${user.token}`)
