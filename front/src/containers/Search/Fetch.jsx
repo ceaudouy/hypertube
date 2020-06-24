@@ -16,9 +16,8 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 		setError(false);
 		
 		const url = '' + query + pageNumber.toString();
-		console.log(url)
-		fetch(url, {
-		}).then((response) => {
+		fetch(url)
+		.then((response) => {
 			if (response.ok) {
 				return response.json();
 			}

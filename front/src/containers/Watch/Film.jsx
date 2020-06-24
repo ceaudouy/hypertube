@@ -20,10 +20,6 @@ const Display = styled.div`
     justify-content: center;
 `
 
-const Video = styled.video`
-    width: 80%;
-	outline: none;
-`
 const Button = styled.button`
 	border-radius: 5px;
 	background-color: ${COLORS.BLUE};

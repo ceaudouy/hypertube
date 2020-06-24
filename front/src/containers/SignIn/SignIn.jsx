@@ -98,6 +98,19 @@ function SignIn() {
 		})
 	}
 
+
+	fetch('https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github', {
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		  },
+	}).then((response) => {
+		console.log(response)
+		if (response.ok) {
+			return response.json();
+		}
+	})
+
 	return (
 		<MainContainer>
 			<SignupForm noValidate>
