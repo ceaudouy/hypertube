@@ -51,7 +51,6 @@ function User() {
 	useEffect(() => {
 		api.get(`/user/search/${id}`)
 		.then((res) => {
-			console.log("res", res.data);
 			setFetch(true);
 			setUser(res.data);
 		})

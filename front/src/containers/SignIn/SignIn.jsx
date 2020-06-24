@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from "styled-components"
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 import { Link } from "react-router-dom"
 
@@ -89,6 +89,18 @@ function SignIn() {
 		email: "nicolas@yopmail.com",
 		password: "Test123456!"
 	 });
+	 const { token } = useParams();
+	// const handleGithubConnexion = () => {
+		
+	// }
+
+	 useEffect(() => {
+		if (token) {
+			localStorage.token = token;
+			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+			history.push('/search');
+		}
+	 }, [])
 
 	const handleMail = (e) => setInput({...input, email: e.target.value});
 	const handlePassword = (e) => setInput({...input, password: e.target.value});
@@ -109,7 +121,11 @@ function SignIn() {
 			setTimeout(closeSnackbar(), 1000);
 		})
 	}
+	const handleClick = () => {
+		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
+	}
 
+<<<<<<< HEAD
 	const handleGithub = () => {
 		console.log("click");
 		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
@@ -119,6 +135,18 @@ function SignIn() {
 		console.log("click");
 		window.document.href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code";
 	}
+=======
+	// fetch('https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github', {
+	// 	headers: {
+	// 		'Access-Control-Allow-Origin': '*',
+	// 	  },
+	// }).then((response) => {
+	// 	console.log(response)
+	// 	if (response.ok) {
+	// 		return response.json();
+	// 	}
+	// })
+>>>>>>> oauth
 
 	return (
 		<MainContainer>
@@ -127,6 +155,9 @@ function SignIn() {
 				<Input type='password' name='password' handleChange={handlePassword}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
 			</SignupForm>
+			<a href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code">42</a>
+			<a href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github">GitHub</a>
+
 			<ResetContainer>
 				<Link to={"/reset"}>
 					<Typography>Reset password</Typography>
