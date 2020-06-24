@@ -49,15 +49,9 @@ export const fortytwo = async (req, res, next) => {
       },
     })
     if (!user.token) {
-      console.log(user)
-      await User.update(
-        {
-          token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
-        },
-        {
-          where: { fortytwoId: data.id },
-        }
-      )
+      await user.update({
+        token: jwt.sign({ id: this.id }, process.env.JWT_SECRET),
+      })
       user = await User.scope('complete').findOne({
         where: { fortytwoId: data.id },
       })
