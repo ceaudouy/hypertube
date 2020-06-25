@@ -134,10 +134,10 @@ function SignIn() {
 				</Link>
 			</ResetContainer>
 			<AuthContainer>
-				<a href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Fmatchapi.guillaumerx.fr%3A3300%2Fuser%2Ffortytwo&response_type=code">
+				<a href="https://api.intra.42.fr/oauth/authorize?client_id=8e001f3beed6c2bc2822bf40de363be697826b51479791faf476545f70cec1f0&redirect_uri=http%3A%2F%2Flocalhost%3A3300%2Fuser%2Ffortytwo&response_type=code">
 					<Icon className="fab fa-github-alt"/>
 				</a>
-				<a href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://matchapi.guillaumerx.fr:3300/user/github">
+				<a href="https://github.com/login/oauth/authorize?client_id=f5aee4b642c3f31d7a83&redirect_uri=http://localhost:3300/user/github">
 					<Icon className="fas fa-hippo"/>
 				</a>
 			</AuthContainer>

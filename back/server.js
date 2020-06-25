@@ -9,7 +9,11 @@ dotenv.config()
 
 const app = express()
 
-db.sync()
+const sync = async () => {
+  await db.sync()
+}
+
+sync()
 
 fileCleaner()
 

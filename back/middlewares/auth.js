@@ -31,7 +31,7 @@ export const fortytwo = async (req, res, next) => {
       client_id: process.env.FORTYTWO_ID,
       client_secret: process.env.FORTYTWO_SECRET,
       code: code,
-      redirect_uri: 'http://matchapi.guillaumerx.fr:3300/user/fortytwo',
+      redirect_uri: 'http://localhost:3300/user/fortytwo',
     })
     const token = response.data.access_token
 
