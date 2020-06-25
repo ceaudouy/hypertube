@@ -92,7 +92,7 @@ function InfoMovie(detail) {
 							})}
 						</Genre>
 					</ContainerInfo>
-					<img className="media" src={detail.medium_cover_image} alt="" />
+					<img className="media" src={detail.large_cover_image} alt="" />
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
     	</div>

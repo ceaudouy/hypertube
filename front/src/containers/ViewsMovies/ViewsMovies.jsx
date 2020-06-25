@@ -22,13 +22,11 @@ export default function ViewsMovies() {
 	const [film, setFilm] = useState([]);
 	 
 	useEffect(() => {
-		const abortController = new AbortController()
-		const signal = abortController.signal
-
 		setFilm([]);
 		var tab = [];
-		api.get('/movie/views', { signal: signal })
+		api.get('/movie/views')
 		.then((res) => {
+			console.log(res)
 			res.data.forEach(element => {
 				var id = element.movie;
 				var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
@@ -59,7 +57,7 @@ export default function ViewsMovies() {
 		})
 	}, []);
 
-	if (favorites.length === 0) {
+	if (film.length === 0) {
 		return (
 			<div>
 				<Text>You don't have viewed movie!</Text>
