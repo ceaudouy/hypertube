@@ -92,6 +92,7 @@ function SignIn() {
 		if (token) {
 			localStorage.token = token;
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+			setTimeout(function(){window.location.reload(false);}, 2000);
 			history.push('/search');
 		}
 	 }, [token, history])
@@ -109,6 +110,7 @@ function SignIn() {
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`You're connected!`, {variant: 'success'});
 			setTimeout(function(){closeSnackbar()}, 1000);
+			setTimeout(function(){window.location.reload(false);}, 2000);
 			setTimeout(function(){history.push('/search')}, 1000);
 		})
 		.catch((err) => {
