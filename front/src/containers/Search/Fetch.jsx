@@ -12,11 +12,15 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 	}, [query, setPageNumber])
 
 	useEffect(() => {
+		const abortController = new AbortController();
+		const signal = abortController.signal;
+
 		setLoading(true);
 		setError(false);
+
 		
 		const url = '' + query + pageNumber.toString();
-		fetch(url)
+		fetch(url, { signal: signal })
 		.then((response) => {
 			if (response.ok) {
 				return response.json();
@@ -32,18 +36,18 @@ export default function FetchAllMovies(query, pageNumber, setPageNumber) {
 					setHasMore(pageNumber < parsedData.data.movie_count);
 					setLoading(false);
 				}
+				setHasMore(pageNumber < parsedData.data.movie_count);
+				setLoading(false);
 			}
-			if (parsedData.data.movie_count !== 0)
-			setFilm(prevFilm => {
-				return [...new Set([...prevFilm, ...parsedData.data.movies.map(elem => elem)])]
-			});
-			setHasMore(pageNumber < parsedData.data.movie_count);
-			setLoading(false);
 		}).catch (e => {
 			setLoading(false);
 			setError(true);
 			return;
 		})
+
+		return function cleanup() {
+			abortController.abort();
+		}
 	}, [query, pageNumber])
 
 	return {loading, error, film, hasMore};
