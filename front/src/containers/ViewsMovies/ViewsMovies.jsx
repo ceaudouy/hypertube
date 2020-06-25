@@ -26,7 +26,6 @@ export default function ViewsMovies() {
 		var tab = [];
 		api.get('/movie/views')
 		.then((res) => {
-			console.log(res)
 			res.data.forEach(element => {
 				var id = element.movie;
 				var info = 'https://yts.mx/api/v2/movie_details.json?movie_id=' + id;
