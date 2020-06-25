@@ -26,6 +26,8 @@ const SignupForm = styled.form`
 	align-items: center;
 	margin-top: auto;
 	max-width: 50vw;
+	margin-top: 5vw;
+
 	& > * {
 		margin-top: 4vh;
 	};
@@ -52,12 +54,12 @@ function SignUp() {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const [input, setInput] = useState({
-	   firstname: 'Nicolas',
-	   lastname: 'Vergne',
-	   login: 'nivergne',
-	   email: 'nicolas@yopmail.com',
-	   password: 'Test123456!',
-	   confirmation: 'Test123456!'
+	   firstname: '',
+	   lastname: '',
+	   login: '',
+	   email: '',
+	   password: '',
+	   confirmation: ''
 	});
 
 	const handleFirstname = (e) => setInput({...input, firstname: e.target.value});
@@ -88,30 +90,30 @@ function SignUp() {
 			api.post('/user/register', input)
 			.then(() => {
 				enqueueSnackbar(`Your account has been created!`, {variant: 'success'});
-				setTimeout(closeSnackbar(), 1000);
-				setTimeout(history.push('/signin'), 1000);
+				setTimeout(function(){closeSnackbar()}, 1000);
+				setTimeout(function(){history.push('/signin')}, 1000);
 			})
 			.catch((err) => {
 				console.log(err);
 				enqueueSnackbar(`A problem occured`, {variant: 'error'});
-				setTimeout(closeSnackbar(), 1000);
+				setTimeout(function(){closeSnackbar()}, 1000);
 			})
 		}
 		else {
 			enqueueSnackbar(`password does not match`, {variant: 'error'});
-			setTimeout(closeSnackbar(), 1000);
+			setTimeout(function(){closeSnackbar()}, 1000);
 		}
 	}
 
 	return (
 		<MainContainer>
 			<SignupForm onSubmit={handleSubmit}>
-				<Input type="text" name='firstname' handleChange={handleFirstname}/>
-				<Input type="text" name='lastname' handleChange={handleLastname}/>
-				<Input type="text" name='login' handleChange={handleLogin}/>
-				<Input type="email" name='email' handleChange={handleEmail}/>
-				<Input type="password" name='password' handleChange={handlePassword}/>
-				<Input type="password" name='confirmation' handleChange={handleConfirmation}/>
+				<Input type="text" value={ input.firstname } name='firstname' handleChange={handleFirstname}/>
+				<Input type="text" value={ input.lastname } name='lastname' handleChange={handleLastname}/>
+				<Input type="text" value={ input.login } name='login' handleChange={handleLogin}/>
+				<Input type="email" value={ input.email } name='email' handleChange={handleEmail}/>
+				<Input type="password" value={ input.password } name='password' handleChange={handlePassword}/>
+				<Input type="password" value={ input.confirmation } name='confirmation' handleChange={handleConfirmation}/>
 				<PasswordStrength strength={strength} password={input.password}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>SignUp</SubmitButton>
 			</SignupForm> 

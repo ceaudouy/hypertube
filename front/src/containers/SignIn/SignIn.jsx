@@ -83,10 +83,8 @@ function SignIn() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [input, setInput] = useState({
-		// email: "",
-		// password: ""
-		email: "nicolas@yopmail.com",
-		password: "Test123456!"
+		email: "",
+		password: ""
 	 });
 	 const { token } = useParams();
 
@@ -98,8 +96,10 @@ function SignIn() {
 		}
 	 }, [token, history])
 
-	const handleMail = (e) => setInput({...input, email: e.target.value});
-	const handlePassword = (e) => setInput({...input, password: e.target.value});
+	const handleMail = (e) => {
+		setInput({...input, email: e.target.value});
+	}
+		const handlePassword = (e) => setInput({...input, password: e.target.value});
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -108,21 +108,21 @@ function SignIn() {
 			localStorage.token = res.data.token;
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`You're connected!`, {variant: 'success'});
-			setTimeout(closeSnackbar(), 1000);
-			setTimeout(history.push('/search'), 1000);
+			setTimeout(function(){closeSnackbar()}, 1000);
+			setTimeout(function(){history.push('/search')}, 1000);
 		})
 		.catch((err) => {
 			console.log(err)
 			enqueueSnackbar(`A problem occured`, {variant: 'error'});
-			setTimeout(closeSnackbar(), 1000);
+			setTimeout(function(){closeSnackbar()}, 1000);
 		})
 	}
 
 	return (
 		<MainContainer>
 			<SignupForm noValidate>
-				<Input type='email' name='email' placeholder=" " handleChange={handleMail}/>
-				<Input type='password' name='password' handleChange={handlePassword}/>
+				<Input type='email' name='email' value={input.email} placeholder=" " handleChange={handleMail}/>
+				<Input type='password' name='password' value={input.password} handleChange={handlePassword}/>
 				<SubmitButton type="submit" onClick={handleSubmit}>Sign In</SubmitButton>
 			</SignupForm>
 

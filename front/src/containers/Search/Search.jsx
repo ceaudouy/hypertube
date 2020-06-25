@@ -122,14 +122,16 @@ export default function ListPage() {
 		var queryGenre = '';
 		var queryOrder = '';
 		var querySort = ''
-		if (menuData.genre !== '') {
+		if (menuData.genre.length === 0) {
 			queryGenre = '&genre=' + menuData.genre
-		} if (menuData.sort !== '') {
+		} if (menuData.sort.length === 0) {
 			querySort = '&sort_by='+ menuData.sort;
-		} if (menuData.order !== '') {
+		} if (menuData.order.length === 0) {
 			queryOrder = '&order_by=' + menuData.order;
+		} if (querySort.length !== 0) {
+			querySort = '&sort_by=download_count'
 		}
-		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page_number=')
+		setQuery('https://yts.mx/api/v2/list_movies.json?order_by=' + querySort + queryGenre + queryOrder + '&page=')
 	}
 
 	return (

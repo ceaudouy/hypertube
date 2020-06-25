@@ -149,7 +149,7 @@ function Profile() {
 		.catch((err) => {
 			console.log(err);
 		});
-		window.location.reload(false);
+		setTimeout(function(){window.location.reload(false)}, 1000);
 	}
 	
 	let inputFile = '';
