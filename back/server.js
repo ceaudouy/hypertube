@@ -9,13 +9,9 @@ dotenv.config()
 
 const app = express()
 
-const sync = async () => {
-  await db.sync()
-}
-
-sync()
-
-fileCleaner()
+db.sync().then(() => {
+  fileCleaner()
+})
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')

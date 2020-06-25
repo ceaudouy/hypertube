@@ -48,7 +48,6 @@ export const fortytwo = async (req, res, next) => {
         email: data.email,
       },
     })
-    console.log(user)
     if (!user[0].token) {
       await User.update(
         {
